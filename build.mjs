@@ -48,7 +48,7 @@ function collectionBrowser() {
   const tile = (id, title, subtitle, items, preferredDeity) => {
     const m = items.find(m => collectionFor(m).deityId === preferredDeity) || items.find(m => m.art) || items[0];
     const count = `${items.length} ${items.length === 1 ? 'prayer' : 'prayers'}`;
-    return `<details class="collection-tile" id="${id}" style="--ac:${m.theme.accent};${themeVars(m.theme)}"><summary class="mc">${m.art ? `<img src="art/${m.art}_mob.webp" alt="" width="760" height="1344" loading="lazy" decoding="async">` : artwork(null, '')}<div class="t"><span>${esc(subtitle || count)}</span><h3>${esc(title)}</h3><span class="card-action">${subtitle ? count : 'View prayers'}<span aria-hidden="true">+</span></span></div></summary><div class="collection-tile-links">${collectionLinks(items)}</div></details>`;
+    return `<details class="collection-tile" id="${id}" data-meta="${esc(subtitle ? `${subtitle} · ${count}` : count)}" style="--ac:${m.theme.accent};${themeVars(m.theme)}"><summary class="mc">${m.art ? `<img src="art/${m.art}_mob.webp" alt="" width="760" height="1344" loading="lazy" decoding="async">` : artwork(null, '')}<div class="t"><span>${esc(subtitle || count)}</span><h3>${esc(title)}</h3><span class="card-action">${subtitle ? count : 'View prayers'}<span aria-hidden="true">+</span></span></div></summary><div class="collection-tile-links">${collectionLinks(items)}</div></details>`;
   };
   const intentionArt = { strength: 'shiva', learning: 'saraswati', peace: 'shiva', devotion: 'krishna', beginnings: 'ganesh', prosperity: 'lakshmi' };
   return `<section class="collection-browser" id="collections" aria-labelledby="collections-title">
@@ -65,7 +65,9 @@ function collectionBrowser() {
 <div class="collection-panel" id="collection-intentions" role="tabpanel" aria-labelledby="browse-intentions" tabindex="0">
 <p class="collection-note">Choose an intention for your practice.</p>
 <div class="collection-grid">${INTENTIONS.map(i => tile(`intention-${i.id}`, i.name, '', mantras.filter(m => collectionFor(m).intentions.includes(i.id)), intentionArt[i.id])).join('')}</div>
-</div></section>`;
+</div>
+<dialog class="collection-dialog" id="collection-dialog" aria-labelledby="collection-dialog-title"><div class="cd-inner"><div class="cd-banner"><span class="small" id="collection-dialog-meta"></span><h3 id="collection-dialog-title"></h3><button type="button" class="cd-close" aria-label="Close">×</button></div><div class="cd-body collection-tile-links"></div></div></dialog>
+</section>`;
 }
 
 const panes = (lines, meaning, prefix = 'verse') => LANGS.map(([k]) => `<div class="pane" id="${prefix}-${k}" role="tabpanel" aria-labelledby="tab-${k}" tabindex="0" data-lang="${k}"><div class="verse">${lines.map((l) => `<div class="verse-row"><p${k === 'sa' ? ' lang="sa"' : ''}>${l[k]}</p><span class="line-meaning" lang="en">${esc(l.englishMeaning)}</span></div>`).join('')}</div><div class="meaning"><h3>${MEANING_LABEL[k]}</h3><p${k === 'sa' ? ' lang="hi"' : ''}>${meaning[k]}</p></div></div>`).join('');

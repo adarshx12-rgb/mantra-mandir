@@ -76,15 +76,29 @@
     if (view) {
       browse(view);
       var target = document.getElementById(location.hash.slice(1));
-      if (target) { target.open = true; target.scrollIntoView(); }
+      if (target) { target.scrollIntoView({ block: 'center' }); openCollection(target); }
     }
   }
-  $$('.collection-tile').forEach(function (tile) {
-    tile.addEventListener('toggle', function () {
-      if (!tile.open) return;
-      $$('.collection-tile', tile.closest('.collection-panel')).forEach(function (other) { if (other !== tile) other.open = false; });
-    });
+  // With JS, a card opens its prayers in a small modal instead of expanding in place.
+  var dialog = $('#collection-dialog');
+  function openCollection(tile) {
+    if (!dialog || !dialog.showModal) { tile.open = true; return; }
+    tile.open = false;
+    dialog.setAttribute('style', tile.getAttribute('style'));
+    $('#collection-dialog-title').textContent = $('summary h3', tile).textContent;
+    $('#collection-dialog-meta').textContent = tile.dataset.meta;
+    var img = $('summary img', tile);
+    $('.cd-banner', dialog).style.backgroundImage = img ? 'url("' + img.getAttribute('src') + '")' : '';
+    $('.cd-body', dialog).innerHTML = $('.collection-tile-links', tile).innerHTML;
+    if (!dialog.open) dialog.showModal();
+  }
+  $$('.collection-tile > summary').forEach(function (summary) {
+    summary.addEventListener('click', function (e) { e.preventDefault(); openCollection(summary.parentNode); });
   });
+  if (dialog) {
+    $('.cd-close', dialog).addEventListener('click', function () { dialog.close(); });
+    dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+  }
   if (browseTabs.length) { revealCollectionHash(); window.addEventListener('hashchange', revealCollectionHash); }
   if (!slug) return;
   S.lastSlug = slug; S.lastName = body.dataset.name; save();
