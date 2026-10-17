@@ -257,7 +257,7 @@ const profiles = {
 const simpleRoman = text => text.replace(/ā/g, 'aa').replace(/ī/g, 'ee').replace(/ū/g, 'oo')
   .replace(/[śṣ]/g, 'sh').replace(/Ś/g, 'Sh').replace(/ṛ/g, 'ri')
   .replace(/[ṅñṇ]/g, 'n').replace(/ṭ/g, 't').replace(/ḍ/g, 'd')
-  .replace(/ṃ/g, 'm').replace(/ḥ/g, 'h').replace(/c/g, 'ch');
+  .replace(/ṃ/g, 'm').replace(/ḥ/g, 'h').replace(/c/g, 'ch').replace(/’/g, '');
 
 // Expands a compact entry (PDF or popular) into the full page model.
 function expand(entry, { sourceUrl, sourceNote, faq }) {

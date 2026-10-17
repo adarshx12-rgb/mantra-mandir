@@ -2,7 +2,7 @@
 // Set SITE_URL for production, e.g. SITE_URL=https://yourdomain.com node build.mjs
 import { mkdirSync, writeFileSync, copyFileSync, existsSync, readdirSync } from 'node:fs';
 import { SITE, mantras } from './data/mantras.mjs';
-import { DEITIES, INTENTIONS, FESTIVALS, collectionFor } from './data/collections.mjs';
+import { DEITIES, INTENTIONS, FESTIVALS, collectionFor, festivalMantras } from './data/collections.mjs';
 
 const OUT = 'site';
 const FAVICON = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='#1f1646'/><text x='32' y='46' font-size='40' text-anchor='middle' fill='#ffb23e'>ॐ</text></svg>")}`;
@@ -59,7 +59,7 @@ function collectionBrowser() {
 </div>
 <div class="collection-panel" id="collection-festivals" role="tabpanel" aria-labelledby="browse-festivals" tabindex="0">
 <p class="collection-note">January to December. Months are approximate; lunar dates and regional observances vary.</p>
-<ol class="collection-grid festival-grid">${[...FESTIVALS].sort((a,b) => a.month-b.month).map(f => `<li>${tile(`festival-${f.id}`, f.name, f.season, mantras.filter(m => f.deities.includes(collectionFor(m).deityId)), f.deities[0])}</li>`).join('')}</ol>
+<ol class="collection-grid festival-grid">${[...FESTIVALS].sort((a,b) => a.month-b.month).map(f => `<li>${tile(`festival-${f.id}`, f.name, f.season, festivalMantras(f, mantras), f.deities[0])}</li>`).join('')}</ol>
 <p class="source-note">Calendar references: <a href="https://panchangdaily.com/festivals/">festival month guide</a>, <a href="https://www.drikpanchang.com/calendars/hindu/hinducalendar.html">Drik Panchang</a>, and <a href="https://kurukshetra.gov.in/jyotisarevents/">Gita Jayanti in Kurukshetra</a>. Check your local panchang for this year’s dates.</p>
 </div>
 <div class="collection-panel" id="collection-intentions" role="tabpanel" aria-labelledby="browse-intentions" tabindex="0">

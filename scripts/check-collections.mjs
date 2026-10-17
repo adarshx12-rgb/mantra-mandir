@@ -29,6 +29,7 @@ let month = 0;
 for (const festival of FESTIVALS) {
   assert.ok(festival.month >= month && festival.month <= 12, `Out of order: ${festival.id}`);
   assert.ok(festival.deities.every(id => DEITIES.some(d => d.id === id)));
+  for (const slug of festival.featured || []) assert.ok(mantras.some(m => m.slug === slug), `Unknown featured prayer in ${festival.id}: ${slug}`);
   assert.ok(mantras.some(m => festival.deities.includes(collectionFor(m).deityId)), `Empty festival: ${festival.id}`);
   month = festival.month;
 }

@@ -22,14 +22,18 @@ export const INTENTIONS = [
   { id: 'prosperity', name: 'Prosperity & abundance', description: 'Prayers for well-being, generosity and a flourishing home.' },
 ];
 
+// Prayers listed first, in this order, for both Navratris; the deities' other prayers follow.
+const NAVRATRI = ['aigiri-nandini', 'ya-devi-sarvabhuteshu', 'sarva-mangala-mangalye', 'devi-kavach-navadurga', 'shree-suktam', 'vishwambhari-stuti', 'devi-gayatri-mantra', 'durga-saptashloki', 'argala-stotram', 'devi-stuti', 'jai-ambe-gauri'];
+
 // Usual Gregorian windows, not a dated panchang. Some observances vary by region.
+// `featured` slugs come first and may belong to other deities (e.g. Shree Suktam).
 export const FESTIVALS = [
   { id: 'makaravilakku', name: 'Makaravilakku', month: 1, season: 'Mid-January · Makara Sankranti', deities: ['ayyappa'] },
   { id: 'thaipusam', name: 'Thaipusam', month: 1, season: 'January–February · Thai month', deities: ['murugan'] },
   { id: 'vasant-panchami', name: 'Vasant Panchami', month: 1, season: 'January–February', deities: ['saraswati'] },
   { id: 'maha-shivaratri', name: 'Maha Shivaratri', month: 2, season: 'February–March', deities: ['shiva'] },
   { id: 'holi', name: 'Holi', month: 3, season: 'February–March', deities: ['krishna'] },
-  { id: 'chaitra-navratri', name: 'Chaitra Navratri', month: 3, season: 'March–April', deities: ['durga'] },
+  { id: 'chaitra-navratri', name: 'Chaitra Navratri', month: 3, season: 'March–April', deities: ['durga'], featured: NAVRATRI },
   { id: 'hanuman-jayanti', name: 'Hanuman Jayanti', month: 4, season: 'March–April · Chaitra observance', deities: ['hanuman'] },
   { id: 'akshaya-tritiya', name: 'Akshaya Tritiya', month: 4, season: 'April–May', deities: ['lakshmi'] },
   { id: 'gayatri-jayanti', name: 'Gayatri Jayanti', month: 6, season: 'May–June · Jyeshtha observance', deities: ['gayatri'] },
@@ -37,7 +41,7 @@ export const FESTIVALS = [
   { id: 'gayatri-shravana', name: 'Gayatri Jayanti (Shravana tradition)', month: 8, season: 'July–August · Shravana Purnima', deities: ['gayatri'] },
   { id: 'janmashtami', name: 'Krishna Janmashtami', month: 8, season: 'August–September', deities: ['krishna'] },
   { id: 'ganesh-chaturthi', name: 'Ganesh Chaturthi', month: 9, season: 'August–September', deities: ['ganesh'] },
-  { id: 'sharad-navratri', name: 'Sharad Navratri & Durga Puja', month: 10, season: 'September–October', deities: ['durga', 'kali', 'saraswati'] },
+  { id: 'sharad-navratri', name: 'Sharad Navratri & Durga Puja', month: 10, season: 'September–October', deities: ['durga', 'kali', 'saraswati'], featured: NAVRATRI },
   { id: 'diwali', name: 'Diwali & Lakshmi Puja', month: 11, season: 'October–November', deities: ['lakshmi', 'ganesh'] },
   { id: 'kali-puja', name: 'Kali Puja', month: 11, season: 'October–November · Diwali new moon', deities: ['kali'] },
   { id: 'skanda-sashti', name: 'Skanda Sashti', month: 11, season: 'October–November', deities: ['murugan'] },
@@ -53,3 +57,8 @@ export const MANTRA_COLLECTIONS = {
 };
 
 export const collectionFor = m => MANTRA_COLLECTIONS[m.slug] || { deityId: m.deityId, intentions: m.intentions || [] };
+
+export const festivalMantras = (festival, mantras) => {
+  const featured = (festival.featured || []).map(slug => mantras.find(m => m.slug === slug));
+  return [...featured, ...mantras.filter(m => !featured.includes(m) && festival.deities.includes(collectionFor(m).deityId))];
+};
