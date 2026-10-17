@@ -8,6 +8,9 @@ export const DEITIES = [
   { id: 'lakshmi', name: 'Lakshmi' },
   { id: 'hanuman', name: 'Hanuman' },
   { id: 'gayatri', name: 'Gayatri' },
+  { id: 'kali', name: 'Kali' },
+  { id: 'ayyappa', name: 'Ayyappa' },
+  { id: 'murugan', name: 'Murugan' },
 ];
 
 export const INTENTIONS = [
@@ -21,6 +24,8 @@ export const INTENTIONS = [
 
 // Usual Gregorian windows, not a dated panchang. Some observances vary by region.
 export const FESTIVALS = [
+  { id: 'makaravilakku', name: 'Makaravilakku', month: 1, season: 'Mid-January · Makara Sankranti', deities: ['ayyappa'] },
+  { id: 'thaipusam', name: 'Thaipusam', month: 1, season: 'January–February · Thai month', deities: ['murugan'] },
   { id: 'vasant-panchami', name: 'Vasant Panchami', month: 1, season: 'January–February', deities: ['saraswati'] },
   { id: 'maha-shivaratri', name: 'Maha Shivaratri', month: 2, season: 'February–March', deities: ['shiva'] },
   { id: 'holi', name: 'Holi', month: 3, season: 'February–March', deities: ['krishna'] },
@@ -32,8 +37,11 @@ export const FESTIVALS = [
   { id: 'gayatri-shravana', name: 'Gayatri Jayanti (Shravana tradition)', month: 8, season: 'July–August · Shravana Purnima', deities: ['gayatri'] },
   { id: 'janmashtami', name: 'Krishna Janmashtami', month: 8, season: 'August–September', deities: ['krishna'] },
   { id: 'ganesh-chaturthi', name: 'Ganesh Chaturthi', month: 9, season: 'August–September', deities: ['ganesh'] },
-  { id: 'sharad-navratri', name: 'Sharad Navratri & Durga Puja', month: 10, season: 'September–October', deities: ['durga', 'saraswati'] },
+  { id: 'sharad-navratri', name: 'Sharad Navratri & Durga Puja', month: 10, season: 'September–October', deities: ['durga', 'kali', 'saraswati'] },
   { id: 'diwali', name: 'Diwali & Lakshmi Puja', month: 11, season: 'October–November', deities: ['lakshmi', 'ganesh'] },
+  { id: 'kali-puja', name: 'Kali Puja', month: 11, season: 'October–November · Diwali new moon', deities: ['kali'] },
+  { id: 'skanda-sashti', name: 'Skanda Sashti', month: 11, season: 'October–November', deities: ['murugan'] },
+  { id: 'mandala-season', name: 'Sabarimala Mandala Season', month: 12, season: 'November–December · 41-day vow', deities: ['ayyappa'] },
   { id: 'gita-jayanti', name: 'Gita Jayanti', month: 12, season: 'November–December', deities: ['krishna'] },
 ];
 

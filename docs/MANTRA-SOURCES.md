@@ -36,3 +36,6 @@ Longer source hymns and name lists were not imported wholesale. The nine selecte
 - https://kurukshetra.gov.in/jyotisarevents/ — Gita Jayanti in November–December.
 
 Festivals link to prayers for their associated deities, not mandatory ritual formulas. Hanuman Jayanti identifies the Chaitra observance; Gayatri Jayanti has separate Jyeshtha and Shravana entries.
+
+## Popular mantras (data/popular-mantras.mjs)
+Text traditions are named in each entry's `note`; no web source was fetched for these. Where origin is uncertain (Karpura Gauram, Vakratunda Mahakaya) or has variants (Hare Krishna order, Hanuman Chalisa spellings, Ya Devi refrain), the note says so. Beej mantra pages note that some traditions recommend learning them from a teacher. Swamiye Saranam Ayyappa is Malayalam and the Chalisa dohas are Awadhi, shown in Devanagari under the Sanskrit tab. All 22 need the same Sanskrit-literate review as the rest before launch.

@@ -2,6 +2,7 @@ import { createRequire } from 'node:module';
 import { mkdirSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import { mantras } from '../data/mantras.mjs';
+import { collectionFor } from '../data/collections.mjs';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.argv[2] || 'playwright');
 mkdirSync('output/review', { recursive: true });
@@ -40,7 +41,7 @@ try {
   await page.locator('#deity-shiva > summary').click();
   await page.waitForTimeout(100);
   assert.equal(await page.locator('#deity-hanuman').getAttribute('open'), null);
-  assert.equal(await page.locator('#deity-shiva .collection-links a').count(), 3);
+  assert.equal(await page.locator('#deity-shiva .collection-links a').count(), mantras.filter(m => collectionFor(m).deityId === 'shiva').length);
   await page.goto(`${base}/gayatri-mantra/`);
   await page.getByRole('tab', { name: 'Transliteration' }).click();
   await page.reload();

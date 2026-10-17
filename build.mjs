@@ -101,7 +101,7 @@ ${artwork(m.art, m.imgAlt, up, true)}
 <div class="tabs" role="tablist" aria-label="Choose script">${LANGS.map(([k, n]) => `<button class="tab" id="tab-${k}" role="tab" data-lang="${k}" aria-controls="verse-${k}${m.bonus ? ` bonus-${k}` : ''}" aria-selected="false">${n}</button>`).join('')}</div>
 ${panes(m.lines, m.meaning)}
 ${m.bonus ? `<div class="bonus"><h3>${m.bonus.label}</h3>${panes(m.bonus.lines, m.bonus.meaning, 'bonus')}<p class="source-note">A short invocation containing Saraswati’s seed syllable, aiṃ. <a href="${m.bonus.sourceUrl}" target="_blank" rel="noopener noreferrer">View source</a>.</p></div>` : ''}
-<p class="source-note">${m.sourceNote} <a href="${m.sourceUrl}" target="_blank" rel="noopener noreferrer">View source</a>.</p>
+<p class="source-note">${m.sourceNote}${m.sourceUrl ? ` <a href="${m.sourceUrl}" target="_blank" rel="noopener noreferrer">View source</a>.` : ''}</p>
 ${m.additionalSource ? `<p class="source-note">${m.additionalSource.note} <a href="${m.additionalSource.url}" target="_blank" rel="noopener noreferrer">View PDF page</a>.</p>` : ''}
 </section>
 </div>

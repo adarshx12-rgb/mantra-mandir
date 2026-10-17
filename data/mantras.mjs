@@ -1,5 +1,6 @@
 // All mantra content lives here. To add a mantra, add an object and run `node build.mjs`.
 import { PDF_MANTRAS, PDF_URL } from './pdf-mantras.mjs';
+import { POPULAR_MANTRAS } from './popular-mantras.mjs';
 export const SITE = {
   name: 'Mantra Mandir',
   url: process.env.SITE_URL || 'https://example.com', // set SITE_URL when building for production
@@ -17,7 +18,7 @@ export const WEEK_PICKS = [
   'mahamrityunjay-mantra',
 ];
 
-export const COMING_SOON = ['Hanuman Chalisa', 'Shiv Panchakshari'];
+export const COMING_SOON = ['Hanuman Chalisa (full)'];
 
 export const mantras = [
   {
@@ -247,6 +248,10 @@ const profiles = {
   durga: { name: 'Goddess Durga', art: null, theme: { bg: '#241015', bg2: '#612633', accent: '#e4b875', accent2: '#cb7966', text: '#f5e7d8', glow: 'transparent' } },
   lakshmi: { name: 'Goddess Lakshmi', art: null, theme: { bg: '#28171f', bg2: '#613949', accent: '#e8c58a', accent2: '#cc9694', text: '#f5e7dc', glow: 'transparent' } },
   hanuman: { name: 'Lord Hanuman', art: null, theme: { bg: '#23130e', bg2: '#60331c', accent: '#e8b875', accent2: '#db8450', text: '#f5e6d6', glow: 'transparent' } },
+  kali: { name: 'Goddess Kali', art: null, theme: { bg: '#0d0d18', bg2: '#3d1424', accent: '#e9917f', accent2: '#c8414b', text: '#f3e6e2', glow: 'transparent' } },
+  ayyappa: { name: 'Lord Ayyappa', art: null, theme: { bg: '#120f0c', bg2: '#3d2a14', accent: '#f0a640', accent2: '#c96f2c', text: '#f4e8d8', glow: 'transparent' } },
+  murugan: { name: 'Lord Murugan', art: null, theme: { bg: '#071a1c', bg2: '#0f4a46', accent: '#e8c06a', accent2: '#d0563e', text: '#eef0e6', glow: 'transparent' } },
+  gayatri: { name: 'Goddess Gayatri', art: 'gayatri', theme: mantras[0].theme, imgAlt: mantras[0].imgAlt },
 };
 
 const simpleRoman = text => text.replace(/ā/g, 'aa').replace(/ī/g, 'ee').replace(/ū/g, 'oo')
@@ -254,26 +259,39 @@ const simpleRoman = text => text.replace(/ā/g, 'aa').replace(/ī/g, 'ee').repla
   .replace(/[ṅñṇ]/g, 'n').replace(/ṭ/g, 't').replace(/ḍ/g, 'd')
   .replace(/ṃ/g, 'm').replace(/ḥ/g, 'h').replace(/c/g, 'ch');
 
-for (const entry of PDF_MANTRAS) {
+// Expands a compact entry (PDF or popular) into the full page model.
+function expand(entry, { sourceUrl, sourceNote, faq }) {
   const profile = profiles[entry.deityId];
-  const lines = entry.lines.map(([sa, en, englishMeaning]) => ({ sa, en, hi: simpleRoman(en), englishMeaning }));
+  const lines = entry.lines.map(([sa, en, englishMeaning, hi]) => ({ sa, en, hi: hi || simpleRoman(en), englishMeaning }));
+  const name = entry.displayTitle || entry.short;
   mantras.push({
-    ...entry, ...profile, deity: profile.name, h1: entry.short,
-    title: `${entry.short} – Sanskrit, Meaning & Chanting | ${SITE.name}`,
-    desc: `Read ${entry.short} for ${profile.name} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
+    ...entry, ...profile, deity: profile.name, h1: name,
+    title: `${name} – Sanskrit, Meaning & Chanting | ${SITE.name}`,
+    desc: `Read ${name} for ${profile.name} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
     cardLine: entry.intentions.includes('strength') ? 'Strength & courage' : entry.intentions.includes('prosperity') ? 'Prosperity & devotion' : entry.intentions.includes('learning') ? 'Wisdom & learning' : entry.intentions.includes('beginnings') ? 'New beginnings' : 'Devotion & peace',
     imgAlt: profile.imgAlt || '',
     lines,
     meaning: { sa: entry.meaningHi, en: lines.map(l => l.englishMeaning).join(' '), hi: entry.meaningHinglish },
-    sourceUrl: `${PDF_URL}#page=${entry.page}`,
-    sourceNote: `Collection of Mantras, PDF page ${entry.page}, ${entry.section}. ${entry.note} English meanings are paraphrases; punctuation and Devanagari spelling are normalized.`,
+    sourceUrl,
+    sourceNote: `${sourceNote} English meanings are paraphrases; punctuation and Devanagari spelling are normalized.`,
     benefits: [entry.tagline, 'Repeated recitation can be used as a practice of attention and devotion.'],
     howTo: ['Read each line together with its meaning before beginning.', 'Recite the complete prayer slowly, following the script you prefer.', 'Use the counter after each complete recitation. Choose a comfortable number of repetitions.'],
-    bestTime: 'Any quiet moment you can set aside for attentive prayer. Browse the festival collection for associated occasions.',
+    bestTime: entry.bestTime || 'Any quiet moment you can set aside for attentive prayer. Browse the festival collection for associated occasions.',
     faqs: [
-      [`Where is ${entry.short} found in this collection?`, `It appears on PDF page ${entry.page} under ${entry.section}. ${entry.note}`],
+      faq,
       ['What does one count represent?', 'One count represents one complete recitation of the prayer displayed on this page. You can choose a short practice or count 108 repetitions.'],
     ],
     audio: `${entry.slug}.mp3`,
   });
 }
+
+for (const entry of PDF_MANTRAS) expand(entry, {
+  sourceUrl: `${PDF_URL}#page=${entry.page}`,
+  sourceNote: `Collection of Mantras, PDF page ${entry.page}, ${entry.section}. ${entry.note}`,
+  faq: [`Where is ${entry.short} found in this collection?`, `It appears on PDF page ${entry.page} under ${entry.section}. ${entry.note}`],
+});
+
+for (const entry of POPULAR_MANTRAS) expand(entry, {
+  sourceNote: entry.note,
+  faq: [`Where does ${entry.short} come from?`, entry.note],
+});

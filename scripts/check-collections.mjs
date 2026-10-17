@@ -5,7 +5,7 @@ import { PDF_MANTRAS, PDF_URL } from '../data/pdf-mantras.mjs';
 import { DEITIES, INTENTIONS, FESTIVALS, collectionFor } from '../data/collections.mjs';
 
 assert.equal(new Set(mantras.map(m => m.slug)).size, mantras.length);
-assert.equal(DEITIES.length, 8);
+assert.equal(new Set(DEITIES.map(d => d.id)).size, DEITIES.length);
 for (const deity of DEITIES) assert.ok(mantras.some(m => collectionFor(m).deityId === deity.id), `Empty deity: ${deity.id}`);
 for (const intention of INTENTIONS) assert.ok(mantras.some(m => collectionFor(m).intentions.includes(intention.id)), `Empty intention: ${intention.id}`);
 for (const m of mantras) {
@@ -43,4 +43,4 @@ for (const festival of FESTIVALS) {
   assert.ok(position > lastFestivalPosition, 'Festival cards out of order');
   lastFestivalPosition = position;
 }
-console.log(`PASS: ${mantras.length} prayers; ${PDF_MANTRAS.length} PDF additions; all 8 deity and ${INTENTIONS.length} intention collections populated; ${FESTIVALS.length} chronological festival groups; per-line meanings and source-page references.`);
+console.log(`PASS: ${mantras.length} prayers; ${PDF_MANTRAS.length} PDF additions; all ${DEITIES.length} deity and ${INTENTIONS.length} intention collections populated; ${FESTIVALS.length} chronological festival groups; per-line meanings and source-page references.`);
