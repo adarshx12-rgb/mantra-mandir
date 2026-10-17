@@ -59,3 +59,6 @@ Nine more Devi pages in data/popular-mantras.mjs: Aigiri Nandini (verse 1), Devi
 
 ## Content rule: mantras, not bhajans (owner, 2026-10-18)
 Only mantras, shlokas, stotras and Vedic hymns. No bhajans, aartis or devotional songs: Jai Ambe Gauri, Vishwambhari Stuti and the Hanuman Chalisa dohas were removed for this reason, and the Hanuman Chalisa is not planned. Sanskrit shlokas also recited at aarti (Karpura Gauram) and chanted calls (Swamiye Saranam Ayyappa) are kept. build.mjs now deletes generated page folders whose slug no longer exists. 41 prayers.
+
+## Artwork complete and hero tags (2026-10-18)
+All 11 deities now have owner artwork (images/<name>_web.png and _mob.png; Lakshmi's files are named laxmi_*). The earlier note that Durga, Lakshmi and Hanuman use symbolic backgrounds is superseded; symbolic-art remains only as a fallback for a future deity without art. scripts/prepare-art.py keeps WebP quality >= 40 and scales a detailed painting down (to at most 60%) rather than compressing it harder, so some _web files are about 1100–1500px wide. Kali's generated art includes traditional skulls and, in kali_mob, a severed head, despite the prompt; the owner may regenerate it. The home hero has quick-link tags to the four target keywords (HERO_TAGS in build.mjs) below "Explore the mantras".

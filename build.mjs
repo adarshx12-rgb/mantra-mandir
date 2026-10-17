@@ -5,6 +5,8 @@ import { SITE, mantras } from './data/mantras.mjs';
 import { DEITIES, INTENTIONS, FESTIVALS, collectionFor, festivalMantras } from './data/collections.mjs';
 
 const OUT = 'site';
+// Quick links under the home hero button: the four target SEO keywords.
+const HERO_TAGS = ['gayatri-mantra', 'mahamrityunjay-mantra', 'om-krishnaya-vasudevaya-haraye-paramatmane-mantra', 'saraswati-mantra'];
 const FAVICON = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='#1f1646'/><text x='32' y='46' font-size='40' text-anchor='middle' fill='#ffb23e'>ॐ</text></svg>")}`;
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const themeVars = (t) => `--bg:${t.bg};--bg2:${t.bg2};--accent:${t.accent};--accent2:${t.accent2};--text:${t.text};--glow:${t.glow}`;
@@ -150,7 +152,8 @@ ${artwork('ganesha', 'Lord Ganesha seated in warm golden light beside a lotus po
 <div class="hero-in"><p class="greet" id="greet">Namaste</p>
 <h1>A moment<br>for the sacred.</h1>
 <p class="tag">Mantras for your daily practice.<br>Read the words, understand their meaning,<br>and take one chant at a time.</p>
-<a class="btn" href="#mantras">Explore the mantras</a></div>
+<a class="btn" href="#mantras">Explore the mantras</a>
+<nav class="hero-tags" aria-label="Popular mantras">${HERO_TAGS.map((slug) => mantras.find((m) => m.slug === slug)).map((m) => `<a href="${m.slug}/">${m.short}</a>`).join('')}</nav></div>
 </section>
 
 <div class="wrap wide">

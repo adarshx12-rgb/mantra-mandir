@@ -245,12 +245,12 @@ const profiles = {
   saraswati: { name: 'Goddess Saraswati', art: 'saraswati', theme: mantras[3].theme, imgAlt: mantras[3].imgAlt },
   krishna: { name: 'Lord Krishna', art: 'krishna', theme: mantras[2].theme, imgAlt: mantras[2].imgAlt },
   ganesh: { name: 'Lord Ganesh', art: 'ganesha', theme: { bg: '#19100e', bg2: '#402b24', accent: '#d9b27c', accent2: '#bb8e7c', text: '#eee4d0', glow: 'transparent' }, imgAlt: 'Lord Ganesha seated beside a lotus pond in warm golden light' },
-  durga: { name: 'Goddess Durga', art: null, theme: { bg: '#241015', bg2: '#612633', accent: '#e4b875', accent2: '#cb7966', text: '#f5e7d8', glow: 'transparent' } },
-  lakshmi: { name: 'Goddess Lakshmi', art: null, theme: { bg: '#28171f', bg2: '#613949', accent: '#e8c58a', accent2: '#cc9694', text: '#f5e7dc', glow: 'transparent' } },
-  hanuman: { name: 'Lord Hanuman', art: null, theme: { bg: '#23130e', bg2: '#60331c', accent: '#e8b875', accent2: '#db8450', text: '#f5e6d6', glow: 'transparent' } },
-  kali: { name: 'Goddess Kali', art: null, theme: { bg: '#0d0d18', bg2: '#3d1424', accent: '#e9917f', accent2: '#c8414b', text: '#f3e6e2', glow: 'transparent' } },
-  ayyappa: { name: 'Lord Ayyappa', art: null, theme: { bg: '#120f0c', bg2: '#3d2a14', accent: '#f0a640', accent2: '#c96f2c', text: '#f4e8d8', glow: 'transparent' } },
-  murugan: { name: 'Lord Murugan', art: null, theme: { bg: '#071a1c', bg2: '#0f4a46', accent: '#e8c06a', accent2: '#d0563e', text: '#eef0e6', glow: 'transparent' } },
+  durga: { name: 'Goddess Durga', art: 'durga', theme: { bg: '#241015', bg2: '#612633', accent: '#e4b875', accent2: '#cb7966', text: '#f5e7d8', glow: 'transparent' }, imgAlt: 'Goddess Durga with ten arms seated on a lion in a lamp-lit temple hall' },
+  lakshmi: { name: 'Goddess Lakshmi', art: 'laxmi', theme: { bg: '#28171f', bg2: '#613949', accent: '#e8c58a', accent2: '#cc9694', text: '#f5e7dc', glow: 'transparent' }, imgAlt: 'Goddess Lakshmi on a pink lotus, gold coins falling into still water, elephants behind' },
+  hanuman: { name: 'Lord Hanuman', art: 'hanuman', theme: { bg: '#23130e', bg2: '#60331c', accent: '#e8b875', accent2: '#db8450', text: '#f5e6d6', glow: 'transparent' }, imgAlt: 'Lord Hanuman seated in prayer on a mountain ledge at sunrise, holding his mace' },
+  kali: { name: 'Goddess Kali', art: 'kali', theme: { bg: '#0d0d18', bg2: '#3d1424', accent: '#e9917f', accent2: '#c8414b', text: '#f3e6e2', glow: 'transparent' }, imgAlt: 'Goddess Kali with a sword and hibiscus garland in a lamp-lit forest at night' },
+  ayyappa: { name: 'Lord Ayyappa', art: 'ayyappa', theme: { bg: '#120f0c', bg2: '#3d2a14', accent: '#f0a640', accent2: '#c96f2c', text: '#f4e8d8', glow: 'transparent' }, imgAlt: 'Lord Ayyappa as the young Manikandan riding a tiger through a moonlit forest' },
+  murugan: { name: 'Lord Murugan', art: 'murugan', theme: { bg: '#071a1c', bg2: '#0f4a46', accent: '#e8c06a', accent2: '#d0563e', text: '#eef0e6', glow: 'transparent' }, imgAlt: 'Lord Murugan seated on his peacock with his vel on the shore at dawn' },
   gayatri: { name: 'Goddess Gayatri', art: 'gayatri', theme: mantras[0].theme, imgAlt: mantras[0].imgAlt },
 };
 
