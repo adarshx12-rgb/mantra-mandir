@@ -1,0 +1,159 @@
+// Static site generator: `node build.mjs` writes ./site. No dependencies.
+// Set SITE_URL for production, e.g. SITE_URL=https://yourdomain.com node build.mjs
+import { mkdirSync, writeFileSync, copyFileSync, existsSync, readdirSync } from 'node:fs';
+import { SITE, mantras, WEEK_PICKS } from './data/mantras.mjs';
+
+const OUT = 'site';
+const FAVICON = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='#1f1646'/><text x='32' y='46' font-size='40' text-anchor='middle' fill='#ffb23e'>ॐ</text></svg>")}`;
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+const themeVars = (t) => `--bg:${t.bg};--bg2:${t.bg2};--accent:${t.accent};--accent2:${t.accent2};--text:${t.text};--glow:${t.glow}`;
+const LANGS = [['sa', 'संस्कृत'], ['en', 'Transliteration'], ['hi', 'Hinglish']];
+const MEANING_LABEL = { sa: 'अर्थ', en: 'Meaning', hi: 'Meaning (Hinglish)' };
+
+const head = ({ title, desc, path, depth, img, extra = '' }) => {
+  const up = '../'.repeat(depth);
+  const url = `${SITE.url}/${path}`;
+  return `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${url}">
+<meta name="theme-color" content="#0c0a1c">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${SITE.url}/art/${img}_web.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="${FAVICON}">
+<link rel="stylesheet" href="${up}css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+${extra}</head>`;
+};
+
+const header = (up) => `<a class="skip" href="#main">Skip to content</a><header class="top"><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><nav aria-label="Main navigation"><a href="${up || './'}#mantras">All mantras</a><span class="chip" id="streak" hidden></span></nav></header>`;
+const footer = (up) => `<footer><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><p>A quiet space for daily practice.</p><nav aria-label="Mantras">${mantras.map((m) => `<a href="${up}${m.slug}/">${m.short}</a>`).join('')}</nav><p class="small">Your chant progress stays on this device.</p></footer><div class="toast" id="toast" role="status" aria-live="polite"></div><script src="${up}js/app.js" defer></script>`;
+
+const artwork = (art, alt, up = '', hero = false) => `<picture${hero ? ' class="hero-art"' : ''}><source media="(max-width: 640px)" srcset="${up}art/${art}_mob.webp"><img src="${up}art/${art}_web.webp" alt="${esc(alt)}" width="1600" height="905" ${hero ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
+
+const card = (m, up) => `<a class="mc" href="${up}${m.slug}/" data-slug="${m.slug}" style="--ac:${m.theme.accent}"><img src="${up}art/${m.art}_mob.webp" alt="${esc(m.imgAlt)}" width="760" height="1344" loading="lazy" decoding="async"><div class="t"><span>${m.cardLine}</span><h3>${m.short}</h3><span class="card-action">Read mantra <span aria-hidden="true">↗</span></span></div></a>`;
+
+const panes = (lines, meaning, prefix = 'verse') => LANGS.map(([k]) => `<div class="pane" id="${prefix}-${k}" role="tabpanel" aria-labelledby="tab-${k}" tabindex="0" data-lang="${k}"><div class="verse">${lines.map((l) => `<p${k === 'sa' ? ' lang="sa"' : ''}>${l[k]}</p>`).join('')}</div><div class="meaning"><h3>${MEANING_LABEL[k]}</h3><p${k === 'sa' ? ' lang="hi"' : ''}>${meaning[k]}</p></div></div>`).join('');
+
+function mantraPage(m) {
+  const up = '../';
+  const next = mantras.filter((x) => x !== m);
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'Article', headline: m.title, description: m.desc, image: `${SITE.url}/art/${m.art}_web.webp`, inLanguage: ['en', 'hi', 'sa'], mainEntityOfPage: `${SITE.url}/${m.slug}/` },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: m.faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' }, { '@type': 'ListItem', position: 2, name: m.short, item: `${SITE.url}/${m.slug}/` }] },
+  ];
+  const speak = m.lines.map((l) => l.sa).join(' ');
+  return `${head({ title: m.title, desc: m.desc, path: `${m.slug}/`, depth: 1, img: m.art, extra: `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n` })}
+<body style="${themeVars(m.theme)}" data-slug="${m.slug}" data-name="${esc(m.short)}">
+${header(up)}
+<main id="main">
+<section class="hero mantra-hero">
+${artwork(m.art, m.imgAlt, up, true)}
+<div class="mantra-stage">
+<div class="hero-in"><a class="back" href="../#mantras">‹ All mantras</a><p class="deity">${m.deity}</p><h1>${m.displayTitle || m.short}</h1><p class="tag">${m.tagline}</p><a class="btn" href="#chant-card">Begin chanting</a><a class="text-link" href="#about">Meaning &amp; tradition</a></div>
+
+<div class="practice">
+<div class="reading">
+<section class="card player" data-src="${up}audio/${m.audio}" aria-label="Mantra audio">
+<button class="play" id="play" aria-label="Play">▶</button>
+<div class="pinfo"><strong>${existsSync(`${OUT}/audio/${m.audio}`) ? 'Listen & chant' : 'Recording coming soon'}</strong><div class="bar"><i></i></div>
+<div class="player-meta"><span class="small" id="anote">${existsSync(`${OUT}/audio/${m.audio}`) ? 'One complete verse per chant' : 'Browser voice preview; pronunciation may vary'}</span><button class="toggle" id="loop" aria-pressed="false">Repeat</button></div></div>
+</section>
+<script type="text/plain" id="speak">${speak}</script>
+
+<section id="chant-card">
+<div class="tabs" role="tablist" aria-label="Choose script">${LANGS.map(([k, n]) => `<button class="tab" id="tab-${k}" role="tab" data-lang="${k}" aria-controls="verse-${k}${m.bonus ? ` bonus-${k}` : ''}" aria-selected="false">${n}</button>`).join('')}</div>
+${panes(m.lines, m.meaning)}
+${m.bonus ? `<div class="bonus"><h3>${m.bonus.label}</h3>${panes(m.bonus.lines, m.bonus.meaning, 'bonus')}<p class="source-note">A short invocation containing Saraswati’s seed syllable, aiṃ. <a href="${m.bonus.sourceUrl}" target="_blank" rel="noopener noreferrer">View source</a>.</p></div>` : ''}
+<p class="source-note">${m.sourceNote} <a href="${m.sourceUrl}" target="_blank" rel="noopener noreferrer">View source</a>.</p>
+</section>
+</div>
+<section class="mala" aria-label="Chant counter">
+<h2>Your daily mala</h2>
+<p class="small">One chant, one bead.</p>
+<div class="ring"><svg viewBox="0 0 240 240" id="dots" aria-hidden="true"></svg><div class="mid"><span class="num" id="count">0</span><span class="small">of 108</span></div></div>
+<p class="small" id="malas"></p>
+<p class="done" id="done" aria-live="polite"></p>
+<button class="btn" id="chant">Count a chant</button>
+<p style="margin:14px 0 0"><button class="toggle" id="reset">Reset count</button></p>
+<p class="save-note small">Saved on this device. Return whenever you’re ready.</p>
+</section>
+</div>
+</div>
+</section>
+<div class="wrap information">
+<section id="about"><h2>About the ${m.short}</h2><p>${m.intro}</p>
+<p class="small"><b>Best time to chant:</b> ${m.bestTime}</p>
+<p><a class="btn ghost sm" id="wa" href="https://wa.me/?text=${encodeURIComponent(`${m.short} – ${SITE.url}/${m.slug}/`)}">Share on WhatsApp</a></p></section>
+
+<section><h2>Benefits of the ${m.short}</h2><ul class="ticks">${m.benefits.map((b) => `<li>${b}</li>`).join('')}</ul></section>
+<section><h2>How to chant the ${m.short}</h2><ol class="steps">${m.howTo.map((b) => `<li>${b}</li>`).join('')}</ol></section>
+<section><h2>Frequently asked questions</h2>${m.faqs.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</section>
+<section class="related"><h2>Continue your practice</h2><div class="mini">${next.map((x) => card(x, up)).join('')}</div></section>
+</div>
+</main>
+${footer(up)}
+</body></html>`;
+}
+
+function homePage() {
+  const ld = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url + '/', description: SITE.tagline, inLanguage: ['en', 'hi'] },
+    { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: mantras.map((m, i) => ({ '@type': 'ListItem', position: i + 1, name: m.short, url: `${SITE.url}/${m.slug}/` })) }];
+  return `${head({ title: `Hindu Mantras: Gayatri, Mahamrityunjay, Krishna & Saraswati Mantra | ${SITE.name}`, desc: `${SITE.tagline}. Gayatri Mantra, Mahamrityunjay Mantra, Om Krishnaya Vasudevaya Haraye Paramatmane and Saraswati Mantra with meaning and audio.`, path: '', depth: 0, img: 'ganesha', extra: `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n` })}
+<body class="home">
+${header('')}
+<main id="main">
+<section class="hero">
+${artwork('ganesha', 'Lord Ganesha seated in warm golden light beside a lotus pond', '', true)}
+<div class="hero-in"><p class="greet" id="greet">Namaste</p>
+<h1>A moment<br>for the sacred.</h1>
+<p class="tag">Mantras for your daily practice.<br>Read the words, understand their meaning,<br>and take one chant at a time.</p>
+<a class="btn" href="#mantras">Explore the mantras</a></div>
+</section>
+
+<div class="wrap wide">
+<a class="card cont" id="cont" href="#" hidden><div><span class="small">Continue where you left off</span><br><b>Gayatri Mantra</b><br><span class="small"></span></div><span class="btn sm">Continue</span></a>
+<section id="mantras"><div class="section-heading"><div><h2>Choose your mantra</h2><p>Begin with the prayer you feel drawn to.</p></div><span class="small">Sanskrit · Transliteration · Hinglish</span></div>
+<div class="grid">${mantras.map((m) => card(m, '', false)).join('')}</div>
+<script type="application/json" id="picks">${JSON.stringify(WEEK_PICKS)}</script></section>
+
+<section class="practice-note"><h2>Make room for a daily practice.</h2><div><p>Choose the script that feels familiar. Read slowly, with attention to each word. Begin with a few repetitions, or follow the 108-bead counter for a full mala.</p><p class="small">No account needed. Your progress is remembered in this browser.</p></div></section>
+</div>
+</main>
+${footer('')}
+</body></html>`;
+}
+
+const write = (p, c) => { mkdirSync(p.split('/').slice(0, -1).join('/') || '.', { recursive: true }); writeFileSync(p, c); };
+mkdirSync(`${OUT}/css`, { recursive: true }); mkdirSync(`${OUT}/js`, { recursive: true });
+mkdirSync(`${OUT}/img`, { recursive: true }); mkdirSync(`${OUT}/audio`, { recursive: true });
+mkdirSync(`${OUT}/art`, { recursive: true });
+for (const file of readdirSync('assets/art').filter((name) => name.endsWith('.webp'))) copyFileSync(`assets/art/${file}`, `${OUT}/art/${file}`);
+copyFileSync('src/style.css', `${OUT}/css/style.css`);
+copyFileSync('src/app.js', `${OUT}/js/app.js`);
+write(`${OUT}/index.html`, homePage());
+mantras.forEach((m) => write(`${OUT}/${m.slug}/index.html`, mantraPage(m)));
+const notFound = head({ title: `Page not found | ${SITE.name}`, desc: 'Page not found', path: '404.html', depth: 0, img: 'ganesha', extra: '<meta name="robots" content="noindex">' }).replace('href="css/', 'href="/css/');
+write(`${OUT}/404.html`, `${notFound}
+<body>${header('/')}<main id="main" class="wrap" style="text-align:center;padding:90px 18px"><h1>Page not found</h1><p>Browse the collection to find your mantra.</p><a class="btn" href="/">Back to home</a></main>${footer('/')}</body></html>`);
+write(`${OUT}/_headers`, ['/css/*', '/js/*'].map((p) => `${p}
+  Cache-Control: public, max-age=604800
+`).concat(['/img/*', '/art/*', '/audio/*'].map((p) => `${p}
+  Cache-Control: public, max-age=2592000
+`)).join(''));
+write(`${OUT}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['', ...mantras.map((m) => `${m.slug}/`)].map((p) => `<url><loc>${SITE.url}/${p}</loc></url>`).join('\n')}\n</urlset>\n`);
+write(`${OUT}/robots.txt`, `User-agent: *\nAllow: /\nSitemap: ${SITE.url}/sitemap.xml\n`);
+
+const missing = ['ganesha', ...mantras.map((m) => m.art)].flatMap((n) => ['web', 'mob'].map((v) => `${n}_${v}`)).filter((n) => !existsSync(`${OUT}/art/${n}.webp`));
+const noAudio = mantras.filter((m) => !existsSync(`${OUT}/audio/${m.audio}`)).map((m) => m.audio);
+console.log(`Built ${mantras.length + 1} pages in ./${OUT} (SITE_URL=${SITE.url})`);
+if (missing.length) throw new Error('Missing artwork: ' + missing.join(', '));
+if (noAudio.length) console.log('Missing audio (voice fallback used for now):', noAudio.join(', '));

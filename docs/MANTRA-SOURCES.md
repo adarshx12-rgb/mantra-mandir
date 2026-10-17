@@ -1,0 +1,9 @@
+﻿# Mantra text review, 2026-10-18
+
+- Gayatri: https://greenmesg.org/stotras/gayatri/gayatri_mantra.php . Standard devotional opening followed by the Savitr verse; improved the meaning across languages and made vowel lengths explicit in Roman transliteration.
+- Mahamrityunjay: https://greenmesg.org/stotras/vedas/rigveda/mandala7/sukta59/rudra-om_tryambakam_yajamahe.php . Retained the Sanskrit wording, added verse punctuation, clarified mukshiya/mukṣīya pronunciation (IAST: mukṣīya) and the meaning of mā amṛtāt. Om is a devotional prefix.
+- Krishna: https://vedabase.io/en/library/sb/10/73/16/ . Joined प्रणतक्लेशनाशाय, restored full vowels in the simplified reading, and identified the verse and added Om separately. Corrected the outdated artwork description: the supplied picture shows Krishna playing the flute, not Vishnu reclining on Shesha.
+- Saraswati Vandana: https://shlokam.org/shloka/yaakundhendhu-thushara-hara.htm . Uses pūjitā; notes the common vanditā variant rather than calling it an error. Regularized transliteration and translated the veena compound as her hands holding its beautiful neck, rather than a separate boon-giving staff. Sanskrit spelling differences in sandhi remain normalized in the displayed text.
+- Short Saraswati invocation: https://www.drikpanchang.com/vedic-mantra/goddesses/saraswati/mantra/saraswati-moola-mantra.html?lang=en . Labelled as a short mantra containing the seed syllable aiṃ, rather than implying the entire formula is the single seed syllable.
+
+English/Hindi/Hinglish meanings are concise paraphrases. Ancient verse texts are public domain. Sources have recitational and orthographic variants; these are not claims of one exclusive canonical spelling. Vedic accent marks are not included. A final human Sanskrit and pronunciation review is still recommended before publication.
