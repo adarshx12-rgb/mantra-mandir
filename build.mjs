@@ -1,6 +1,6 @@
 // Static site generator: `node build.mjs` writes ./site. No dependencies.
 // Set SITE_URL for production, e.g. SITE_URL=https://yourdomain.com node build.mjs
-import { mkdirSync, writeFileSync, copyFileSync, existsSync, readdirSync } from 'node:fs';
+import { mkdirSync, writeFileSync, copyFileSync, existsSync, readdirSync, rmSync } from 'node:fs';
 import { SITE, mantras } from './data/mantras.mjs';
 import { DEITIES, INTENTIONS, FESTIVALS, collectionFor, festivalMantras } from './data/collections.mjs';
 
@@ -171,6 +171,11 @@ mkdirSync(`${OUT}/art`, { recursive: true });
 for (const file of readdirSync('assets/art').filter((name) => name.endsWith('.webp'))) copyFileSync(`assets/art/${file}`, `${OUT}/art/${file}`);
 copyFileSync('src/style.css', `${OUT}/css/style.css`);
 copyFileSync('src/app.js', `${OUT}/js/app.js`);
+// Remove pages for mantras that no longer exist, so deleted entries don't stay published.
+const slugs = new Set(mantras.map((m) => m.slug));
+for (const dir of readdirSync(OUT, { withFileTypes: true })) {
+  if (dir.isDirectory() && !slugs.has(dir.name) && existsSync(`${OUT}/${dir.name}/index.html`)) rmSync(`${OUT}/${dir.name}`, { recursive: true });
+}
 write(`${OUT}/index.html`, homePage());
 mantras.forEach((m) => write(`${OUT}/${m.slug}/index.html`, mantraPage(m)));
 const notFound = head({ title: `Page not found | ${SITE.name}`, desc: 'Page not found', path: '404.html', depth: 0, img: 'ganesha', extra: '<meta name="robots" content="noindex">' }).replace('href="css/', 'href="/css/');

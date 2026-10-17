@@ -23,7 +23,7 @@ export const INTENTIONS = [
 ];
 
 // Prayers listed first, in this order, for both Navratris; the deities' other prayers follow.
-const NAVRATRI = ['aigiri-nandini', 'ya-devi-sarvabhuteshu', 'sarva-mangala-mangalye', 'devi-kavach-navadurga', 'shree-suktam', 'vishwambhari-stuti', 'devi-gayatri-mantra', 'durga-saptashloki', 'argala-stotram', 'devi-stuti', 'jai-ambe-gauri'];
+const NAVRATRI = ['aigiri-nandini', 'ya-devi-sarvabhuteshu', 'sarva-mangala-mangalye', 'devi-kavach-navadurga', 'shree-suktam', 'devi-gayatri-mantra', 'durga-saptashloki', 'argala-stotram', 'devi-stuti'];
 
 // Usual Gregorian windows, not a dated panchang. Some observances vary by region.
 // `featured` slugs come first and may belong to other deities (e.g. Shree Suktam).

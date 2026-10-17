@@ -168,22 +168,6 @@ export const POPULAR_MANTRAS = [
   },
   // Hanuman
   {
-    slug: 'hanuman-chalisa-doha', short: 'Hanuman Chalisa Doha', deityId: 'hanuman', intentions: ['strength', 'learning', 'devotion'],
-    displayTitle: 'Hanuman Chalisa Opening Doha',
-    tagline: 'The two dohas that open the Hanuman Chalisa.',
-    intro: 'The Hanuman Chalisa by Goswami Tulsidas opens with two dohas. The first cleanses the mind with the dust of the Guru’s feet before describing Rama’s glory; the second, addressed to Hanuman, asks for strength, wisdom and knowledge.',
-    note: 'The opening dohas of the Hanuman Chalisa by Goswami Tulsidas, in Awadhi rather than Sanskrit. Spellings vary between printed editions. The forty chaupais are not included on this page.',
-    bestTime: 'Tuesdays and Saturdays, mornings or evenings, and on Hanuman Jayanti.',
-    meaningHi: 'श्री गुरु के चरण-कमलों की धूल से अपने मन रूपी दर्पण को स्वच्छ करके, मैं श्री रघुवर के निर्मल यश का वर्णन करता हूँ, जो चारों फल देने वाला है। स्वयं को बुद्धिहीन जानकर मैं पवनपुत्र का स्मरण करता हूँ; मुझे बल, बुद्धि और विद्या दें और मेरे क्लेश और विकार दूर करें।',
-    meaningHinglish: 'Shri Guru ke charan-kamalon ki dhool se apne man roopi darpan ko saaf karke, main Shri Raghuvar ke nirmal yash ka varnan kartaa hoon, jo chaaron phal dene vaalaa hai. Khud ko buddhiheen jaankar main Pavanputra ka smaran kartaa hoon; mujhe bal, buddhi aur vidyaa dein aur mere klesh aur vikaar door karein.',
-    lines: [
-      ['श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ।', 'Śrīguru carana saroja raja nija manu mukuru sudhāri', 'With the dust of my Guru’s lotus feet I cleanse the mirror of my mind,', 'Shri Guru charan saroj raj nij manu mukuru sudhaari'],
-      ['बरनउँ रघुबर बिमल जसु जो दायकु फल चारि ॥', 'Baranauṃ raghubara bimala jasu jo dāyaku phala cāri', 'and sing the pure glory of Rama, which grants the four aims of life.', 'Baranaun Raghubar bimal jasu jo daayaku phal chaari'],
-      ['बुद्धिहीन तनु जानिके सुमिरौं पवन-कुमार ।', 'Buddhihīna tanu jānike sumirauṃ pavana-kumāra', 'Knowing myself lacking in wisdom, I remember the Son of the Wind;', 'Buddhiheen tanu jaanike sumiraun Pavan-kumaar'],
-      ['बल बुद्धि बिद्या देहु मोहिं हरहु कलेस बिकार ॥', 'Bala buddhi bidyā dehu mohiṃ harahu kalesa bikāra', 'grant me strength, wisdom and knowledge, and remove my troubles and faults.', 'Bal buddhi bidyaa dehu mohin harahu kalesh bikaar'],
-    ],
-  },
-  {
     slug: 'om-ham-hanumate-namah', short: 'Om Ham Hanumate Namah', deityId: 'hanuman', intentions: ['strength', 'devotion'],
     tagline: 'A short Hanuman mantra with the seed syllable haṃ.',
     intro: 'Om Ham Hanumate Namah is a short japa mantra to Hanuman. It is chanted on Tuesdays and Saturdays by devotees seeking courage, discipline and steadiness of mind.',
@@ -256,21 +240,6 @@ export const POPULAR_MANTRAS = [
       ['चन्द्रां हिरण्मयीं लक्ष्मीं जातवेदो म आवह ॥', 'Candrāṃ hiraṇmayīṃ lakṣmīṃ jātavedo ma āvaha', 'radiant as the moon, made of gold: O Jatavedas, bring Lakshmi to me.'],
       ['तां म आवह जातवेदो लक्ष्मीमनपगामिनीम् ।', 'Tāṃ ma āvaha jātavedo lakṣmīmanapagāminīm', 'O Jatavedas, bring to me that Lakshmi who does not depart,'],
       ['यस्यां हिरण्यं विन्देयं गामश्वं पुरुषानहम् ॥', 'Yasyāṃ hiraṇyaṃ vindeyaṃ gāmaśvaṃ puruṣānaham', 'through whom I may gain gold, cattle, horses and people.'],
-    ],
-  },
-  {
-    slug: 'vishwambhari-stuti', short: 'Vishwambhari Stuti', deityId: 'durga', intentions: ['learning', 'devotion'],
-    tagline: 'The Gujarati stuti to the Mother of the whole universe, sung in Navratri.',
-    intro: 'Vishwambhari Stuti, “Vishvambhari akhil vishva tani janeta”, is a Gujarati prayer to the Mother who sustains the universe. It is sung at aarti and garba during Navratri. The first verse asks her to remove ill-thinking, grant good sense and cut away the sorrows of worldly life.',
-    note: 'First verse of a Gujarati devotional stuti, shown in Devanagari for reading. Author attribution and spelling vary between editions; the stuti has about ten verses.',
-    bestTime: 'Navratri aarti and garba, and morning prayer.',
-    meaningHi: 'हे विश्व का भरण करने वाली, समस्त विश्व की जननी, विद्या धारण करके मेरे मुख में वास करो। मेरी दुर्बुद्धि दूर करके सद्बुद्धि दो। हे माँ भगवती, मेरी रक्षा करो और संसार के दुःख काट दो।',
-    meaningHinglish: 'He vishva ka bharan karne vaali, samast vishva ki janani, vidyaa dhaaran karke mere mukh mein vaas karo. Meri durbuddhi door karke sadbuddhi do. He Maa Bhagvati, meri rakshaa karo aur sansaar ke dukh kaat do.',
-    lines: [
-      ['विश्वंभरी अखिल विश्वतणी जनेता', 'Viśvaṃbharī akhila viśvataṇī janetā', 'O sustainer of the world, mother of the whole universe,', 'Vishvambhari akhil vishvatani janeta'],
-      ['विद्या धरी वदनमां वसजो विधाता ।', 'Vidyā dharī vadanamāṃ vasajo vidhātā', 'bearing knowledge, dwell in my speech, O creator;', 'Vidya dhari vadanmaan vasjo vidhaata'],
-      ['दुर्बुद्धिने दूर करी सद्बुद्धि आपो', 'Durbuddhine dūra karī sadbuddhi āpo', 'remove my ill-thinking and grant me good sense;', 'Durbuddhine door kari sadbuddhi aapo'],
-      ['मां पाहि ॐ भगवती भवदुःख कापो ॥', 'Māṃ pāhi oṃ bhagavatī bhavaduḥkha kāpo', 'protect me, O Mother Bhagavati, and cut away the sorrows of this life.', 'Maam paahi Om Bhagvati bhavdukh kaapo'],
     ],
   },
   {
@@ -357,22 +326,6 @@ export const POPULAR_MANTRAS = [
       [`या देवी सर्वभूतेषु ${sa} ।`, `Yā devī sarvabhūteṣu ${en}`, `To the Goddess in all beings ${gloss}`],
       ['नमस्तस्यै नमस्तस्यै नमस्तस्यै नमो नमः ॥', 'Namastasyai namastasyai namastasyai namo namaḥ', 'salutations to her, salutations to her, salutations to her, again and again.'],
     ]),
-  },
-  {
-    slug: 'jai-ambe-gauri', short: 'Jai Ambe Gauri', deityId: 'durga', intentions: ['devotion'],
-    displayTitle: 'Jai Ambe Gauri Aarti',
-    tagline: 'The aarti of Mother Ambe, sung with lamps in homes and pandals.',
-    intro: 'Jai Ambe Gauri is the best-known Hindi aarti of the Goddess, sung while waving the lamp in Navratri and at every Devi puja. Its opening praises the Mother on whom Vishnu, Brahma and Shiva meditate day and night, then describes her adornment.',
-    note: 'Refrain and first stanza of the Hindi aarti, in the form commonly printed. The full aarti has about ten stanzas, and wording varies by region and edition.',
-    bestTime: 'Evening aarti, especially each night of Navratri.',
-    meaningHi: 'हे माँ अम्बे गौरी, हे श्यामा गौरी, आपकी जय हो। विष्णु, ब्रह्मा और शिव दिन-रात आपका ध्यान करते हैं। आपकी माँग में सिन्दूर और माथे पर कस्तूरी का टीका शोभा पाता है; आपके दोनों नेत्र उज्ज्वल हैं और चन्द्रमा जैसा मुख सुन्दर है।',
-    meaningHinglish: 'He Maa Ambe Gauri, he Shyaamaa Gauri, aapki jai ho. Vishnu, Brahmaa aur Shiva din-raat aapka dhyaan karte hain. Aapki maang mein sindoor aur maathe par kastoori ka teekaa shobhaa paataa hai; aapke dono netra ujjval hain aur chandramaa jaisaa mukh sundar hai.',
-    lines: [
-      ['जय अम्बे गौरी, मैया जय श्यामा गौरी ।', 'Jaya ambe gaurī, maiyā jaya śyāmā gaurī', 'Glory to Mother Ambe, fair Gauri; glory, Mother, to dark Shyama Gauri.', 'Jai Ambe Gauri, maiya jai Shyama Gauri'],
-      ['तुमको निशदिन ध्यावत, हरि ब्रह्मा शिवरी ॥', 'Tumako niśadina dhyāvata, hari brahmā śivarī', 'Vishnu, Brahma and Shiva meditate on you night and day.', 'Tumko nishdin dhyaavat, Hari Brahma Shivri'],
-      ['माँग सिन्दूर विराजत, टीको मृगमद को ।', 'Māṃga sindūra virājata, ṭīko mṛgamada ko', 'Vermilion shines in the parting of your hair, with a tilak of musk;', 'Maang sindoor viraajat, teeko mrigmad ko'],
-      ['उज्ज्वल से दोउ नैना, चन्द्रवदन नीको ॥', 'Ujjvala se dou nainā, candravadana nīko', 'your two eyes are bright, and your moon-like face is lovely.', 'Ujjval se dou naina, chandravadan neeko'],
-    ],
   },
   // Kali
   {

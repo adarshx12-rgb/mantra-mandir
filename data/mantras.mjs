@@ -18,7 +18,7 @@ export const WEEK_PICKS = [
   'mahamrityunjay-mantra',
 ];
 
-export const COMING_SOON = ['Hanuman Chalisa (full)'];
+export const COMING_SOON = [];
 
 export const mantras = [
   {

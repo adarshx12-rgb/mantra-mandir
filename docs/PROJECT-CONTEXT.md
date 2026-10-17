@@ -56,3 +56,6 @@ data/popular-mantras.mjs adds 22 widely chanted mantras and short verses, expand
 
 ## Navratri collection (added 2026-10-18)
 Nine more Devi pages in data/popular-mantras.mjs: Aigiri Nandini (verse 1), Devi Kavach Navadurga verses, Shree Suktam (verses 1–2, Lakshmi), Vishwambhari Stuti (Gujarati, verse 1), Devi Gayatri, Durga Saptashloki (all 7 verses), Argala Stotram (verses 1–3), Shri Devi Stuti (9 Ya Devi verses), Jai Ambe Gauri (refrain + stanza 1). Long hymns show labelled excerpts, never implied as complete. Festivals may set `featured` (ordered slugs, any deity) shown before deity matches; both Navratris feature the owner's list via NAVRATRI in collections.mjs, resolved by festivalMantras(). 44 prayers total.
+
+## Content rule: mantras, not bhajans (owner, 2026-10-18)
+Only mantras, shlokas, stotras and Vedic hymns. No bhajans, aartis or devotional songs: Jai Ambe Gauri, Vishwambhari Stuti and the Hanuman Chalisa dohas were removed for this reason, and the Hanuman Chalisa is not planned. Sanskrit shlokas also recited at aarti (Karpura Gauram) and chanted calls (Swamiye Saranam Ayyappa) are kept. build.mjs now deletes generated page folders whose slug no longer exists. 41 prayers.
