@@ -9,3 +9,5 @@ Typography: Palatino / Book Antiqua for devotional titles; system sans-serif for
 Review: avoid the old glowing pills, emoji decoration, identical translucent cards, and sales-style headline. The art supplies the atmosphere. The home opens with Ganesha and a direct invitation to choose a mantra. The four established mantra URLs remain unchanged.
 
 Original PNGs remain in images/. Optimized derivatives go in assets/art/ and are copied to site/art/. Existing owner-managed site/img/ and site/audio/ are untouched. Run python scripts/prepare-art.py after changing artwork, then node build.mjs.
+
+The About, benefits, guidance, FAQ and related-mantra area continues the matching deity painting at reduced brightness, with soft transitions into the hero and footer. This reuses the existing responsive artwork without adding image downloads for new assets.

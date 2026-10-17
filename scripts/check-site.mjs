@@ -16,14 +16,31 @@ try {
     await page.setViewportSize({ width, height: 900 });
     for (const path of ['', ...mantras.map(m => m.slug + '/')]) {
       await page.goto(`${base}/${path}`);
-      await page.locator('img').evaluateAll(imgs => Promise.all(imgs.map(img => img.decode())));
+      // Lazy images never decode while offscreen, so load them eagerly before waiting.
+      await page.locator('img').evaluateAll(imgs => Promise.all(imgs.map(img => { img.loading = 'eager'; return img.decode(); })));
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `${width}: overflow on ${path}`);
-      const art = await page.locator('.hero-art img').evaluate(img => img.currentSrc);
-      assert.ok(art.endsWith(width <= 640 ? '_mob.webp' : '_web.webp'), art);
+      if (await page.locator('.hero-art img').count()) {
+        const art = await page.locator('.hero-art img').evaluate(img => img.currentSrc);
+        assert.ok(art.endsWith(width <= 640 ? '_mob.webp' : '_web.webp'), art);
+      } else assert.equal(await page.locator('.hero-art.symbolic-art').count(), 1);
       if (width !== 320) await page.screenshot({ path: `output/review/${path.split('/')[0] || 'home'}-${width}.png`, fullPage: true });
     }
   }
   await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(base);
+  await page.locator('#browse-festivals').click();
+  assert.equal(await page.locator('#collection-festivals').isVisible(), true);
+  assert.equal(await page.locator('#collection-deities').isVisible(), false);
+  await page.locator('#browse-festivals').focus();
+  await page.keyboard.press('ArrowRight');
+  assert.equal(await page.locator('#collection-intentions').isVisible(), true);
+  await page.goto(`${base}/#deity-hanuman`);
+  assert.equal(await page.locator('#deity-hanuman').isVisible(), true);
+  assert.equal(await page.locator('#deity-hanuman').getAttribute('open'), '');
+  await page.locator('#deity-shiva > summary').click();
+  await page.waitForTimeout(100);
+  assert.equal(await page.locator('#deity-hanuman').getAttribute('open'), null);
+  assert.equal(await page.locator('#deity-shiva .collection-links a').count(), 3);
   await page.goto(`${base}/gayatri-mantra/`);
   await page.getByRole('tab', { name: 'Transliteration' }).click();
   await page.reload();
@@ -63,7 +80,7 @@ try {
   assert.equal(await staticPage.locator('.pane:visible').count(), 3);
   await noJS.close();
   assert.deepEqual(errors, []);
-  console.log('PASS: all 5 pages at 1440, 390 and 320px; responsive artwork; tabs and keyboard; saved language; count, resume, 108 completion, reset; no-JS verses; no browser errors.');
+  console.log(`PASS: all ${mantras.length + 1} pages at 1440, 390 and 320px; responsive artwork; collection navigation; tabs and keyboard; saved language; count, resume, 108 completion, reset; no-JS verses; no browser errors.`);
 } finally {
   await browser.close();
 }

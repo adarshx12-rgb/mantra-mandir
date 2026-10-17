@@ -3,6 +3,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 import json
+import xml.etree.ElementTree as ET
 
 root = Path('site').resolve()
 class Page(HTMLParser):
@@ -50,5 +51,6 @@ for path, page in pages.items():
 art = list((root / 'art').glob('*.webp'))
 assert len(art) == 10
 assert all(p.stat().st_size <= 80000 for p in art)
-assert len(pages) == 6
-print('PASS: six HTML documents, internal links and anchors, image/script/style paths, tab references, unique IDs, one h1 per page, structured data, UTF-8, ten artwork assets under 80 KB each.')
+urls = ET.parse(root / 'sitemap.xml').getroot()
+assert len(pages) == len(urls) + 1, 'Sitemap/page count mismatch (including 404)'
+print(f'PASS: {len(pages)} HTML documents, internal links and anchors, image/script/style paths, tab references, unique IDs, one h1 per page, structured data, UTF-8, ten artwork assets under 80 KB each.')

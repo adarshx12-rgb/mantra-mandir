@@ -1,7 +1,8 @@
 // Static site generator: `node build.mjs` writes ./site. No dependencies.
 // Set SITE_URL for production, e.g. SITE_URL=https://yourdomain.com node build.mjs
 import { mkdirSync, writeFileSync, copyFileSync, existsSync, readdirSync } from 'node:fs';
-import { SITE, mantras, WEEK_PICKS } from './data/mantras.mjs';
+import { SITE, mantras } from './data/mantras.mjs';
+import { DEITIES, INTENTIONS, FESTIVALS, collectionFor } from './data/collections.mjs';
 
 const OUT = 'site';
 const FAVICON = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='#1f1646'/><text x='32' y='46' font-size='40' text-anchor='middle' fill='#ffb23e'>ॐ</text></svg>")}`;
@@ -25,8 +26,8 @@ const head = ({ title, desc, path, depth, img, extra = '' }) => {
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${url}">
-<meta property="og:image" content="${SITE.url}/art/${img}_web.webp">
-<meta name="twitter:card" content="summary_large_image">
+${img ? `<meta property="og:image" content="${SITE.url}/art/${img}_web.webp">` : ''}
+<meta name="twitter:card" content="${img ? 'summary_large_image' : 'summary'}">
 <link rel="icon" href="${FAVICON}">
 <link rel="stylesheet" href="${up}css/style.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -34,19 +35,46 @@ ${extra}</head>`;
 };
 
 const header = (up) => `<a class="skip" href="#main">Skip to content</a><header class="top"><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><nav aria-label="Main navigation"><a href="${up || './'}#mantras">All mantras</a><span class="chip" id="streak" hidden></span></nav></header>`;
-const footer = (up) => `<footer><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><p>A quiet space for daily practice.</p><nav aria-label="Mantras">${mantras.map((m) => `<a href="${up}${m.slug}/">${m.short}</a>`).join('')}</nav><p class="small">Your chant progress stays on this device.</p></footer><div class="toast" id="toast" role="status" aria-live="polite"></div><script src="${up}js/app.js" defer></script>`;
+const footer = (up) => `<footer><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><p>A quiet space for daily practice.</p><nav aria-label="Deity collections">${DEITIES.map((d) => `<a href="${up || './'}#deity-${d.id}">${d.name}</a>`).join('')}</nav><p class="small">Your chant progress stays on this device.</p></footer><div class="toast" id="toast" role="status" aria-live="polite"></div><script src="${up}js/app.js" defer></script>`;
 
-const artwork = (art, alt, up = '', hero = false) => `<picture${hero ? ' class="hero-art"' : ''}><source media="(max-width: 640px)" srcset="${up}art/${art}_mob.webp"><img src="${up}art/${art}_web.webp" alt="${esc(alt)}" width="1600" height="905" ${hero ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
+const artwork = (art, alt, up = '', hero = false) => art ? `<picture${hero ? ' class="hero-art"' : ''}><source media="(max-width: 640px)" srcset="${up}art/${art}_mob.webp"><img src="${up}art/${art}_web.webp" alt="${esc(alt)}" width="1600" height="905" ${hero ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>` : `<div class="symbolic-art${hero ? ' hero-art' : ''}" aria-hidden="true"><span>ॐ</span></div>`;
 
-const card = (m, up) => `<a class="mc" href="${up}${m.slug}/" data-slug="${m.slug}" style="--ac:${m.theme.accent}"><img src="${up}art/${m.art}_mob.webp" alt="${esc(m.imgAlt)}" width="760" height="1344" loading="lazy" decoding="async"><div class="t"><span>${m.cardLine}</span><h3>${m.short}</h3><span class="card-action">Read mantra <span aria-hidden="true">↗</span></span></div></a>`;
+const card = (m, up) => `<a class="mc" href="${up}${m.slug}/" data-slug="${m.slug}" style="--ac:${m.theme.accent};${themeVars(m.theme)}">${m.art ? `<img src="${up}art/${m.art}_mob.webp" alt="${esc(m.imgAlt)}" width="760" height="1344" loading="lazy" decoding="async">` : artwork(null, '', up)}<div class="t"><span>${m.deity}</span><h3>${m.short}</h3><span class="card-action">Read mantra <span aria-hidden="true">↗</span></span></div></a>`;
 
-const panes = (lines, meaning, prefix = 'verse') => LANGS.map(([k]) => `<div class="pane" id="${prefix}-${k}" role="tabpanel" aria-labelledby="tab-${k}" tabindex="0" data-lang="${k}"><div class="verse">${lines.map((l) => `<p${k === 'sa' ? ' lang="sa"' : ''}>${l[k]}</p>`).join('')}</div><div class="meaning"><h3>${MEANING_LABEL[k]}</h3><p${k === 'sa' ? ' lang="hi"' : ''}>${meaning[k]}</p></div></div>`).join('');
+const collectionLinks = (items) => items.length ? `<ul class="collection-links">${items.map(m => `<li><a href="${m.slug}/"><span>${m.short}</span><span class="small">${m.cardLine}</span><span aria-hidden="true">↗</span></a></li>`).join('')}</ul>` : '<p class="collection-empty">Mantras for this collection are coming soon.</p>';
+
+function collectionBrowser() {
+  const views = [['deities', 'By deity'], ['festivals', 'By festival'], ['intentions', 'By intention']];
+  const tile = (id, title, subtitle, items, preferredDeity) => {
+    const m = items.find(m => collectionFor(m).deityId === preferredDeity) || items.find(m => m.art) || items[0];
+    const count = `${items.length} ${items.length === 1 ? 'prayer' : 'prayers'}`;
+    return `<details class="collection-tile" id="${id}" style="--ac:${m.theme.accent};${themeVars(m.theme)}"><summary class="mc">${m.art ? `<img src="art/${m.art}_mob.webp" alt="" width="760" height="1344" loading="lazy" decoding="async">` : artwork(null, '')}<div class="t"><span>${esc(subtitle || count)}</span><h3>${esc(title)}</h3><span class="card-action">${subtitle ? count : 'View prayers'}<span aria-hidden="true">+</span></span></div></summary><div class="collection-tile-links">${collectionLinks(items)}</div></details>`;
+  };
+  const intentionArt = { strength: 'shiva', learning: 'saraswati', peace: 'shiva', devotion: 'krishna', beginnings: 'ganesh', prosperity: 'lakshmi' };
+  return `<section class="collection-browser" id="collections" aria-labelledby="collections-title">
+<div class="section-heading"><div><h2 id="collections-title">Find a mantra</h2><p>Follow your devotion, an occasion, or an intention.</p></div></div>
+<div class="browse-tabs" role="tablist" aria-label="Browse mantras">${views.map(([id, label], i) => `<button type="button" role="tab" id="browse-${id}" aria-controls="collection-${id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-browse="${id}">${label}</button>`).join('')}</div>
+<div class="collection-panel on" id="collection-deities" role="tabpanel" aria-labelledby="browse-deities" tabindex="0">
+<div class="collection-grid">${DEITIES.map(d => tile(`deity-${d.id}`, d.name, '', mantras.filter(m => collectionFor(m).deityId === d.id), d.id)).join('')}</div>
+</div>
+<div class="collection-panel" id="collection-festivals" role="tabpanel" aria-labelledby="browse-festivals" tabindex="0">
+<p class="collection-note">January to December. Months are approximate; lunar dates and regional observances vary.</p>
+<ol class="collection-grid festival-grid">${[...FESTIVALS].sort((a,b) => a.month-b.month).map(f => `<li>${tile(`festival-${f.id}`, f.name, f.season, mantras.filter(m => f.deities.includes(collectionFor(m).deityId)), f.deities[0])}</li>`).join('')}</ol>
+<p class="source-note">Calendar references: <a href="https://panchangdaily.com/festivals/">festival month guide</a>, <a href="https://www.drikpanchang.com/calendars/hindu/hinducalendar.html">Drik Panchang</a>, and <a href="https://kurukshetra.gov.in/jyotisarevents/">Gita Jayanti in Kurukshetra</a>. Check your local panchang for this year’s dates.</p>
+</div>
+<div class="collection-panel" id="collection-intentions" role="tabpanel" aria-labelledby="browse-intentions" tabindex="0">
+<p class="collection-note">Choose an intention for your practice.</p>
+<div class="collection-grid">${INTENTIONS.map(i => tile(`intention-${i.id}`, i.name, '', mantras.filter(m => collectionFor(m).intentions.includes(i.id)), intentionArt[i.id])).join('')}</div>
+</div></section>`;
+}
+
+const panes = (lines, meaning, prefix = 'verse') => LANGS.map(([k]) => `<div class="pane" id="${prefix}-${k}" role="tabpanel" aria-labelledby="tab-${k}" tabindex="0" data-lang="${k}"><div class="verse">${lines.map((l) => `<div class="verse-row"><p${k === 'sa' ? ' lang="sa"' : ''}>${l[k]}</p><span class="line-meaning" lang="en">${esc(l.englishMeaning)}</span></div>`).join('')}</div><div class="meaning"><h3>${MEANING_LABEL[k]}</h3><p${k === 'sa' ? ' lang="hi"' : ''}>${meaning[k]}</p></div></div>`).join('');
 
 function mantraPage(m) {
   const up = '../';
-  const next = mantras.filter((x) => x !== m);
+  const next = [...mantras.filter(x => x !== m && collectionFor(x).deityId === collectionFor(m).deityId), ...mantras.filter(x => collectionFor(x).deityId !== collectionFor(m).deityId)].slice(0, 3);
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'Article', headline: m.title, description: m.desc, image: `${SITE.url}/art/${m.art}_web.webp`, inLanguage: ['en', 'hi', 'sa'], mainEntityOfPage: `${SITE.url}/${m.slug}/` },
+    { '@context': 'https://schema.org', '@type': 'Article', headline: m.title, description: m.desc, ...(m.art ? { image: `${SITE.url}/art/${m.art}_web.webp` } : {}), inLanguage: ['en', 'hi', 'sa'], mainEntityOfPage: `${SITE.url}/${m.slug}/` },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: m.faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
     { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' }, { '@type': 'ListItem', position: 2, name: m.short, item: `${SITE.url}/${m.slug}/` }] },
   ];
@@ -74,6 +102,7 @@ ${artwork(m.art, m.imgAlt, up, true)}
 ${panes(m.lines, m.meaning)}
 ${m.bonus ? `<div class="bonus"><h3>${m.bonus.label}</h3>${panes(m.bonus.lines, m.bonus.meaning, 'bonus')}<p class="source-note">A short invocation containing Saraswati’s seed syllable, aiṃ. <a href="${m.bonus.sourceUrl}" target="_blank" rel="noopener noreferrer">View source</a>.</p></div>` : ''}
 <p class="source-note">${m.sourceNote} <a href="${m.sourceUrl}" target="_blank" rel="noopener noreferrer">View source</a>.</p>
+${m.additionalSource ? `<p class="source-note">${m.additionalSource.note} <a href="${m.additionalSource.url}" target="_blank" rel="noopener noreferrer">View PDF page</a>.</p>` : ''}
 </section>
 </div>
 <section class="mala" aria-label="Chant counter">
@@ -89,15 +118,18 @@ ${m.bonus ? `<div class="bonus"><h3>${m.bonus.label}</h3>${panes(m.bonus.lines, 
 </div>
 </div>
 </section>
+<div class="information-scene">
+<div class="information-art" aria-hidden="true">${artwork(m.art, '', up)}</div>
 <div class="wrap information">
 <section id="about"><h2>About the ${m.short}</h2><p>${m.intro}</p>
 <p class="small"><b>Best time to chant:</b> ${m.bestTime}</p>
 <p><a class="btn ghost sm" id="wa" href="https://wa.me/?text=${encodeURIComponent(`${m.short} – ${SITE.url}/${m.slug}/`)}">Share on WhatsApp</a></p></section>
 
-<section><h2>Benefits of the ${m.short}</h2><ul class="ticks">${m.benefits.map((b) => `<li>${b}</li>`).join('')}</ul></section>
+<section><h2>${m.page ? 'In your practice' : `Benefits of the ${m.short}`}</h2><ul class="ticks">${m.benefits.map((b) => `<li>${b}</li>`).join('')}</ul></section>
 <section><h2>How to chant the ${m.short}</h2><ol class="steps">${m.howTo.map((b) => `<li>${b}</li>`).join('')}</ol></section>
 <section><h2>Frequently asked questions</h2>${m.faqs.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</section>
 <section class="related"><h2>Continue your practice</h2><div class="mini">${next.map((x) => card(x, up)).join('')}</div></section>
+</div>
 </div>
 </main>
 ${footer(up)}
@@ -107,7 +139,7 @@ ${footer(up)}
 function homePage() {
   const ld = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url + '/', description: SITE.tagline, inLanguage: ['en', 'hi'] },
     { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: mantras.map((m, i) => ({ '@type': 'ListItem', position: i + 1, name: m.short, url: `${SITE.url}/${m.slug}/` })) }];
-  return `${head({ title: `Hindu Mantras: Gayatri, Mahamrityunjay, Krishna & Saraswati Mantra | ${SITE.name}`, desc: `${SITE.tagline}. Gayatri Mantra, Mahamrityunjay Mantra, Om Krishnaya Vasudevaya Haraye Paramatmane and Saraswati Mantra with meaning and audio.`, path: '', depth: 0, img: 'ganesha', extra: `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n` })}
+  return `${head({ title: `Hindu Mantras by Deity, Festival & Intention | ${SITE.name}`, desc: `Explore prayers to Durga, Shiva, Ganesh, Saraswati, Krishna, Lakshmi, Hanuman and Gayatri. Browse by deity, festivals through the year, or intentions such as wisdom and courage.`, path: '', depth: 0, img: 'ganesha', extra: `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n` })}
 <body class="home">
 ${header('')}
 <main id="main">
@@ -121,9 +153,7 @@ ${artwork('ganesha', 'Lord Ganesha seated in warm golden light beside a lotus po
 
 <div class="wrap wide">
 <a class="card cont" id="cont" href="#" hidden><div><span class="small">Continue where you left off</span><br><b>Gayatri Mantra</b><br><span class="small"></span></div><span class="btn sm">Continue</span></a>
-<section id="mantras"><div class="section-heading"><div><h2>Choose your mantra</h2><p>Begin with the prayer you feel drawn to.</p></div><span class="small">Sanskrit · Transliteration · Hinglish</span></div>
-<div class="grid">${mantras.map((m) => card(m, '', false)).join('')}</div>
-<script type="application/json" id="picks">${JSON.stringify(WEEK_PICKS)}</script></section>
+<div id="mantras">${collectionBrowser()}</div>
 
 <section class="practice-note"><h2>Make room for a daily practice.</h2><div><p>Choose the script that feels familiar. Read slowly, with attention to each word. Begin with a few repetitions, or follow the 108-bead counter for a full mala.</p><p class="small">No account needed. Your progress is remembered in this browser.</p></div></section>
 </div>
@@ -152,7 +182,7 @@ write(`${OUT}/_headers`, ['/css/*', '/js/*'].map((p) => `${p}
 write(`${OUT}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['', ...mantras.map((m) => `${m.slug}/`)].map((p) => `<url><loc>${SITE.url}/${p}</loc></url>`).join('\n')}\n</urlset>\n`);
 write(`${OUT}/robots.txt`, `User-agent: *\nAllow: /\nSitemap: ${SITE.url}/sitemap.xml\n`);
 
-const missing = ['ganesha', ...mantras.map((m) => m.art)].flatMap((n) => ['web', 'mob'].map((v) => `${n}_${v}`)).filter((n) => !existsSync(`${OUT}/art/${n}.webp`));
+const missing = [...new Set(['ganesha', ...mantras.map((m) => m.art).filter(Boolean)])].flatMap((n) => ['web', 'mob'].map((v) => `${n}_${v}`)).filter((n) => !existsSync(`${OUT}/art/${n}.webp`));
 const noAudio = mantras.filter((m) => !existsSync(`${OUT}/audio/${m.audio}`)).map((m) => m.audio);
 console.log(`Built ${mantras.length + 1} pages in ./${OUT} (SITE_URL=${SITE.url})`);
 if (missing.length) throw new Error('Missing artwork: ' + missing.join(', '));

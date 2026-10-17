@@ -1,4 +1,5 @@
 // All mantra content lives here. To add a mantra, add an object and run `node build.mjs`.
+import { PDF_MANTRAS, PDF_URL } from './pdf-mantras.mjs';
 export const SITE = {
   name: 'Mantra Mandir',
   url: process.env.SITE_URL || 'https://example.com', // set SITE_URL when building for production
@@ -16,7 +17,7 @@ export const WEEK_PICKS = [
   'mahamrityunjay-mantra',
 ];
 
-export const COMING_SOON = ['Ganesh Mantra', 'Hanuman Chalisa', 'Lakshmi Mantra', 'Durga Mantra', 'Shiv Panchakshari'];
+export const COMING_SOON = ['Hanuman Chalisa', 'Shiv Panchakshari'];
 
 export const mantras = [
   {
@@ -34,10 +35,10 @@ export const mantras = [
     theme: { bg: '#100e0c', bg2: '#382518', accent: '#ef9b36', accent2: '#b98a45', text: '#eee4d0', glow: 'transparent' },
     imgAlt: 'Radiant golden sunrise with the divine Gayatri in glowing light',
     lines: [
-      { sa: 'ॐ भूर्भुवः स्वः', en: 'Oṃ bhūr bhuvaḥ svaḥ', hi: 'Om bhoor bhuvah svah' },
-      { sa: 'तत्सवितुर्वरेण्यं', en: 'Tat savitur vareṇyaṃ', hi: 'Tat savitur varenyam' },
-      { sa: 'भर्गो देवस्य धीमहि ।', en: 'Bhargo devasya dhīmahi', hi: 'Bhargo devasya dheemahi' },
-      { sa: 'धियो यो नः प्रचोदयात् ॥', en: 'Dhiyo yo naḥ pracodayāt', hi: 'Dhiyo yo nah prachodayaat' },
+      { sa: 'ॐ भूर्भुवः स्वः', en: 'Oṃ bhūr bhuvaḥ svaḥ', hi: 'Om bhoor bhuvah svah', englishMeaning: "Om. Earth, atmosphere and heaven." },
+      { sa: 'तत्सवितुर्वरेण्यं', en: 'Tat savitur vareṇyaṃ', hi: 'Tat savitur varenyam', englishMeaning: "That worshipful radiance of Savitr," },
+      { sa: 'भर्गो देवस्य धीमहि ।', en: 'Bhargo devasya dhīmahi', hi: 'Bhargo devasya dheemahi', englishMeaning: "the divine light on which we meditate;" },
+      { sa: 'धियो यो नः प्रचोदयात् ॥', en: 'Dhiyo yo naḥ pracodayāt', hi: 'Dhiyo yo nah prachodayaat', englishMeaning: "may he inspire our understanding." },
     ],
     meaning: {
       sa: 'ॐ। पृथ्वी, अन्तरिक्ष और स्वर्ग। हम सविता देव के वरण करने योग्य दिव्य तेज का ध्यान करते हैं। वे हमारी बुद्धियों को प्रेरित करें।',
@@ -83,10 +84,10 @@ export const mantras = [
     theme: { bg: '#10162f', bg2: '#26334a', accent: '#bed9e8', accent2: '#d4773d', text: '#e8edf0', glow: 'transparent' },
     imgAlt: 'Lord Shiva meditating under a crescent moon in a misty night sky',
     lines: [
-      { sa: 'ॐ त्र्यम्बकं यजामहे', en: 'Oṃ tryambakaṃ yajāmahe', hi: 'Om tryambakam yajaamahe' },
-      { sa: 'सुगन्धिं पुष्टिवर्धनम् ।', en: 'Sugandhiṃ puṣṭivardhanam', hi: 'Sugandhim pushti-vardhanam' },
-      { sa: 'उर्वारुकमिव बन्धनान्', en: 'Urvārukam iva bandhanān', hi: 'Urvaarukam iva bandhanaan' },
-      { sa: 'मृत्योर्मुक्षीय मामृतात् ॥', en: 'Mṛtyor mukṣīya māmṛtāt', hi: 'Mrityor muksheeya maamritaat' },
+      { sa: 'ॐ त्र्यम्बकं यजामहे', en: 'Oṃ tryambakaṃ yajāmahe', hi: 'Om tryambakam yajaamahe', englishMeaning: "Om. We worship the three-eyed Lord." },
+      { sa: 'सुगन्धिं पुष्टिवर्धनम् ।', en: 'Sugandhiṃ puṣṭivardhanam', hi: 'Sugandhim pushti-vardhanam', englishMeaning: "The fragrant one, who nourishes and sustains." },
+      { sa: 'उर्वारुकमिव बन्धनान्', en: 'Urvārukam iva bandhanān', hi: 'Urvaarukam iva bandhanaan', englishMeaning: "As a ripe cucumber is freed from its vine," },
+      { sa: 'मृत्योर्मुक्षीय मामृतात् ॥', en: 'Mṛtyor mukṣīya māmṛtāt', hi: 'Mrityor muksheeya maamritaat', englishMeaning: "may I be freed from death, but not from immortality." },
     ],
     meaning: {
       sa: 'हम तीन नेत्रों वाले भगवान शिव की पूजा करते हैं, जो सुगंधित हैं और सबका पोषण करने वाले हैं। जैसे पका हुआ खरबूज़ा बेल से अपने आप अलग हो जाता है, वैसे ही हमें मृत्यु के बंधन से मुक्त करें और अमृत (मोक्ष) से दूर न करें।',
@@ -133,10 +134,10 @@ export const mantras = [
     theme: { bg: '#101e38', bg2: '#263c55', accent: '#d8ad58', accent2: '#628cb5', text: '#eee4d0', glow: 'transparent' },
     imgAlt: 'Lord Krishna playing the flute beside a moonlit river, wearing golden-yellow silk',
     lines: [
-      { sa: 'ॐ कृष्णाय वासुदेवाय', en: 'Oṃ kṛṣṇāya vāsudevāya', hi: 'Om Krishnaaya Vaasudevaaya' },
-      { sa: 'हरये परमात्मने ।', en: 'Haraye paramātmane', hi: 'Haraye paramaatmane' },
-      { sa: 'प्रणतक्लेशनाशाय', en: 'Praṇata-kleśa-nāśāya', hi: 'Pranata-klesha-naashaaya' },
-      { sa: 'गोविन्दाय नमो नमः ॥', en: 'Govindāya namo namaḥ', hi: 'Govindaaya namo namah' },
+      { sa: 'ॐ कृष्णाय वासुदेवाय', en: 'Oṃ kṛṣṇāya vāsudevāya', hi: 'Om Krishnaaya Vaasudevaaya', englishMeaning: "Om. To Krishna, the son of Vasudeva," },
+      { sa: 'हरये परमात्मने ।', en: 'Haraye paramātmane', hi: 'Haraye paramaatmane', englishMeaning: "to Hari, the Supreme Self," },
+      { sa: 'प्रणतक्लेशनाशाय', en: 'Praṇata-kleśa-nāśāya', hi: 'Pranata-klesha-naashaaya', englishMeaning: "who removes the suffering of those who bow to him;" },
+      { sa: 'गोविन्दाय नमो नमः ॥', en: 'Govindāya namo namaḥ', hi: 'Govindaaya namo namah', englishMeaning: "to Govinda, I bow again and again." },
     ],
     meaning: {
       sa: 'वसुदेव-पुत्र श्रीकृष्ण, हरि, परमात्मा को नमस्कार है, जो शरण में आए हुए भक्तों के क्लेश नष्ट करने वाले हैं। उन गोविन्द को बारंबार नमन है।',
@@ -182,10 +183,10 @@ export const mantras = [
     theme: { bg: '#103a3c', bg2: '#224e4d', accent: '#eee4d0', accent2: '#c18e7c', text: '#f0eadd', glow: 'transparent' },
     imgAlt: 'Goddess Saraswati in white on a lotus with a veena and swan in a serene teal glow',
     lines: [
-      { sa: 'या कुन्देन्दुतुषारहारधवला या शुभ्रवस्त्रावृता', en: 'Yā kundendu-tuṣāra-hāra-dhavalā yā śubhra-vastrāvṛtā', hi: 'Yaa kundendu-tushaara-haara-dhavalaa yaa shubhra-vastraavritaa' },
-      { sa: 'या वीणावरदण्डमण्डितकरा या श्वेतपद्मासना ।', en: 'Yā vīṇā-vara-daṇḍa-maṇḍita-karā yā śveta-padmāsanā', hi: 'Yaa veenaa-vara-danda-mandita-karaa yaa shveta-padmaasanaa' },
-      { sa: 'या ब्रह्माच्युतशङ्करप्रभृतिभिर्देवैः सदा पूजिता', en: 'Yā brahmācyuta-śaṅkara-prabhṛtibhir devaiḥ sadā pūjitā', hi: 'Yaa brahmaachyuta-shankara-prabhritibhir devaih sadaa poojitaa' },
-      { sa: 'सा मां पातु सरस्वती भगवती निःशेषजाड्यापहा ॥', en: 'Sā māṃ pātu sarasvatī bhagavatī niḥśeṣa-jāḍyāpahā', hi: 'Saa maam paatu sarasvatee bhagavatee nihshesha-jaadyaapahaa' },
+      { sa: 'या कुन्देन्दुतुषारहारधवला या शुभ्रवस्त्रावृता', en: 'Yā kundendu-tuṣāra-hāra-dhavalā yā śubhra-vastrāvṛtā', hi: 'Yaa kundendu-tushaara-haara-dhavalaa yaa shubhra-vastraavritaa', englishMeaning: "She who is white as jasmine, the moon and a garland of snow, clothed in pure white;" },
+      { sa: 'या वीणावरदण्डमण्डितकरा या श्वेतपद्मासना ।', en: 'Yā vīṇā-vara-daṇḍa-maṇḍita-karā yā śveta-padmāsanā', hi: 'Yaa veenaa-vara-danda-mandita-karaa yaa shveta-padmaasanaa', englishMeaning: "whose hands hold the beautiful neck of the veena, who sits on a white lotus;" },
+      { sa: 'या ब्रह्माच्युतशङ्करप्रभृतिभिर्देवैः सदा पूजिता', en: 'Yā brahmācyuta-śaṅkara-prabhṛtibhir devaiḥ sadā pūjitā', hi: 'Yaa brahmaachyuta-shankara-prabhritibhir devaih sadaa poojitaa', englishMeaning: "who is always worshipped by Brahma, Vishnu, Shiva and the other gods;" },
+      { sa: 'सा मां पातु सरस्वती भगवती निःशेषजाड्यापहा ॥', en: 'Sā māṃ pātu sarasvatī bhagavatī niḥśeṣa-jāḍyāpahā', hi: 'Saa maam paatu sarasvatee bhagavatee nihshesha-jaadyaapahaa', englishMeaning: "may that Goddess Saraswati, who dispels all dullness, protect me." },
     ],
     meaning: {
       sa: 'जो कुन्द के फूल, चन्द्रमा और हिम के हार के समान श्वेत हैं, शुभ्र वस्त्र धारण करती हैं, जिनके हाथ सुन्दर वीणा के दण्ड से सुशोभित हैं, जो श्वेत कमल पर विराजमान हैं और ब्रह्मा, विष्णु, शिव आदि देवताओं द्वारा सदा पूजित हैं, वे समस्त जड़ता को दूर करने वाली भगवती सरस्वती मेरी रक्षा करें।',
@@ -195,7 +196,7 @@ export const mantras = [
     bonus: {
       label: 'Short Saraswati mantra',
       sourceUrl: 'https://www.drikpanchang.com/vedic-mantra/goddesses/saraswati/mantra/saraswati-moola-mantra.html?lang=en',
-      lines: [{ sa: 'ॐ ऐं सरस्वत्यै नमः ॥', en: 'Oṃ aiṃ sarasvatyai namaḥ', hi: 'Om aim Sarasvatyai namah' }],
+      lines: [{ sa: 'ॐ ऐं सरस्वत्यै नमः ॥', en: 'Oṃ aiṃ sarasvatyai namaḥ', hi: 'Om aim Sarasvatyai namah', englishMeaning: "Om, aim. Salutations to Goddess Saraswati." }],
       meaning: {
         sa: 'देवी सरस्वती को नमस्कार। “ऐं” उनका बीज मंत्र है, जो ज्ञान और वाणी से जुड़ा है।',
         en: 'Salutations to Goddess Saraswati. “Aim” is her seed (beej) syllable, associated with knowledge and speech.',
@@ -227,3 +228,52 @@ export const mantras = [
     audio: 'saraswati-mantra.mp3',
   },
 ];
+
+// Preserve the existing URLs and their normalized readings; add the book as a
+// corroborating source rather than duplicating Gayatri and Saraswati Vandana.
+for (const [slug, page, note] of [
+  ['gayatri-mantra', 11, 'The same prayer appears under Gaayatrii mantra in Collection of Mantras, PDF page 11. The site retains its normalized Sanskrit spelling.'],
+  ['saraswati-mantra', 4, 'Also in Collection of Mantras, PDF page 4. The PDF reads śubhravastrānvitā; this page retains the common śubhravastrāvṛtā version.'],
+]) {
+  const mantra = mantras.find(m => m.slug === slug);
+  mantra.additionalSource = { url: `${PDF_URL}#page=${page}`, note };
+}
+
+const profiles = {
+  shiva: { name: 'Lord Shiva', art: 'shiv', theme: mantras[1].theme, imgAlt: mantras[1].imgAlt },
+  saraswati: { name: 'Goddess Saraswati', art: 'saraswati', theme: mantras[3].theme, imgAlt: mantras[3].imgAlt },
+  krishna: { name: 'Lord Krishna', art: 'krishna', theme: mantras[2].theme, imgAlt: mantras[2].imgAlt },
+  ganesh: { name: 'Lord Ganesh', art: 'ganesha', theme: { bg: '#19100e', bg2: '#402b24', accent: '#d9b27c', accent2: '#bb8e7c', text: '#eee4d0', glow: 'transparent' }, imgAlt: 'Lord Ganesha seated beside a lotus pond in warm golden light' },
+  durga: { name: 'Goddess Durga', art: null, theme: { bg: '#241015', bg2: '#612633', accent: '#e4b875', accent2: '#cb7966', text: '#f5e7d8', glow: 'transparent' } },
+  lakshmi: { name: 'Goddess Lakshmi', art: null, theme: { bg: '#28171f', bg2: '#613949', accent: '#e8c58a', accent2: '#cc9694', text: '#f5e7dc', glow: 'transparent' } },
+  hanuman: { name: 'Lord Hanuman', art: null, theme: { bg: '#23130e', bg2: '#60331c', accent: '#e8b875', accent2: '#db8450', text: '#f5e6d6', glow: 'transparent' } },
+};
+
+const simpleRoman = text => text.replace(/ā/g, 'aa').replace(/ī/g, 'ee').replace(/ū/g, 'oo')
+  .replace(/[śṣ]/g, 'sh').replace(/Ś/g, 'Sh').replace(/ṛ/g, 'ri')
+  .replace(/[ṅñṇ]/g, 'n').replace(/ṭ/g, 't').replace(/ḍ/g, 'd')
+  .replace(/ṃ/g, 'm').replace(/ḥ/g, 'h').replace(/c/g, 'ch');
+
+for (const entry of PDF_MANTRAS) {
+  const profile = profiles[entry.deityId];
+  const lines = entry.lines.map(([sa, en, englishMeaning]) => ({ sa, en, hi: simpleRoman(en), englishMeaning }));
+  mantras.push({
+    ...entry, ...profile, deity: profile.name, h1: entry.short,
+    title: `${entry.short} – Sanskrit, Meaning & Chanting | ${SITE.name}`,
+    desc: `Read ${entry.short} for ${profile.name} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
+    cardLine: entry.intentions.includes('strength') ? 'Strength & courage' : entry.intentions.includes('prosperity') ? 'Prosperity & devotion' : entry.intentions.includes('learning') ? 'Wisdom & learning' : entry.intentions.includes('beginnings') ? 'New beginnings' : 'Devotion & peace',
+    imgAlt: profile.imgAlt || '',
+    lines,
+    meaning: { sa: entry.meaningHi, en: lines.map(l => l.englishMeaning).join(' '), hi: entry.meaningHinglish },
+    sourceUrl: `${PDF_URL}#page=${entry.page}`,
+    sourceNote: `Collection of Mantras, PDF page ${entry.page}, ${entry.section}. ${entry.note} English meanings are paraphrases; punctuation and Devanagari spelling are normalized.`,
+    benefits: [entry.tagline, 'Repeated recitation can be used as a practice of attention and devotion.'],
+    howTo: ['Read each line together with its meaning before beginning.', 'Recite the complete prayer slowly, following the script you prefer.', 'Use the counter after each complete recitation. Choose a comfortable number of repetitions.'],
+    bestTime: 'Any quiet moment you can set aside for attentive prayer. Browse the festival collection for associated occasions.',
+    faqs: [
+      [`Where is ${entry.short} found in this collection?`, `It appears on PDF page ${entry.page} under ${entry.section}. ${entry.note}`],
+      ['What does one count represent?', 'One count represents one complete recitation of the prayer displayed on this page. You can choose a short practice or count 108 repetitions.'],
+    ],
+    audio: `${entry.slug}.mp3`,
+  });
+}

@@ -53,6 +53,39 @@
   }
 
   /* ---------- mantra page ---------- */
+  var browseTabs = $$('[data-browse]');
+  function browse(id, focus) {
+    if (!browseTabs.some(function (t) { return t.dataset.browse === id; })) return;
+    browseTabs.forEach(function (t) {
+      var active = t.dataset.browse === id;
+      t.setAttribute('aria-selected', active); t.tabIndex = active ? 0 : -1;
+      if (active && focus) t.focus();
+    });
+    $$('.collection-panel').forEach(function (p) { p.classList.toggle('on', p.id === 'collection-' + id); });
+  }
+  browseTabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { browse(t.dataset.browse); });
+    t.addEventListener('keydown', function (e) {
+      var index = e.key === 'ArrowRight' ? (i + 1) % browseTabs.length : e.key === 'ArrowLeft' ? (i + browseTabs.length - 1) % browseTabs.length : e.key === 'Home' ? 0 : e.key === 'End' ? browseTabs.length - 1 : -1;
+      if (index < 0) return;
+      e.preventDefault(); browse(browseTabs[index].dataset.browse, true);
+    });
+  });
+  function revealCollectionHash() {
+    var view = location.hash.indexOf('#deity-') === 0 ? 'deities' : location.hash.indexOf('#festival-') === 0 ? 'festivals' : location.hash.indexOf('#intention-') === 0 ? 'intentions' : null;
+    if (view) {
+      browse(view);
+      var target = document.getElementById(location.hash.slice(1));
+      if (target) { target.open = true; target.scrollIntoView(); }
+    }
+  }
+  $$('.collection-tile').forEach(function (tile) {
+    tile.addEventListener('toggle', function () {
+      if (!tile.open) return;
+      $$('.collection-tile', tile.closest('.collection-panel')).forEach(function (other) { if (other !== tile) other.open = false; });
+    });
+  });
+  if (browseTabs.length) { revealCollectionHash(); window.addEventListener('hashchange', revealCollectionHash); }
   if (!slug) return;
   S.lastSlug = slug; S.lastName = body.dataset.name; save();
 
