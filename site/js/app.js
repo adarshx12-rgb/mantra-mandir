@@ -15,6 +15,28 @@
     clearTimeout(toast.h); toast.h = setTimeout(function () { t.classList.remove('show'); }, 2200);
   }
 
+  // Cookie consent: Google Analytics loads only after Accept (window.mmAnalytics in the page head).
+  var consent = $('#consent'), choice = null;
+  try { choice = localStorage.getItem('mmconsent'); } catch (e) {}
+  function openConsent() { if (consent) { consent.hidden = false; $('[data-consent="granted"]', consent).focus(); } }
+  if (consent && !choice) consent.hidden = false;
+  $$('[data-consent]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = b.dataset.consent;
+      try { localStorage.setItem('mmconsent', v); } catch (e) {}
+      consent.hidden = true;
+      if (v === 'granted') { if (window.mmAnalytics) window.mmAnalytics(); return; }
+      if (window.gtag) window.gtag('consent', 'update', { analytics_storage: 'denied' });
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n.indexOf('_ga') === 0) ['', '; domain=.' + location.hostname, '; domain=' + location.hostname].forEach(function (d) {
+          document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+        });
+      });
+    });
+  });
+  $$('[data-consent-open]').forEach(function (b) { b.addEventListener('click', openConsent); });
+
   function showStreak() {
     var e = $('#streak'); if (!e) return;
     var alive = S.last === ymd(new Date()) || S.last === yest();
@@ -32,6 +54,14 @@
 
   showStreak();
 
+  var siteMenu = $('.site-menu');
+  if (siteMenu) {
+    document.addEventListener('click', function (e) { if (!siteMenu.contains(e.target)) siteMenu.open = false; });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && siteMenu.open) { siteMenu.open = false; $('summary', siteMenu).focus(); }
+    });
+  }
+
   /* ---------- home ---------- */
   var greet = $('#greet');
   if (greet) {
@@ -46,10 +76,17 @@
   }
   var cont = $('#cont');
   if (cont && S.lastSlug) {
-    cont.href = S.lastSlug + '/';
+    $('#resume-link').href = S.lastSlug + '/';
     $('b', cont).textContent = S.lastName;
-    $$('div > span', cont)[1].textContent = (S.counts[S.lastSlug] || 0) + ' of 108 chants saved';
+    $('#resume-count').textContent = (S.counts[S.lastSlug] || 0) + ' of 108 chants saved';
     cont.hidden = false;
+    $('#clear-practice').addEventListener('click', function () {
+      delete S.counts[S.lastSlug]; delete S.malas[S.lastSlug];
+      delete S.lastSlug; delete S.lastName;
+      save(); cont.hidden = true;
+      var firstTab = $('[data-browse]'); if (firstTab) firstTab.focus();
+      toast('Saved count and malas cleared for this prayer.');
+    });
   }
 
   /* ---------- mantra page ---------- */
@@ -158,37 +195,6 @@
   }
   $('#chant').addEventListener('click', chant);
   $('#reset').addEventListener('click', function () { clearTimeout(completionTimer); S.counts[slug] = 0; save(); paint(0); $('#done').textContent = ''; });
-
-  // audio, with a text-to-speech fallback until an mp3 is added
-  var player = $('.player'), btn = $('#play'), bar = $('.bar'), fill = $('.bar i'), note = $('#anote'), loopBtn = $('#loop');
-  var audio = new Audio(); audio.preload = 'none'; audio.src = player.dataset.src;
-  var playing = false, tts = false, loop = false, spokenText = $('#speak').textContent;
-  function ui(on) { playing = on; player.classList.toggle('on', on); btn.textContent = on ? '❚❚' : '▶'; btn.setAttribute('aria-label', on ? 'Pause' : 'Play'); }
-  function finished() { chant(); toast('Chant counted'); if (loop) start(); else ui(false); }
-  function speak() {
-    if (!('speechSynthesis' in window)) { note.textContent = 'Audio is not available yet.'; ui(false); return; }
-    tts = true; bar.classList.add('indet'); note.textContent = 'Voice preview. Real recording coming soon.';
-    var u = new SpeechSynthesisUtterance(spokenText); u.lang = 'hi-IN'; u.rate = .7;
-    var v = speechSynthesis.getVoices().filter(function (x) { return /^hi/i.test(x.lang); })[0]; if (v) u.voice = v;
-    u.onend = function () { if (playing) finished(); };
-    u.onerror = function () { ui(false); bar.classList.remove('indet'); };
-    speechSynthesis.cancel(); speechSynthesis.speak(u); ui(true);
-  }
-  function start() {
-    if (tts) return speak();
-    var p = audio.play();
-    ui(true);
-    if (p && p.catch) p.catch(function () { speak(); });
-  }
-  function stop() {
-    if (tts) { speechSynthesis.cancel(); bar.classList.remove('indet'); } else audio.pause();
-    ui(false);
-  }
-  btn.addEventListener('click', function () { playing ? stop() : start(); });
-  audio.addEventListener('ended', finished);
-  audio.addEventListener('timeupdate', function () { if (audio.duration) fill.style.width = (audio.currentTime / audio.duration * 100) + '%'; });
-  audio.addEventListener('error', function () { if (playing) speak(); });
-  loopBtn.addEventListener('click', function () { loop = !loop; loopBtn.setAttribute('aria-pressed', loop); });
 
   // share
   var wa = $('#wa'); if (wa) wa.href = 'https://wa.me/?text=' + encodeURIComponent(body.dataset.name + ' – chant & read: ' + location.href);

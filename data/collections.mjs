@@ -14,7 +14,7 @@ export const DEITIES = [
   { id: 'kali', name: 'Kali' },
   { id: 'ayyappa', name: 'Ayyappa' },
   { id: 'murugan', name: 'Murugan' },
-];
+].sort((a, b) => a.name.localeCompare(b.name, 'en'));
 
 export const INTENTIONS = [
   { id: 'strength', name: 'Strength & courage', description: 'Prayers for steadiness when life feels difficult.' },
@@ -23,6 +23,13 @@ export const INTENTIONS = [
   { id: 'devotion', name: 'Devotion & gratitude', description: 'Express reverence, surrender and thankfulness.' },
   { id: 'beginnings', name: 'New beginnings', description: 'Begin a task or a new chapter with a prayer.' },
   { id: 'prosperity', name: 'Prosperity & abundance', description: 'Prayers for well-being, generosity and a flourishing home.' },
+  { id: 'nourishment', name: 'Food & nourishment', description: 'Prayers for daily nourishment and gratitude for food.' },
+  { id: 'wellbeing', name: 'Health & well-being', description: 'Devotional support and comfort during illness and recovery.' },
+  { id: 'confidence', name: 'Confidence & clear speech', description: 'Prayers for courage, confidence and thoughtful expression.' },
+  { id: 'exams', name: 'Study & exams', description: 'Begin study and exam preparation with focus and devotion.' },
+  { id: 'protection', name: 'Protection & reassurance', description: 'Prayers for reassurance when facing uncertainty or danger.' },
+  { id: 'sleep', name: 'Restful sleep', description: 'Close the day with quiet remembrance and a bedtime prayer.' },
+  { id: 'marriage', name: 'Marriage & companionship', description: 'Prayers for a loving partnership grounded in mutual respect.' },
 ];
 
 // Prayers listed first, in this order, for both Navratris; the deities' other prayers follow.

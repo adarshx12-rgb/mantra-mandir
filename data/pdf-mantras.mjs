@@ -116,7 +116,7 @@ export const PDF_MANTRAS = [
   },
   {
     slug: 'hanuman-buddhir-balam', short: 'Buddhir Balam', deityId: 'hanuman', page: 25,
-    section: 'Shri Hanumat Stotram, verse 8', intentions: ['strength', 'learning', 'peace'],
+    section: 'Shri Hanumat Stotram, verse 8', intentions: ['confidence', 'wellbeing', 'strength', 'learning', 'peace'],
     tagline: 'Remember Hanuman with a prayer for wisdom and courage.',
     intro: 'The concluding verse of Shri Hanumat Stotram names qualities traditionally associated with remembering Hanuman: wisdom, strength, courage, fearlessness, alertness and clear speech. Its reference to health is a devotional belief, not medical guidance.',
     note: 'Verse 8 only, selected from Shri Hanumat Stotram; not the full hymn. Its stated benefits are traditional devotional claims.',

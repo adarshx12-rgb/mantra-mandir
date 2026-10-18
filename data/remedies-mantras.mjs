@@ -5,7 +5,7 @@
 export const REMEDIES_BOOK = 'Infallible Vedic Remedies (Mantras for Common Problems), Swami Shantananda Puri, enlarged edition 2008';
 export const REMEDIES_MANTRAS = [
   {
-    section: 1, page: 33, slug: 'annapurna-mantra', short: 'Annapurna Mantra', deityId: 'annapurna', intentions: ['prosperity', 'devotion'],
+    section: 1, page: 33, slug: 'annapurna-mantra', short: 'Annapurna Mantra', deityId: 'annapurna', intentions: ['nourishment', 'prosperity', 'devotion'],
     tagline: 'A prayer to Annapurna for nourishment and gratitude.',
     intro: 'This invocation addresses Annapurna, the nourishing form of the Goddess, and asks for food. It can accompany gratitude for a meal and reflection on sharing food with others.',
     note: 'The book gives this seed-syllable form. The syllables aim, hrim, sauh, shrim and klim are sacred sounds rather than ordinary words.',
@@ -18,7 +18,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 2, page: 35, slug: 'dhanvantari-mantra', short: 'Dhanvantari Mantra', deityId: 'vishnu', deityName: 'Lord Dhanvantari · Vishnu', intentions: ['peace', 'devotion', 'strength'],
+    section: 2, page: 35, slug: 'dhanvantari-mantra', short: 'Dhanvantari Mantra', deityId: 'vishnu', deityName: 'Lord Dhanvantari · Vishnu', intentions: ['wellbeing', 'peace', 'devotion', 'strength'],
     tagline: 'An invocation to Dhanvantari for well-being and compassionate care.',
     intro: 'Dhanvantari is revered as the divine physician and a form of Vishnu. This prayer describes him holding the pot of nectar and offers reverence to him as Lord of the three worlds. It may be recited for comfort during illness alongside appropriate healthcare.',
     note: 'The book prints this version without Vasudevaya and notes that some versions add it after Bhagavate. Devotional language about illness expresses a prayer, not a medical promise.',
@@ -32,7 +32,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 4, page: 39, slug: 'achyuta-ananta-govinda', short: 'Achyuta Ananta Govinda', deityId: 'vishnu', intentions: ['peace', 'devotion'],
+    section: 4, page: 39, slug: 'achyuta-ananta-govinda', short: 'Achyuta Ananta Govinda', deityId: 'vishnu', intentions: ['wellbeing', 'peace', 'devotion'],
     tagline: 'Three salutations to the unfailing, infinite Lord.',
     intro: 'These three name mantras invoke Vishnu as Achyuta, Ananta and Govinda. The book places them in the context of achamana, a ritual of purification. They can also be read together as a brief expression of reverence.',
     note: 'The three invocations printed in entry 4. The preceding prose includes a traditional verse praising remembrance of these names; the chanting text here is the three-name mantra itself.',
@@ -45,7 +45,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 12, page: 57, slug: 'hayagriva-jnananandamayam', short: 'Hayagriva Jnananandamayam', deityId: 'vishnu', deityName: 'Lord Hayagriva · Vishnu', intentions: ['learning', 'devotion'],
+    section: 12, page: 57, slug: 'hayagriva-jnananandamayam', short: 'Hayagriva Jnananandamayam', deityId: 'vishnu', deityName: 'Lord Hayagriva · Vishnu', intentions: ['exams', 'learning', 'devotion'],
     tagline: 'A prayer to Hayagriva, the foundation of all learning.',
     intro: 'This opening verse of the Hayagriva Stotram honours Vishnu in his horse-headed form, Hayagriva. It describes knowledge and bliss embodied, clear as pure crystal. Students may recite it before study as a moment of attention and devotion.',
     note: 'Hayagriva Stotram, opening verse, traditionally attributed to Vedanta Desika. The book includes it in entry 12, alongside a separate selection from the Sundara Kanda.',
@@ -58,7 +58,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 12, page: 59, slug: 'jayatyatibalo-ramo', short: 'Jayatyatibalo Ramo', deityId: 'hanuman', intentions: ['strength', 'learning', 'devotion'],
+    section: 12, page: 59, slug: 'jayatyatibalo-ramo', short: 'Jayatyatibalo Ramo', deityId: 'hanuman', intentions: ['exams', 'confidence', 'strength', 'learning', 'devotion'],
     tagline: 'Hanuman declares his devotion to Rama and his resolve to fulfil his task.',
     intro: 'These four verses from the Sundara Kanda are spoken by Hanuman in Lanka. He praises Rama, Lakshmana and Sugriva, identifies himself as Rama’s servant, and declares his determination to greet Sita and return with his mission fulfilled.',
     note: 'The book cites Valmiki Ramayana, Sundara Kanda 42.33–36. All four selected verses are included; this is not the complete Sundara Kanda. Verse numbering can differ between editions.',
@@ -76,7 +76,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 13, page: 63, slug: 'mrityunjaya-samputita-mantra', short: 'Mrityunjaya Samputita Mantra', deityId: 'shiva', intentions: ['strength', 'peace', 'devotion'],
+    section: 13, page: 63, slug: 'mrityunjaya-samputita-mantra', short: 'Mrityunjaya Samputita Mantra', deityId: 'shiva', intentions: ['protection', 'wellbeing', 'strength', 'peace', 'devotion'],
     tagline: 'The Tryambakam verse framed by seed syllables and the three worlds.',
     intro: 'This extended Mrityunjaya form places seed syllables and the three vyahritis around the familiar Tryambakam verse. The surrounding invocations distinguish it from the shorter Mahamrityunjay Mantra already in this collection.',
     note: 'The enclosed verse is Rigveda 7.59.12; the surrounding seed syllables and reversed closing invocations belong to the extended recitation printed in entry 13. These additions are not part of the Rigvedic verse. Learn the seed-syllable pronunciation from a knowledgeable teacher.',
@@ -90,7 +90,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 18, page: 73, slug: 'shayana-prarthana', short: 'Shayana Prarthana', deityId: 'rama', deityName: 'Rama, Hanuman and revered figures', intentions: ['peace', 'devotion'],
+    section: 18, page: 73, slug: 'shayana-prarthana', short: 'Shayana Prarthana', deityId: 'rama', deityName: 'Rama, Hanuman and revered figures', intentions: ['sleep', 'peace', 'devotion'],
     tagline: 'Two traditional verses of remembrance before sleep.',
     intro: 'These bedtime verses remember Rama, Skanda, Hanuman, Garuda and Bhima, followed by seven figures traditionally associated with restful sleep. They offer a devotional way to end the day quietly.',
     note: 'Entry 18 in the contents; the verse page itself is mislabelled 8. Both verses are included. The promise about dreams is translated as the traditional verse’s statement, not a guaranteed effect on sleep.',
@@ -105,7 +105,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 24, page: 97, slug: 'apadam-apahartaram', short: 'Apadam Apahartaram', deityId: 'rama', intentions: ['strength', 'prosperity', 'devotion'],
+    section: 24, page: 97, slug: 'apadam-apahartaram', short: 'Apadam Apahartaram', deityId: 'rama', intentions: ['protection', 'strength', 'prosperity', 'devotion'],
     tagline: 'Repeated salutations to Rama, beloved of the world.',
     intro: 'This short Rama shloka offers repeated bows to the Lord as the remover of adversity and giver of blessings. It is a prayer of trust and gratitude during daily worship.',
     note: 'The complete short shloka printed in entry 24. Compounds and sandhi are normalized as āpadām apahartāram and namāmyaham.',
@@ -117,7 +117,7 @@ export const REMEDIES_MANTRAS = [
     ],
   },
   {
-    section: 35, page: 155, slug: 'rukmini-vallabha-mantra', short: 'Rukmini Vallabha Mantra', deityId: 'krishna', intentions: ['devotion', 'beginnings', 'peace'],
+    section: 35, page: 155, slug: 'rukmini-vallabha-mantra', short: 'Rukmini Vallabha Mantra', deityId: 'krishna', intentions: ['marriage', 'devotion', 'beginnings', 'peace'],
     tagline: 'Reverence to Krishna as the beloved of Rukmini.',
     intro: 'This short invocation honours Krishna as Rukmini Vallabha, the beloved of Rukmini. The book associates it with prayers concerning marriage. It can be recited with an intention of affection, mutual respect and companionship.',
     note: 'Entry 35, printed page 155 (PDF page 167). The Sanskrit reads Bhagavate; the English line’s Bhavatate is a printing error. No marriage outcome or timing is promised.',

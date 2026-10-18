@@ -7,5 +7,7 @@ Static devotional site. No accounts, backend or runtime dependencies.
 - Content and source notes: `data/mantras.mjs`.
 - Original artwork: `images/<deity>_web.png` and `<deity>_mob.png`.
 - Prepare artwork after changes: `python scripts/prepare-art.py` (Pillow required). Optimized copies live in `assets/art/`; build copies them into `site/art/`.
-- Recordings: owner-supplied `site/audio/*.mp3`, filenames in the content model.
+- Homepage guide: `src/home-guide.html`. Approved SEO terms and implementation notes: `docs/SEO.md`.
 - Deploy `site/`. Read `docs/PROJECT-CONTEXT.md` for architecture and remaining launch tasks.
+- Cloudflare Pages project: `mantra-mandir`, production branch `main`, URL: https://mantra-mandir.pages.dev.
+- Update production: `node build.mjs`, then `npx wrangler pages deploy site --project-name mantra-mandir --branch main --commit-dirty=true`.

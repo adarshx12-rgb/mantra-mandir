@@ -2,10 +2,11 @@
 import { PDF_MANTRAS, PDF_URL } from './pdf-mantras.mjs';
 import { POPULAR_MANTRAS } from './popular-mantras.mjs';
 import { REMEDIES_BOOK, REMEDIES_MANTRAS } from './remedies-mantras.mjs';
+import { REMEDIES_PRACTICE } from './remedies-practice.mjs';
 export const SITE = {
   name: 'Mantra Mandir',
-  url: process.env.SITE_URL || 'https://example.com', // set SITE_URL when building for production
-  tagline: 'Chant, read and listen to Hindu mantras in Sanskrit, English and Hinglish',
+  url: (process.env.SITE_URL || 'https://mantramandir.com').replace(/\/+$/, ''), // set SITE_URL when building for production
+  tagline: 'Chant and read Hindu mantras in Sanskrit, English and Hinglish',
 };
 
 // Weekday (0 = Sunday) -> slug for the "Today's pick" badge on the home page
@@ -30,8 +31,8 @@ export const mantras = [
     short: 'Gayatri Mantra',
     h1: 'Gayatri Mantra',
     deity: 'Savitr · Goddess Gayatri',
-    title: 'Gayatri Mantra – Lyrics in Sanskrit, English & Hinglish with Meaning & Audio',
-    desc: 'Chant or read the Gayatri Mantra in Sanskrit, English and Hinglish. Listen to the audio, understand the meaning, and count your 108 chants with our mala counter.',
+    title: 'Gayatri Mantra Lyrics & Meaning – Sanskrit, Hinglish',
+    desc: 'Read Gayatri Mantra lyrics in Sanskrit and transliteration, explore the Gayatri Mantra meaning, and follow your practice with a saved 108 mantra counter.',
     tagline: 'The mantra of light. Begin your day by inviting clarity into your mind.',
     cardLine: 'Light & clarity',
     theme: { bg: '#100e0c', bg2: '#382518', accent: '#ef9b36', accent2: '#b98a45', text: '#eee4d0', glow: 'transparent' },
@@ -69,7 +70,6 @@ export const mantras = [
       ['How many times should I chant the Gayatri Mantra?', 'The traditional count is 108 times (one mala). You may also chant 3, 11 or 21 times when short on time. Regularity matters more than the number.'],
       ['Can anyone chant the Gayatri Mantra?', 'Yes. It is a universal prayer for wisdom. Chant with respect, sincerity and clear pronunciation.'],
     ],
-    audio: 'gayatri-mantra.mp3',
   },
   {
     slug: 'mahamrityunjay-mantra',
@@ -79,8 +79,8 @@ export const mantras = [
     short: 'Mahamrityunjay Mantra',
     h1: 'Mahamrityunjay Mantra',
     deity: 'Lord Shiva',
-    title: 'Mahamrityunjay Mantra – Lyrics in Sanskrit, English & Hinglish with Meaning & Audio',
-    desc: 'Chant or read the Mahamrityunjay Mantra in Sanskrit, English and Hinglish. Listen to the audio, learn the meaning, and track your 108 chants.',
+    title: 'Mahamrityunjay Mantra in Hindi Script – Lyrics & Meaning',
+    desc: 'Read Mahamrityunjay Mantra in Hindi script, explore its meaning in Hindi and English, and count your recitations with the manual mala tool.',
     tagline: 'A prayer to Shiva for liberation, courage and the well-being of those we love.',
     cardLine: 'Courage & liberation',
     theme: { bg: '#10162f', bg2: '#26334a', accent: '#bed9e8', accent2: '#d4773d', text: '#e8edf0', glow: 'transparent' },
@@ -118,19 +118,18 @@ export const mantras = [
       ['How many times should I chant the Mahamrityunjay Mantra?', 'The traditional count is 108 times (one mala). Some devotees chant 11 or 21 times daily, or 1,25,000 times for special vows.'],
       ['Which day is best for the Mahamrityunjay Mantra?', 'Monday is dedicated to Lord Shiva and is a favourite day. Maha Shivaratri and the month of Shravan are especially auspicious. You can also chant it daily.'],
     ],
-    audio: 'mahamrityunjay-mantra.mp3',
   },
   {
     slug: 'om-krishnaya-vasudevaya-haraye-paramatmane-mantra',
     art: 'krishna',
-    displayTitle: 'Om Krishnaya Vasudevaya',
+    displayTitle: 'Om Krishnaya Vasudevaya Haraye Paramatmane Mantra',
     sourceUrl: 'https://vedabase.io/en/library/sb/10/73/16/',
     sourceNote: 'Śrīmad Bhāgavatam 10.73.16. Om is a customary devotional prefix; it is not part of this verse in the cited edition.',
     short: 'Om Krishnaya Vasudevaya',
     h1: 'Om Krishnaya Vasudevaya Haraye Paramatmane Mantra',
     deity: 'Lord Krishna · Vasudeva',
-    title: 'Om Krishnaya Vasudevaya Haraye Paramatmane Mantra – Lyrics, Meaning & Audio',
-    desc: 'Chant or read Om Krishnaya Vasudevaya Haraye Paramatmane in Sanskrit, English and Hinglish. Listen to the audio, learn the meaning, and track 108 chants.',
+    title: 'Om Krishnaya Vasudevaya Haraye Paramatmane Mantra Lyrics',
+    desc: 'Read Om Krishnaya Vasudevaya Haraye Paramatmane Mantra lyrics, a Krishna mantra with meaning in Hindi and English, and follow it with a saved chant count.',
     tagline: 'Salutations to Krishna, the indwelling Lord. A prayer of devotion and surrender.',
     cardLine: 'Devotion & peace',
     theme: { bg: '#101e38', bg2: '#263c55', accent: '#d8ad58', accent2: '#628cb5', text: '#eee4d0', glow: 'transparent' },
@@ -168,7 +167,6 @@ export const mantras = [
       ['When is the best time to chant this mantra?', 'Early morning and evening are good. Thursday, Ekadashi and Janmashtami are especially auspicious. Any calm moment works too.'],
       ['Can I chant it without a guru or mala?', 'Yes. You can chant with sincerity from anywhere. A mala helps keep count, and the counter on this page does the same.'],
     ],
-    audio: 'om-krishnaya-vasudevaya-haraye-paramatmane.mp3',
   },
   {
     slug: 'saraswati-mantra',
@@ -178,8 +176,8 @@ export const mantras = [
     short: 'Saraswati Mantra',
     h1: 'Saraswati Mantra',
     deity: 'Goddess Saraswati',
-    title: 'Saraswati Mantra – Ya Kundendu Lyrics in Sanskrit, English & Hinglish with Audio',
-    desc: 'Chant or read the Saraswati Mantra (Ya Kundendu Tusharahara Dhavala) in Sanskrit, English and Hinglish. Listen to the audio, learn the meaning, and track your chants.',
+    title: 'Saraswati Mantra (Ya Kundendu) – Lyrics & Meaning in Hindi',
+    desc: 'Read Maa Saraswati Mantra in Hindi script with explanations in Hindi and English. Explore the prayer for students and use the manual chanting counter.',
     tagline: 'For knowledge, speech and music. Chant before you learn.',
     cardLine: 'Knowledge & wisdom',
     theme: { bg: '#103a3c', bg2: '#224e4d', accent: '#eee4d0', accent2: '#c18e7c', text: '#f0eadd', glow: 'transparent' },
@@ -227,7 +225,6 @@ export const mantras = [
       ['What does “Aim” mean in the Saraswati beej mantra?', '“Aim” (ऐं) is the seed syllable (beej) of Goddess Saraswati, traditionally associated with knowledge, speech and creativity.'],
       ['How many times should I chant the Saraswati Mantra?', 'Chant the verse once to three times, or the beej mantra 11, 21 or 108 times. Sincerity and regularity matter most.'],
     ],
-    audio: 'saraswati-mantra.mp3',
   },
 ];
 
@@ -242,8 +239,8 @@ for (const [slug, page, note] of [
 }
 
 const profiles = {
-  annapurna: { name: 'Goddess Annapurna', art: null, theme: { bg: '#24180e', bg2: '#513a22', accent: '#e8c17f', accent2: '#c89663', text: '#f5eada', glow: 'transparent' }, imgAlt: '' },
-  rama: { name: 'Lord Rama', art: null, theme: { bg: '#10241f', bg2: '#29483c', accent: '#e0c58a', accent2: '#84b9a4', text: '#edf0df', glow: 'transparent' }, imgAlt: '' },
+  annapurna: { name: 'Goddess Annapurna', art: 'annapurna', theme: { bg: '#24180e', bg2: '#513a22', accent: '#e8c17f', accent2: '#c89663', text: '#f5eada', glow: 'transparent' }, imgAlt: 'Goddess Annapurna in the owner-supplied devotional painting' },
+  rama: { name: 'Lord Rama', art: 'rama', theme: { bg: '#10241f', bg2: '#29483c', accent: '#e0c58a', accent2: '#84b9a4', text: '#edf0df', glow: 'transparent' }, imgAlt: 'Lord Rama in the owner-supplied devotional painting' },
   vishnu: { name: 'Lord Vishnu', art: 'vishnu', theme: { bg: '#101d30', bg2: '#264656', accent: '#e7bd71', accent2: '#82b5c6', text: '#f2eadb', glow: 'transparent' }, imgAlt: 'Lord Vishnu in the owner-supplied devotional painting' },
   shiva: { name: 'Lord Shiva', art: 'shiv', theme: mantras[1].theme, imgAlt: mantras[1].imgAlt },
   saraswati: { name: 'Goddess Saraswati', art: 'saraswati', theme: mantras[3].theme, imgAlt: mantras[3].imgAlt },
@@ -263,6 +260,14 @@ const simpleRoman = text => text.replace(/ā/g, 'aa').replace(/ī/g, 'ee').repla
   .replace(/[ṅñṇ]/g, 'n').replace(/ṭ/g, 't').replace(/ḍ/g, 'd')
   .replace(/ṃ/g, 'm').replace(/ḥ/g, 'h').replace(/c/g, 'ch').replace(/’/g, '');
 
+// Search results show about 60 characters of a title and 160 of a description.
+const fitTitle = name => [`${name} – Sanskrit, Meaning & Chanting | ${SITE.name}`, `${name} – Sanskrit & Meaning | ${SITE.name}`, `${name} – Sanskrit & Meaning`, `${name} | ${SITE.name}`]
+  .find(t => t.length <= 60) || name;
+const fitDesc = (name, deity) => [`Read ${name} for ${deity} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
+  `Read ${name} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
+  `Read ${name} in Sanskrit, transliteration and Hinglish, with line-by-line English meanings and a chant counter.`]
+  .find(d => d.length <= 160) || `Read ${name} in Sanskrit and Hinglish with English meanings and a chant counter.`;
+
 // Expands a compact entry (PDF or popular) into the full page model.
 function expand(entry, { sourceUrl, sourceNote, faq }) {
   const profile = profiles[entry.deityId];
@@ -270,8 +275,8 @@ function expand(entry, { sourceUrl, sourceNote, faq }) {
   const name = entry.displayTitle || entry.short;
   mantras.push({
     ...entry, ...profile, deity: entry.deityName || profile.name, h1: name,
-    title: `${name} – Sanskrit, Meaning & Chanting | ${SITE.name}`,
-    desc: `Read ${name} for ${entry.deityName || profile.name} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
+    title: fitTitle(name),
+    desc: fitDesc(name, entry.deityName || profile.name),
     cardLine: entry.intentions.includes('strength') ? 'Strength & courage' : entry.intentions.includes('prosperity') ? 'Prosperity & devotion' : entry.intentions.includes('learning') ? 'Wisdom & learning' : entry.intentions.includes('beginnings') ? 'New beginnings' : 'Devotion & peace',
     imgAlt: profile.imgAlt || '',
     lines,
@@ -285,14 +290,13 @@ function expand(entry, { sourceUrl, sourceNote, faq }) {
       faq,
       ['What does one count represent?', 'One count represents one complete recitation of the prayer displayed on this page. You can choose a short practice or count 108 repetitions.'],
     ],
-    audio: `${entry.slug}.mp3`,
   });
 }
 
 for (const entry of PDF_MANTRAS) expand(entry, {
   sourceUrl: `${PDF_URL}#page=${entry.page}`,
   sourceNote: `Collection of Mantras, PDF page ${entry.page}, ${entry.section}. ${entry.note}`,
-  faq: [`Where is ${entry.short} found in this collection?`, `It appears on PDF page ${entry.page} under ${entry.section}. ${entry.note}`],
+  faq: [`What does ${entry.short} mean?`, entry.lines.map((line) => line[2]).join(' ')],
 });
 
 for (const entry of POPULAR_MANTRAS) expand(entry, {
@@ -303,8 +307,17 @@ for (const entry of POPULAR_MANTRAS) expand(entry, {
 
 for (const entry of REMEDIES_MANTRAS) expand(entry, {
   sourceNote: `${REMEDIES_BOOK}, contents entry ${entry.section}, printed page ${entry.page}. ${entry.note}`,
-  faq: [`Where is ${entry.short} found in the supplied book?`, `Contents entry ${entry.section}, printed page ${entry.page}. ${entry.note}`],
+  faq: [`What does ${entry.short} mean?`, entry.lines.map((line) => line[2]).join(' ')],
 });
 
 // Entry 3 is already present; keep its URL and add the second book citation.
 mantras.find(m => m.slug === 'hanuman-buddhir-balam').sourceNote += ` Also in ${REMEDIES_BOOK}, contents entry 3, printed page 37 (PDF page 49).`;
+
+for (const [slug, practice] of Object.entries(REMEDIES_PRACTICE)) {
+  const mantra = mantras.find(m => m.slug === slug);
+  if (!mantra) throw new Error(`Unknown prayer in remedies practice: ${slug}`);
+  Object.assign(mantra, practice);
+  mantra.faqs = mantra.faqs.map(([question, answer]) => question === 'What does one count represent?'
+    ? [question, 'One count represents one complete recitation of all the text displayed on this page. See How to chant for guidance on repetitions and timing. You can stop at your chosen count without completing a full mala.']
+    : [question, answer]);
+}

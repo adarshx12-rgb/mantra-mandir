@@ -1,0 +1,20 @@
+# Mantra Mandir
+
+> Hindu mantras, shlokas and stotras with Sanskrit text, transliteration, meanings and a manual 108-bead counter.
+
+The website is for devotional reading and practice. Source notes identify references and variants. Excerpts are labelled. Outcomes are not guaranteed. Practice progress is saved locally in the browser. There is no audio feature or account system.
+
+## Start here
+- [Home](https://mantramandir.com/): Browse by deity, festival or intention.
+- [Gayatri Mantra](https://mantramandir.com/gayatri-mantra/): Text, meanings and practice instructions.
+- [Mahamrityunjay Mantra](https://mantramandir.com/mahamrityunjay-mantra/): Text, meanings and practice instructions.
+- [Om Krishnaya Vasudevaya Haraye Paramatmane Mantra](https://mantramandir.com/om-krishnaya-vasudevaya-haraye-paramatmane-mantra/): Text, meanings and practice instructions.
+- [Saraswati Mantra](https://mantramandir.com/saraswati-mantra/): Text, meanings and practice instructions.
+
+## Website information
+- [About Us](https://mantramandir.com/about-us/): Learn about Mantra Mandir, its devotional sources, meanings and simple tools for daily chanting.
+- [Privacy Policy](https://mantramandir.com/privacy-policy/): How Mantra Mandir handles browser storage, saved chant counts, Google Analytics, external links and contact information.
+- [Cookie Policy](https://mantramandir.com/cookie-policy/): Which cookies and browser storage Mantra Mandir uses, why, how long they last and how to control them.
+- [Terms & Conditions](https://mantramandir.com/terms-and-conditions/): Terms for using Mantra Mandir’s devotional texts, explanations and browser-based chanting tools.
+- [Contact Us](https://mantramandir.com/contact-us/): Contact Mantra Mandir for text corrections, website issues, attribution and permissions questions.
+- [Sitemap](https://mantramandir.com/sitemap.xml): Complete list of public content pages.

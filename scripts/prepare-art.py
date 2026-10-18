@@ -18,7 +18,7 @@ def encode(im):
             return buf, quality
     return None
 
-for deity in (sys.argv[1:] or ('ganesha', 'gayatri', 'shiv', 'krishna', 'saraswati', 'durga', 'laxmi', 'hanuman', 'kali', 'ayyappa', 'murugan', 'vishnu')):
+for deity in (sys.argv[1:] or ('ganesha', 'gayatri', 'shiv', 'krishna', 'saraswati', 'durga', 'laxmi', 'hanuman', 'kali', 'ayyappa', 'murugan', 'vishnu', 'rama', 'annapurna')):
     for variant, bounds in (('web', (1600, 1000)), ('mob', (760, 1344))):
         source = Path('images') / f'{deity}_{variant}.png'
         original = Image.open(source).convert('RGB')
