@@ -2,6 +2,7 @@
 from pathlib import Path
 from io import BytesIO
 from PIL import Image, ImageOps
+import sys
 
 BUDGET = 80000
 MIN_QUALITY = 40
@@ -17,7 +18,7 @@ def encode(im):
             return buf, quality
     return None
 
-for deity in ('ganesha', 'gayatri', 'shiv', 'krishna', 'saraswati', 'durga', 'laxmi', 'hanuman', 'kali', 'ayyappa', 'murugan'):
+for deity in (sys.argv[1:] or ('ganesha', 'gayatri', 'shiv', 'krishna', 'saraswati', 'durga', 'laxmi', 'hanuman', 'kali', 'ayyappa', 'murugan', 'vishnu')):
     for variant, bounds in (('web', (1600, 1000)), ('mob', (760, 1344))):
         source = Path('images') / f'{deity}_{variant}.png'
         original = Image.open(source).convert('RGB')

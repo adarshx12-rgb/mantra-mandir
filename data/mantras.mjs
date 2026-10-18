@@ -1,6 +1,7 @@
 // All mantra content lives here. To add a mantra, add an object and run `node build.mjs`.
 import { PDF_MANTRAS, PDF_URL } from './pdf-mantras.mjs';
 import { POPULAR_MANTRAS } from './popular-mantras.mjs';
+import { REMEDIES_BOOK, REMEDIES_MANTRAS } from './remedies-mantras.mjs';
 export const SITE = {
   name: 'Mantra Mandir',
   url: process.env.SITE_URL || 'https://example.com', // set SITE_URL when building for production
@@ -241,6 +242,9 @@ for (const [slug, page, note] of [
 }
 
 const profiles = {
+  annapurna: { name: 'Goddess Annapurna', art: null, theme: { bg: '#24180e', bg2: '#513a22', accent: '#e8c17f', accent2: '#c89663', text: '#f5eada', glow: 'transparent' }, imgAlt: '' },
+  rama: { name: 'Lord Rama', art: null, theme: { bg: '#10241f', bg2: '#29483c', accent: '#e0c58a', accent2: '#84b9a4', text: '#edf0df', glow: 'transparent' }, imgAlt: '' },
+  vishnu: { name: 'Lord Vishnu', art: 'vishnu', theme: { bg: '#101d30', bg2: '#264656', accent: '#e7bd71', accent2: '#82b5c6', text: '#f2eadb', glow: 'transparent' }, imgAlt: 'Lord Vishnu in the owner-supplied devotional painting' },
   shiva: { name: 'Lord Shiva', art: 'shiv', theme: mantras[1].theme, imgAlt: mantras[1].imgAlt },
   saraswati: { name: 'Goddess Saraswati', art: 'saraswati', theme: mantras[3].theme, imgAlt: mantras[3].imgAlt },
   krishna: { name: 'Lord Krishna', art: 'krishna', theme: mantras[2].theme, imgAlt: mantras[2].imgAlt },
@@ -265,9 +269,9 @@ function expand(entry, { sourceUrl, sourceNote, faq }) {
   const lines = entry.lines.map(([sa, en, englishMeaning, hi]) => ({ sa, en, hi: hi || simpleRoman(en), englishMeaning }));
   const name = entry.displayTitle || entry.short;
   mantras.push({
-    ...entry, ...profile, deity: profile.name, h1: name,
+    ...entry, ...profile, deity: entry.deityName || profile.name, h1: name,
     title: `${name} – Sanskrit, Meaning & Chanting | ${SITE.name}`,
-    desc: `Read ${name} for ${profile.name} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
+    desc: `Read ${name} for ${entry.deityName || profile.name} in Sanskrit, Roman transliteration and Hinglish, with English meanings beside each line and a saved chant counter.`,
     cardLine: entry.intentions.includes('strength') ? 'Strength & courage' : entry.intentions.includes('prosperity') ? 'Prosperity & devotion' : entry.intentions.includes('learning') ? 'Wisdom & learning' : entry.intentions.includes('beginnings') ? 'New beginnings' : 'Devotion & peace',
     imgAlt: profile.imgAlt || '',
     lines,
@@ -292,6 +296,15 @@ for (const entry of PDF_MANTRAS) expand(entry, {
 });
 
 for (const entry of POPULAR_MANTRAS) expand(entry, {
+  sourceUrl: entry.sourceUrl,
   sourceNote: entry.note,
   faq: [`Where does ${entry.short} come from?`, entry.note],
 });
+
+for (const entry of REMEDIES_MANTRAS) expand(entry, {
+  sourceNote: `${REMEDIES_BOOK}, contents entry ${entry.section}, printed page ${entry.page}. ${entry.note}`,
+  faq: [`Where is ${entry.short} found in the supplied book?`, `Contents entry ${entry.section}, printed page ${entry.page}. ${entry.note}`],
+});
+
+// Entry 3 is already present; keep its URL and add the second book citation.
+mantras.find(m => m.slug === 'hanuman-buddhir-balam').sourceNote += ` Also in ${REMEDIES_BOOK}, contents entry 3, printed page 37 (PDF page 49).`;

@@ -62,3 +62,13 @@ Only mantras, shlokas, stotras and Vedic hymns. No bhajans, aartis or devotional
 
 ## Artwork complete and hero tags (2026-10-18)
 All 11 deities now have owner artwork (images/<name>_web.png and _mob.png; Lakshmi's files are named laxmi_*). The earlier note that Durga, Lakshmi and Hanuman use symbolic backgrounds is superseded; symbolic-art remains only as a fallback for a future deity without art. scripts/prepare-art.py keeps WebP quality >= 40 and scales a detailed painting down (to at most 60%) rather than compressing it harder, so some _web files are about 1100–1500px wide. Kali's art shows traditional iconography (skull garland and, in kali_mob, a severed head); the owner reviewed it and chose to keep it. The home hero has quick-link tags to the four target keywords (HERO_TAGS in build.mjs) below "Explore the mantras".
+
+## Vishnu collection (2026-10-18)
+Added five prayers: Om Namo Narayanaya, Om Vishnave Namah, Vishnu Gayatri, Shantakaram Bhujagashayanam and Mangalam Bhagavan Vishnu. The existing Om Namo Bhagavate Vasudevaya remains at its established URL in Krishna. Totals: 46 prayers and 12 deities. Vishnu uses the owner's images/vishnu_web.png and vishnu_mob.png, delivered as WebP copies under 80 KB. Run `python scripts/prepare-art.py vishnu` to prepare just these assets; no arguments still prepares all deities. Popular entries now support optional sourceUrl links. No Vishnu recordings have been supplied.
+
+## Selected Vedic Remedies entries (2026-10-18)
+The owner selected contents entries 1, 2, 3, 4, 12, 13, 18, 24 and 35 from the local VEDIC REMEDIES FOR COMMON PROBLEMS.pdf (book title: Infallible Vedic Remedies, Swami Shantananda Puri). Entries 8 and 31 were explicitly excluded after clarification. Do not import the remaining contents or the 171-name table.
+
+data/remedies-mantras.mjs adds nine pages: Annapurna, Dhanvantari, Achyuta/Ananta/Govinda, Hayagriva, the four Jayatyatibalo Ramo verses, the extended Mrityunjaya, bedtime verses, Apadam Apahartaram and Rukmini Vallabha. Entry 3 is the existing Buddhir Balam page with an added citation. Entry 12 supplies two prayers. Total: 55 prayers, 14 deity groups. New Rama and Annapurna groups use symbolic backgrounds until matching owner art is supplied; Dhanvantari and Hayagriva use Vishnu art with their specific names displayed. All entries have printed-page citations and fresh meanings; no local PDF is copied into the public site. Health and outcome claims from the book are not adopted as site promises. The bedtime verse preserves the book's six listed names and explicitly notes its inconsistent reference to seven.
+
+scripts/render-source.ps1 accepts optional -Source and -Output parameters for inspecting local PDFs. The original defaults remain available.

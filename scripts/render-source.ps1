@@ -1,4 +1,4 @@
-param([int]$Start = 0, [int]$Count = 3, [int]$Width = 1200)
+param([int]$Start = 0, [int]$Count = 3, [int]$Width = 1200, [string]$Source = 'C:\Users\ADARSH\Downloads\hindi Book- mantras.pdf', [string]$Output = 'output/source-pages')
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Runtime.WindowsRuntime
 [Windows.Storage.StorageFile,Windows.Storage,ContentType=WindowsRuntime] | Out-Null
@@ -11,10 +11,10 @@ function Await-Result($Operation, $ResultType) {
   $task.Wait()
   return $task.Result
 }
-$sourceFile = Await-Result ([Windows.Storage.StorageFile]::GetFileFromPathAsync('C:\Users\ADARSH\Downloads\hindi Book- mantras.pdf')) ([Windows.Storage.StorageFile])
+$sourceFile = Await-Result ([Windows.Storage.StorageFile]::GetFileFromPathAsync($Source)) ([Windows.Storage.StorageFile])
 $document = Await-Result ([Windows.Data.Pdf.PdfDocument]::LoadFromFileAsync($sourceFile)) ([Windows.Data.Pdf.PdfDocument])
 Write-Output "PDF pages: $($document.PageCount)"
-$outDir = Join-Path (Get-Location) 'output/source-pages'
+$outDir = Join-Path (Get-Location) $Output
 New-Item -ItemType Directory -Path $outDir -Force | Out-Null
 for ($index = $Start; $index -lt [Math]::Min($Start + $Count, $document.PageCount); $index++) {
   $page = $document.GetPage($index)

@@ -5,6 +5,69 @@
 const BEEJ = 'Some traditions recommend learning beej (seed) mantras from a teacher; many devotees also chant them simply with devotion.';
 
 export const POPULAR_MANTRAS = [
+  // Vishnu
+  {
+    slug: 'om-namo-narayanaya', short: 'Om Namo Narayanaya', deityId: 'vishnu', intentions: ['devotion', 'peace'],
+    tagline: 'The eight-syllable salutation to Narayana.',
+    intro: 'Om Namo Narayanaya is the Ashtakshari, the eight-syllable mantra of Narayana, a name of Vishnu. Its brief salutation is a familiar prayer of surrender in Vaishnava devotion and can accompany a quiet daily japa practice.',
+    note: 'The Ashtakshari of the Narayana Upanishad and Vaishnava tradition. Some lineages teach its formal practice through initiation. The Sanskrit here uses the standard sandhi namo nārāyaṇāya.',
+    sourceUrl: 'https://www.drikpanchang.com/vedic-mantra/gods/lord-vishnu/vishnu-mantras.html',
+    bestTime: 'During daily prayer or on Ekadashi, according to your family tradition.',
+    meaningHi: 'ॐ। भगवान नारायण को मेरा नमस्कार है।',
+    meaningHinglish: 'Om. Bhagvaan Naaraayan ko meraa namaskaar hai.',
+    lines: [['ॐ नमो नारायणाय ॥', 'Oṃ namo nārāyaṇāya', 'Om. I bow to Narayana.', 'Om Namo Naaraayanaaya']],
+  },
+  {
+    slug: 'om-vishnave-namah', short: 'Om Vishnave Namah', deityId: 'vishnu', intentions: ['devotion', 'peace'],
+    tagline: 'A simple salutation to Vishnu, the all-pervading Lord.',
+    intro: 'Om Vishnave Namah offers reverence to Vishnu in a short name mantra. It is easy to remember and can be repeated slowly while reflecting on the divine presence throughout the world.',
+    note: 'A traditional name salutation used in Vishnu namavali worship. This page presents the individual salutation, not a complete list of names.',
+    meaningHi: 'ॐ। सर्वव्यापक भगवान विष्णु को नमस्कार है।',
+    meaningHinglish: 'Om. Sarvavyaapak Bhagvaan Vishnu ko namaskaar hai.',
+    lines: [['ॐ विष्णवे नमः ॥', 'Oṃ viṣṇave namaḥ', 'Om. Salutations to Vishnu, the all-pervading Lord.', 'Om Vishnave Namah']],
+  },
+  {
+    slug: 'vishnu-gayatri-mantra', short: 'Vishnu Gayatri Mantra', deityId: 'vishnu', intentions: ['learning', 'devotion', 'peace'],
+    tagline: 'Meditate on Vasudeva and pray for Vishnu to inspire your understanding.',
+    intro: 'The Vishnu Gayatri invokes Vishnu and Vasudeva in a prayer for inspiration. Like other deity Gayatris, it moves from knowing the deity to meditation and a request for guidance.',
+    note: 'A popular Vishnu Gayatri form beginning śrī viṣṇave ca vidmahe. Other traditions use nārāyaṇāya vidmahe; this page keeps the displayed version consistent throughout.',
+    sourceUrl: 'https://www.drikpanchang.com/vedic-mantra/gods/lord-vishnu/vishnu-mantras.html',
+    meaningHi: 'हम श्री विष्णु को जानें, वासुदेव का ध्यान करें। वे विष्णु हमारी बुद्धि को प्रेरित करें।',
+    meaningHinglish: 'Hum Shri Vishnu ko jaanein, Vaasudev ka dhyaan karein. Ve Vishnu hamaari buddhi ko prerit karein.',
+    lines: [
+      ['ॐ श्री विष्णवे च विद्महे', 'Oṃ śrī viṣṇave ca vidmahe', 'Om. May we know the revered Vishnu.', 'Om Shri Vishnave cha vidmahe'],
+      ['वासुदेवाय धीमहि ।', 'Vāsudevāya dhīmahi', 'We meditate on Vasudeva.', 'Vaasudevaaya dheemahi'],
+      ['तन्नो विष्णुः प्रचोदयात् ॥', 'Tanno viṣṇuḥ pracodayāt', 'May Vishnu inspire our understanding.', 'Tanno Vishnuh prachodayaat'],
+    ],
+  },
+  {
+    slug: 'shantakaram-bhujagashayanam', short: 'Shantakaram Bhujagashayanam', deityId: 'vishnu', intentions: ['peace', 'devotion', 'strength'],
+    tagline: 'Contemplate the serene form of Vishnu, the support of all worlds.',
+    intro: 'Shantakaram Bhujagashayanam is a familiar Vishnu dhyana shloka. It brings to mind his peaceful form reclining on the serpent, his lotus eyes and his presence as the support of the universe. The verse is often recited before Vishnu Sahasranama.',
+    note: 'A traditional meditation verse commonly included in the opening prayers of Vishnu Sahasranama recitation. This is the complete Shantakaram verse, not the thousand-name hymn.',
+    sourceUrl: 'https://www.drikpanchang.com/vedic-mantra/gods/lord-vishnu/mantra/vishnu-shantakaram-mantra.html',
+    meaningHi: 'शान्त स्वरूप, शेषनाग पर शयन करने वाले, कमलनाभ, देवों के स्वामी, जगत के आधार, आकाश के समान व्यापक, मेघवर्ण और सुन्दर अंगों वाले विष्णु को मैं प्रणाम करता हूँ। वे लक्ष्मी के प्रिय, कमलनयन, योगियों के ध्यान से प्राप्त होने वाले, संसार के भय को हरने वाले और सभी लोकों के एकमात्र स्वामी हैं।',
+    meaningHinglish: 'Shaant svaroop, Sheshnaag par shayan karne vaale, kamalnaabh, devon ke svaami, jagat ke aadhaar, aakaash jaise vyaapak, meghvarn aur sundar Vishnu ko main pranaam kartaa hoon. Ve Lakshmi ke priya, kamalnayan, yogiyon ke dhyaan se praapt hone vaale, sansaar ka bhay harne vaale aur sab lokon ke svaami hain.',
+    lines: [
+      ['शान्ताकारं भुजगशयनं पद्मनाभं सुरेशं', 'Śāntākāraṃ bhujagaśayanaṃ padmanābhaṃ sureśaṃ', 'Serene in form, resting on the serpent, lotus-navelled Lord of the gods;'],
+      ['विश्वाधारं गगनसदृशं मेघवर्णं शुभाङ्गम् ।', 'Viśvādhāraṃ gaganasadṛśaṃ meghavarṇaṃ śubhāṅgam', 'support of the universe, vast as the sky, cloud-hued and beautiful in form;'],
+      ['लक्ष्मीकान्तं कमलनयनं योगिभिर्ध्यानगम्यं', 'Lakṣmīkāntaṃ kamalanayanaṃ yogibhir dhyānagamyaṃ', 'beloved of Lakshmi, lotus-eyed, reached by yogis through meditation;'],
+      ['वन्दे विष्णुं भवभयहरं सर्वलोकैकनाथम् ॥', 'Vande viṣṇuṃ bhavabhayaharaṃ sarvalokaikanātham', 'I bow to Vishnu, who dispels the fear of worldly existence, the one Lord of all worlds.'],
+    ],
+  },
+  {
+    slug: 'mangalam-bhagavan-vishnu', short: 'Mangalam Bhagavan Vishnu', deityId: 'vishnu', intentions: ['beginnings', 'devotion', 'prosperity'],
+    tagline: 'An auspicious invocation to Vishnu, the lotus-eyed Hari.',
+    intro: 'Mangalam Bhagavan Vishnu is a short mangala shloka recited on auspicious occasions and during worship. It honours Vishnu through the images of his Garuda banner and lotus eyes, and names Hari as the abode of auspiciousness.',
+    note: 'A traditional mangala shloka. This page uses the common reading maṅgalāyatano hariḥ (Hari, the abode of auspiciousness); recitation and printed spellings vary.',
+    sourceUrl: 'https://www.drikpanchang.com/vedic-mantra/gods/lord-vishnu/vishnu-mantras.html',
+    meaningHi: 'भगवान विष्णु मंगलमय हैं, गरुड़ के चिह्न वाली ध्वजा धारण करने वाले मंगलमय हैं। कमलनयन भगवान मंगलमय हैं; हरि मंगल के धाम हैं।',
+    meaningHinglish: 'Bhagvaan Vishnu mangalmay hain, Garud ki dhvajaa dhaaran karne vaale mangalmay hain. Kamalnayan Bhagvaan mangalmay hain; Hari mangal ke dhaam hain.',
+    lines: [
+      ['मङ्गलं भगवान् विष्णुर्मङ्गलं गरुडध्वजः ।', 'Maṅgalaṃ bhagavān viṣṇur maṅgalaṃ garuḍadhvajaḥ', 'Auspicious is Lord Vishnu; auspicious is he whose banner bears Garuda.'],
+      ['मङ्गलं पुण्डरीकाक्षो मङ्गलायतनो हरिः ॥', 'Maṅgalaṃ puṇḍarīkākṣo maṅgalāyatano hariḥ', 'Auspicious is the lotus-eyed Lord; Hari is the abode of auspiciousness.'],
+    ],
+  },
   // Shiva
   {
     slug: 'om-namah-shivaya', short: 'Om Namah Shivaya', deityId: 'shiva', intentions: ['peace', 'devotion', 'strength'],

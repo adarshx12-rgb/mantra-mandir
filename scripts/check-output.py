@@ -49,7 +49,7 @@ for path, page in pages.items():
     if path.name == 'index.html': assert page.structured, f'Missing structured data: {path}'
 
 art = list((root / 'art').glob('*.webp'))
-assert len(art) == 22
+assert len(art) == 24
 assert all(p.stat().st_size <= 80000 for p in art)
 urls = ET.parse(root / 'sitemap.xml').getroot()
 assert len(pages) == len(urls) + 1, 'Sitemap/page count mismatch (including 404)'

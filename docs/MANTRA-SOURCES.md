@@ -37,5 +37,28 @@ Longer source hymns and name lists were not imported wholesale. The nine selecte
 
 Festivals link to prayers for their associated deities, not mandatory ritual formulas. Hanuman Jayanti identifies the Chaitra observance; Gayatri Jayanti has separate Jyeshtha and Shravana entries.
 
+## Selected Infallible Vedic Remedies contents
+
+Source: owner-supplied `C:\Users\ADARSH\Downloads\VEDIC REMEDIES FOR COMMON PROBLEMS.pdf`, Swami Shantananda Puri, enlarged edition 2008. Read directly from rendered PDF pages. Meanings are editorial translations, not copied remedy claims. The PDF is not republished.
+
+| Contents entry | Included prayer | Printed page / PDF page |
+| --- | --- | --- |
+| 1 | Annapurna Mantra | 33 / 45 |
+| 2 | Dhanvantari Mantra | 35 / 47 |
+| 3 | Buddhir Balam, existing page with added citation | 37 / 49 |
+| 4 | Achyuta, Ananta, Govinda invocations | 39 / 51 |
+| 12 | Hayagriva opening verse; four Sundara Kanda verses | 57, 59–61 / 69, 71–73 |
+| 13 | Extended Mrityunjaya with opening and closing syllables | 63 / 75 |
+| 18 | Both bedtime verses | 73 / 85 |
+| 24 | Apadam Apahartaram | 97 / 109 |
+| 35 | Rukmini Vallabha Mantra | 155 / 167 |
+
+The owner explicitly excluded contents 8 (English Christian prayer) and 31 (171 selected names). No other contents entries are imported. Entry 18 is misprinted as 8 on its pages; its second verse says seven sleepers but prints six names, which the site discloses rather than silently inventing a seventh. Entry 35's Roman line has Bhavatate, corrected to Bhagavate from the Sanskrit. Sandhi, punctuation and Sanskrit spelling are normalized. Chapter/verse references in entry 12 follow the supplied book and may vary by edition. The expanded Mrityunjaya is separate from the existing shorter Vedic verse. The book's prescribed cure durations and guaranteed outcomes are not used as site instructions.
+
 ## Popular mantras (data/popular-mantras.mjs)
+
+### Vishnu additions, 2026-10-18
+
+Checked the common Narayana invocation, Vishnu Gayatri, Shantakaram and Mangala shloka against https://www.drikpanchang.com/vedic-mantra/gods/lord-vishnu/vishnu-mantras.html and the linked Shantakaram page. Sanskrit sandhi and compound spacing are normalized; meanings are freshly written. The Gayatri uses the displayed Shri Vishnave form, with the Narayanaya variant noted. Mangala uses the common mangalayatano harih reading. Om Vishnave Namah is identified as a traditional individual namavali salutation. The existing Vasudeva mantra is also attested at https://vedabase.io/en/library/sb/4/8/54/. These are complete short prayers, not excerpts presented as full stotras.
+
 Text traditions are named in each entry's `note`; no web source was fetched for these. Where origin is uncertain (Karpura Gauram, Vakratunda Mahakaya) or has variants (Hare Krishna order, Hanuman Chalisa spellings, Ya Devi refrain), the note says so. Beej mantra pages note that some traditions recommend learning them from a teacher. Swamiye Saranam Ayyappa is Malayalam and the Chalisa dohas are Awadhi, shown in Devanagari under the Sanskrit tab. All 22 need the same Sanskrit-literate review as the rest before launch.

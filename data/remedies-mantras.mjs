@@ -1,0 +1,128 @@
+// Transcribed from the owner-supplied Infallible Vedic Remedies by Swami
+// Shantananda Puri. Printed page numbers differ from PDF positions by 12
+// through printed p.155. Meanings are fresh editorial glosses.
+
+export const REMEDIES_BOOK = 'Infallible Vedic Remedies (Mantras for Common Problems), Swami Shantananda Puri, enlarged edition 2008';
+export const REMEDIES_MANTRAS = [
+  {
+    section: 1, page: 33, slug: 'annapurna-mantra', short: 'Annapurna Mantra', deityId: 'annapurna', intentions: ['prosperity', 'devotion'],
+    tagline: 'A prayer to Annapurna for nourishment and gratitude.',
+    intro: 'This invocation addresses Annapurna, the nourishing form of the Goddess, and asks for food. It can accompany gratitude for a meal and reflection on sharing food with others.',
+    note: 'The book gives this seed-syllable form. The syllables aim, hrim, sauh, shrim and klim are sacred sounds rather than ordinary words.',
+    meaningHi: 'ऐं, ह्रीं, सौः, श्रीं, क्लीं, ॐ। भगवती अन्नपूर्णा को नमस्कार। मुझे अभिलषित अन्न दें। स्वाहा।',
+    meaningHinglish: 'Aim, hreem, sauh, shreem, kleem, Om. Bhagavatee Annapoornaa ko namaskaar. Mujhe abhilaashit ann dein. Svaahaa.',
+    lines: [
+      ['ऐं ह्रीं सौः श्रीं क्लीं', 'Aiṃ hrīṃ sauḥ śrīṃ klīṃ', 'Sacred seed syllables invoking the Goddess.'],
+      ['ॐ नमो भगवत्यन्नपूर्णे', 'Oṃ namo bhagavatyannapūrṇe', 'Om. Reverence to you, blessed Annapurna.'],
+      ['ममाभिलषितमन्नं देहि स्वाहा ॥', 'Mamābhilaṣitamannaṃ dehi svāhā', 'Grant me the nourishment I seek. Svaha.'],
+    ],
+  },
+  {
+    section: 2, page: 35, slug: 'dhanvantari-mantra', short: 'Dhanvantari Mantra', deityId: 'vishnu', deityName: 'Lord Dhanvantari · Vishnu', intentions: ['peace', 'devotion', 'strength'],
+    tagline: 'An invocation to Dhanvantari for well-being and compassionate care.',
+    intro: 'Dhanvantari is revered as the divine physician and a form of Vishnu. This prayer describes him holding the pot of nectar and offers reverence to him as Lord of the three worlds. It may be recited for comfort during illness alongside appropriate healthcare.',
+    note: 'The book prints this version without Vasudevaya and notes that some versions add it after Bhagavate. Devotional language about illness expresses a prayer, not a medical promise.',
+    meaningHi: 'ॐ। अमृत का कलश हाथ में धारण करने वाले, रोगों को दूर करने वाले, तीनों लोकों के स्वामी, श्री महाविष्णु स्वरूप भगवान धन्वन्तरि को नमस्कार। स्वाहा।',
+    meaningHinglish: 'Om. Amrit ka kalash haath mein dhaaran karne vaale, rogon ko door karne vaale, teenon lokon ke svaami, Shri Mahaavishnu svaroop Bhagvaan Dhanvantari ko namaskaar. Svaahaa.',
+    lines: [
+      ['ॐ नमो भगवते धन्वन्तरये', 'Oṃ namo bhagavate dhanvantaraye', 'Om. Reverence to the blessed Dhanvantari.'],
+      ['अमृतकलशहस्ताय', 'Amṛtakalaśahastāya', 'To him who holds the vessel of nectar in his hand;'],
+      ['सर्वामयविनाशाय त्रैलोक्यनाथाय', 'Sarvāmayavināśāya trailokyanāthāya', 'invoked as the dispeller of every illness and Lord of the three worlds;'],
+      ['श्री महाविष्णवे स्वाहा ॥', 'Śrī mahāviṣṇave svāhā', 'to the revered Mahavishnu, svaha.'],
+    ],
+  },
+  {
+    section: 4, page: 39, slug: 'achyuta-ananta-govinda', short: 'Achyuta Ananta Govinda', deityId: 'vishnu', intentions: ['peace', 'devotion'],
+    tagline: 'Three salutations to the unfailing, infinite Lord.',
+    intro: 'These three name mantras invoke Vishnu as Achyuta, Ananta and Govinda. The book places them in the context of achamana, a ritual of purification. They can also be read together as a brief expression of reverence.',
+    note: 'The three invocations printed in entry 4. The preceding prose includes a traditional verse praising remembrance of these names; the chanting text here is the three-name mantra itself.',
+    meaningHi: 'ॐ। अच्युत, अनन्त और गोविन्द को नमस्कार है। ये भगवान विष्णु के नाम हैं।',
+    meaningHinglish: 'Om. Achyut, Anant aur Govind ko namaskaar hai. Ye Bhagvaan Vishnu ke naam hain.',
+    lines: [
+      ['ॐ अच्युताय नमः ।', 'Oṃ acyutāya namaḥ', 'Om. Salutations to Achyuta, the unfailing one.'],
+      ['ॐ अनन्ताय नमः ।', 'Oṃ anantāya namaḥ', 'Om. Salutations to Ananta, the infinite one.'],
+      ['ॐ गोविन्दाय नमः ॥', 'Oṃ govindāya namaḥ', 'Om. Salutations to Govinda, protector of the cows.'],
+    ],
+  },
+  {
+    section: 12, page: 57, slug: 'hayagriva-jnananandamayam', short: 'Hayagriva Jnananandamayam', deityId: 'vishnu', deityName: 'Lord Hayagriva · Vishnu', intentions: ['learning', 'devotion'],
+    tagline: 'A prayer to Hayagriva, the foundation of all learning.',
+    intro: 'This opening verse of the Hayagriva Stotram honours Vishnu in his horse-headed form, Hayagriva. It describes knowledge and bliss embodied, clear as pure crystal. Students may recite it before study as a moment of attention and devotion.',
+    note: 'Hayagriva Stotram, opening verse, traditionally attributed to Vedanta Desika. The book includes it in entry 12, alongside a separate selection from the Sundara Kanda.',
+    bestTime: 'Before study, reading or teaching.',
+    meaningHi: 'ज्ञान और आनन्द के स्वरूप, निर्मल स्फटिक जैसी आकृति वाले, सभी विद्याओं के आधार भगवान हयग्रीव की हम उपासना करते हैं।',
+    meaningHinglish: 'Gyaan aur aanand ke svaroop, nirmal sphatik jaisee aakriti vaale, sabhi vidyaaon ke aadhaar Bhagvaan Hayagreev ki hum upaasanaa karte hain.',
+    lines: [
+      ['ज्ञानानन्दमयं देवं निर्मलस्फटिकाकृतिम् ।', 'Jñānānandamayaṃ devaṃ nirmalasphaṭikākṛtim', 'The Lord embodying knowledge and bliss, with a form like flawless crystal;'],
+      ['आधारं सर्वविद्यानां हयग्रीवमुपास्महे ॥', 'Ādhāraṃ sarvavidyānāṃ hayagrīvamupāsmahe', 'we worship Hayagriva, the foundation of every branch of learning.'],
+    ],
+  },
+  {
+    section: 12, page: 59, slug: 'jayatyatibalo-ramo', short: 'Jayatyatibalo Ramo', deityId: 'hanuman', intentions: ['strength', 'learning', 'devotion'],
+    tagline: 'Hanuman declares his devotion to Rama and his resolve to fulfil his task.',
+    intro: 'These four verses from the Sundara Kanda are spoken by Hanuman in Lanka. He praises Rama, Lakshmana and Sugriva, identifies himself as Rama’s servant, and declares his determination to greet Sita and return with his mission fulfilled.',
+    note: 'The book cites Valmiki Ramayana, Sundara Kanda 42.33–36. All four selected verses are included; this is not the complete Sundara Kanda. Verse numbering can differ between editions.',
+    meaningHi: 'बलशाली राम, लक्ष्मण और राम से संरक्षित सुग्रीव की जय हो। मैं राम का सेवक, वायुपुत्र हनुमान हूँ। युद्ध में हजार रावण भी मेरी बराबरी नहीं कर सकते। लंका को परास्त करके, सीता को प्रणाम करके और अपना कार्य पूरा करके मैं लौटूँगा।',
+    meaningHinglish: 'Balshaali Raam, Lakshman aur Raam se sanrakshit Sugreev ki jai ho. Main Raam ka sevak, Vaayuputra Hanumaan hoon. Yuddh mein hazaar Raavan bhi meri baraabari nahin kar sakte. Lankaa ko paraast karke, Seetaa ko pranaam karke aur apnaa kaarya pooraa karke main lautoongaa.',
+    lines: [
+      ['जयत्यतिबलो रामो लक्ष्मणश्च महाबलः ।', 'Jayatyatibalo rāmo lakṣmaṇaśca mahābalaḥ', 'Victory to mighty Rama and to Lakshmana of great strength.'],
+      ['राजा जयति सुग्रीवो राघवेणाभिपालितः ॥', 'Rājā jayati sugrīvo rāghaveṇābhipālitaḥ', 'Victory to King Sugriva, protected by Raghava.'],
+      ['दासोऽहं कोसलेन्द्रस्य रामस्याक्लिष्टकर्मणः ।', 'Dāso’haṃ kosalendrasya rāmasyākliṣṭakarmaṇaḥ', 'I am the servant of Rama, Lord of Kosala, whose deeds are effortless.'],
+      ['निहन्ता शत्रुसैन्यानां हनुमान् मारुतात्मजः ॥', 'Nihantā śatrusainyānāṃ hanumān mārutātmajaḥ', 'I am Hanuman, son of the Wind, vanquisher of hostile armies.'],
+      ['न रावणसहस्रं मे युद्धे प्रतिबलं भवेत् ।', 'Na rāvaṇasahasraṃ me yuddhe pratibalaṃ bhavet', 'Not even a thousand Ravanas could match me in battle,'],
+      ['शिलाभिस्तु प्रहरतः पादपैश्च सहस्रशः ॥', 'Śilābhistu praharataḥ pādapaiśca sahasraśaḥ', 'as I strike with rocks and trees by the thousand.'],
+      ['अर्दयित्वा पुरीं लङ्कामभिवाद्य च मैथिलीम् ।', 'Ardayitvā purīṃ laṅkāmabhivādya ca maithilīm', 'Having overcome Lanka and paid my respects to Maithili,'],
+      ['समृद्धार्थो गमिष्यामि मिषतां सर्वरक्षसाम् ॥', 'Samṛddhārtho gamiṣyāmi miṣatāṃ sarvarakṣasām', 'I shall return with my purpose fulfilled, while all the rakshasas look on.'],
+    ],
+  },
+  {
+    section: 13, page: 63, slug: 'mrityunjaya-samputita-mantra', short: 'Mrityunjaya Samputita Mantra', deityId: 'shiva', intentions: ['strength', 'peace', 'devotion'],
+    tagline: 'The Tryambakam verse framed by seed syllables and the three worlds.',
+    intro: 'This extended Mrityunjaya form places seed syllables and the three vyahritis around the familiar Tryambakam verse. The surrounding invocations distinguish it from the shorter Mahamrityunjay Mantra already in this collection.',
+    note: 'The enclosed verse is Rigveda 7.59.12; the surrounding seed syllables and reversed closing invocations belong to the extended recitation printed in entry 13. These additions are not part of the Rigvedic verse. Learn the seed-syllable pronunciation from a knowledgeable teacher.',
+    meaningHi: 'ॐ, हौं, जूं, सः। भूः, भुवः, स्वः। हम सुगन्धित और पोषण करने वाले त्रिनेत्र प्रभु की उपासना करते हैं। जैसे पका फल बन्धन से छूटता है, वैसे हमें मृत्यु से मुक्त करें, अमृत से नहीं। अन्त में लोकों और बीज अक्षरों का उलटे क्रम में आवाहन है।',
+    meaningHinglish: 'Om, haum, joom, sah. Bhooh, bhuvah, svah. Hum sugandhit aur poshan karne vaale trinetra Prabhu ki upaasanaa karte hain. Jaise pakaa phal bandhan se chhootataa hai, vaise hamein mrityu se mukt karein, amrit se nahin. Ant mein lokon aur beej aksharon ka ulte kram mein aavaahan hai.',
+    lines: [
+      ['ॐ हौं जूं सः । ॐ भूर्भुवः स्वः ।', 'Oṃ hauṃ jūṃ saḥ. Oṃ bhūr bhuvaḥ svaḥ', 'Om and the sacred seed syllables; earth, atmosphere and heaven.'],
+      ['त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् ।', 'Tryambakaṃ yajāmahe sugandhiṃ puṣṭivardhanam', 'We worship the three-eyed Lord, fragrant and nourishing all.'],
+      ['उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय मामृतात् ॥', 'Urvārukamiva bandhanānmṛtyormukṣīya māmṛtāt', 'Like a ripe cucumber freed from its vine, may I be released from death, but not from immortality.'],
+      ['स्वः भुवः भूः । ॐ सः जूं हौं ॐ ॥', 'Svaḥ bhuvaḥ bhūḥ. Oṃ saḥ jūṃ hauṃ oṃ', 'Heaven, atmosphere and earth; the sacred syllables return in reverse order.'],
+    ],
+  },
+  {
+    section: 18, page: 73, slug: 'shayana-prarthana', short: 'Shayana Prarthana', deityId: 'rama', deityName: 'Rama, Hanuman and revered figures', intentions: ['peace', 'devotion'],
+    tagline: 'Two traditional verses of remembrance before sleep.',
+    intro: 'These bedtime verses remember Rama, Skanda, Hanuman, Garuda and Bhima, followed by seven figures traditionally associated with restful sleep. They offer a devotional way to end the day quietly.',
+    note: 'Entry 18 in the contents; the verse page itself is mislabelled 8. Both verses are included. The promise about dreams is translated as the traditional verse’s statement, not a guaranteed effect on sleep.',
+    bestTime: 'At bedtime, as a quiet closing prayer.',
+    meaningHi: 'सोते समय राम, स्कन्द, हनुमान, गरुड़ और भीम का स्मरण करने वाले के दुःस्वप्न नष्ट होते हैं, ऐसा यह पारम्परिक श्लोक कहता है। अगस्त्य, माधव, बलवान मुचुकुन्द, कपिल, निमि और आस्तीक के नाम आगे आते हैं। पुस्तक सात कहती है, पर सूची में छह नाम छपे हैं।',
+    meaningHinglish: 'Sote samay Raam, Skand, Hanumaan, Garud aur Bheem ka smaran karne vaale ke duhsvapn nasht hote hain, aisaa yah paaramparik shlok kahtaa hai. Aage Agastya, Maadhav, Muchukund, Kapil, Nimi aur Aasteek ke naam hain. Pustak saat kahti hai, par chhah naam chhape hain.',
+    lines: [
+      ['रामं स्कन्दं हनूमन्तं वैनतेयं वृकोदरम् ।', 'Rāmaṃ skandaṃ hanūmantaṃ vainateyaṃ vṛkodaram', 'Remember Rama, Skanda, Hanuman, Garuda and Bhima.'],
+      ['शयने यः स्मरेन्नित्यं दुःस्वप्नं तस्य नश्यति ॥', 'Śayane yaḥ smarennityaṃ duḥsvapnaṃ tasya naśyati', 'The verse says that bad dreams depart from one who remembers them nightly at bedtime.'],
+      ['अगस्त्यो माधवश्चैव मुचुकुन्दो महाबलः ।', 'Agastyo mādhavaścaiva mucukundo mahābalaḥ', 'Agastya, Madhava and the mighty Muchukunda,'],
+      ['कपिलो निमिरास्तीकः सप्तैते सुखशायिनः ॥', 'Kapilo nimirāstīkaḥ saptaite sukhaśāyinaḥ', 'Kapila, Nimi and Astika: the text calls these seven peaceful sleepers, although six names are printed.'],
+    ],
+  },
+  {
+    section: 24, page: 97, slug: 'apadam-apahartaram', short: 'Apadam Apahartaram', deityId: 'rama', intentions: ['strength', 'prosperity', 'devotion'],
+    tagline: 'Repeated salutations to Rama, beloved of the world.',
+    intro: 'This short Rama shloka offers repeated bows to the Lord as the remover of adversity and giver of blessings. It is a prayer of trust and gratitude during daily worship.',
+    note: 'The complete short shloka printed in entry 24. Compounds and sandhi are normalized as āpadām apahartāram and namāmyaham.',
+    meaningHi: 'विपत्तियों को दूर करने वाले, सभी सम्पदाओं के दाता, संसार को आनन्द देने वाले श्रीराम को मैं बार-बार प्रणाम करता हूँ।',
+    meaningHinglish: 'Vipattiyon ko door karne vaale, sabhi sampadaaon ke daataa, sansaar ko aanand dene vaale Shri Raam ko main baar-baar pranaam kartaa hoon.',
+    lines: [
+      ['आपदामपहर्तारं दातारं सर्वसम्पदाम् ।', 'Āpadāmapahartāraṃ dātāraṃ sarvasampadām', 'To the remover of adversity and giver of every blessing,'],
+      ['लोकाभिरामं श्रीरामं भूयो भूयो नमाम्यहम् ॥', 'Lokābhirāmaṃ śrīrāmaṃ bhūyo bhūyo namāmyaham', 'to Sri Rama, delight of the world, I bow again and again.'],
+    ],
+  },
+  {
+    section: 35, page: 155, slug: 'rukmini-vallabha-mantra', short: 'Rukmini Vallabha Mantra', deityId: 'krishna', intentions: ['devotion', 'beginnings', 'peace'],
+    tagline: 'Reverence to Krishna as the beloved of Rukmini.',
+    intro: 'This short invocation honours Krishna as Rukmini Vallabha, the beloved of Rukmini. The book associates it with prayers concerning marriage. It can be recited with an intention of affection, mutual respect and companionship.',
+    note: 'Entry 35, printed page 155 (PDF page 167). The Sanskrit reads Bhagavate; the English line’s Bhavatate is a printing error. No marriage outcome or timing is promised.',
+    meaningHi: 'ॐ। रुक्मिणी के प्रिय भगवान कृष्ण को नमस्कार। स्वाहा।',
+    meaningHinglish: 'Om. Rukmini ke priya Bhagvaan Krishna ko namaskaar. Svaahaa.',
+    lines: [['ॐ नमो भगवते रुक्मिणीवल्लभाय स्वाहा ॥', 'Oṃ namo bhagavate rukmiṇīvallabhāya svāhā', 'Om. Reverence to the blessed Lord, beloved of Rukmini. Svaha.']],
+  },
+];
