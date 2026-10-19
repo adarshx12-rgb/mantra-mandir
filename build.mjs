@@ -1,6 +1,7 @@
 // Static site generator: `node build.mjs` writes ./site. No dependencies.
 // Set SITE_URL for production, e.g. SITE_URL=https://yourdomain.com node build.mjs
 import { mkdirSync, writeFileSync, copyFileSync, existsSync, readdirSync, rmSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { SITE, mantras } from './data/mantras.mjs';
 import { SEO_CONTENT } from './data/seo.mjs';
 import { HOME_FAQS } from './data/home-faqs.mjs';
@@ -8,6 +9,9 @@ import { INFO_PAGES, CONTACT } from './data/pages.mjs';
 import { DEITIES, INTENTIONS, FESTIVALS, collectionFor, festivalMantras } from './data/collections.mjs';
 
 const OUT = 'site';
+const assetVersion = (path) => createHash('sha256').update(readFileSync(path)).digest('hex').slice(0, 12);
+const CSS_VERSION = assetVersion('src/style.css');
+const JS_VERSION = assetVersion('src/app.js');
 // Quick links under the home hero button: the four target SEO keywords.
 const HERO_TAGS = ['gayatri-mantra', 'mahamrityunjay-mantra', 'om-krishnaya-vasudevaya-haraye-paramatmane-mantra', 'saraswati-mantra'];
 const FAVICON = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='#1f1646'/><text x='32' y='46' font-size='40' text-anchor='middle' fill='#ffb23e'>ॐ</text></svg>")}`;
@@ -64,13 +68,13 @@ ${img ? `<meta property="og:image" content="${SITE.url}/art/${img}_web.webp">
 ${img ? `<meta name="twitter:image" content="${SITE.url}/art/${img}_web.webp">
 <meta name="twitter:image:alt" content="${esc(imgAlt)}">` : ''}
 <link rel="icon" href="${FAVICON}">
-<link rel="stylesheet" href="${up}css/style.css">
+<link rel="stylesheet" href="${up}css/style.css?v=${CSS_VERSION}">
 <script>document.documentElement.classList.add('js')</script>
 ${extra}</head>`;
 };
 
 const header = (up) => `<a class="skip" href="#main">Skip to content</a><header class="top"><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><nav aria-label="Main navigation"><a href="${up || './'}#mantras">All mantras</a><details class="site-menu"><summary>About</summary><div class="site-menu-links">${INFO_PAGES.map(p => `<a href="${up}${p.slug}/">${esc(p.title)}</a>`).join('')}</div></details><span class="chip" id="streak" hidden></span></nav></header>`;
-const footer = (up) => `<footer><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><p>A quiet space for daily practice.</p><nav aria-label="Deity collections">${DEITIES.map((d) => `<a href="${up || './'}#deity-${d.id}">${d.name}</a>`).join('')}</nav><nav aria-label="About this website">${INFO_PAGES.map(p => `<a href="${up}${p.slug}/">${esc(p.title)}</a>`).join('')}</nav><p class="small">Your chant progress stays on this device. <button type="button" class="cookie-settings" data-consent-open>Cookie settings</button></p></footer><div class="consent" id="consent" role="region" aria-label="Cookie consent" hidden><p>We use Google Analytics cookies to learn which pages help visitors. They are set only if you accept. <a href="${up}cookie-policy/">Cookie Policy</a></p><div class="consent-actions"><button type="button" class="btn sm" data-consent="granted">Accept</button><button type="button" class="btn sm ghost" data-consent="denied">Decline</button></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div><script src="${up}js/app.js" defer></script>`;
+const footer = (up) => `<footer><a class="logo" href="${up || './'}"><b aria-hidden="true">ॐ</b>${SITE.name}</a><p>A quiet space for daily practice.</p><nav aria-label="Deity collections">${DEITIES.map((d) => `<a href="${up || './'}#deity-${d.id}">${d.name}</a>`).join('')}</nav><nav aria-label="About this website">${INFO_PAGES.map(p => `<a href="${up}${p.slug}/">${esc(p.title)}</a>`).join('')}</nav><p class="small">Your chant progress stays on this device. <button type="button" class="cookie-settings" data-consent-open>Cookie settings</button></p></footer><div class="consent" id="consent" role="region" aria-label="Cookie consent" hidden><p>We use Google Analytics cookies to learn which pages help visitors. They are set only if you accept. <a href="${up}cookie-policy/">Cookie Policy</a></p><div class="consent-actions"><button type="button" class="btn sm" data-consent="granted">Accept</button><button type="button" class="btn sm ghost" data-consent="denied">Decline</button></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div><script src="${up}js/app.js?v=${JS_VERSION}" defer></script>`;
 
 const artwork = (art, alt, up = '', hero = false) => art ? `<picture${hero ? ' class="hero-art"' : ''}><source media="(max-width: 640px)" srcset="${up}art/${art}_mob.webp"><img src="${up}art/${art}_web.webp" alt="${esc(alt)}" width="1600" height="905" ${hero ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>` : `<div class="symbolic-art${hero ? ' hero-art' : ''}" aria-hidden="true"><span>ॐ</span></div>`;
 
@@ -120,11 +124,16 @@ function mantraPage(m) {
   return `${head({ title: m.title, desc: m.desc, path: `${m.slug}/`, depth: 1, img: m.art, imgAlt: m.imgAlt, type: 'article', extra: `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n` })}
 <body style="${themeVars(m.theme)}" data-slug="${m.slug}" data-name="${esc(m.short)}">
 ${header(up)}
+<div class="mobile-counter" id="mobile-counter" role="region" aria-label="Floating chant counter" hidden>
+<div class="counter-toolbar"><button type="button" class="counter-drag" id="counter-drag" aria-label="Move counter; drag or use arrow keys">Drag to move</button><button type="button" class="counter-close" id="counter-close" aria-label="Close chant counter">&times;</button></div>
+<div class="mobile-count" role="status" aria-live="polite" aria-atomic="true"><span id="mobile-count">0</span><span class="small" id="mobile-count-label"> of 108 chants</span></div>
+<button type="button" class="btn" id="mobile-chant">Count a chant</button>
+</div>
 <main id="main">
 <section class="hero mantra-hero">
 ${artwork(m.art, m.imgAlt, up, true)}
 <div class="mantra-stage">
-<div class="hero-in"><a class="back" href="../#mantras">‹ All mantras</a><p class="deity">${m.deity}</p><h1>${m.h1 || m.displayTitle || m.short}</h1><p class="tag">${m.tagline}</p><a class="btn" href="#chant-card">Begin chanting</a><a class="text-link" href="#about">Meaning &amp; tradition</a></div>
+<div class="hero-in"><a class="back" href="../#mantras">‹ All mantras</a><p class="deity">${m.deity}</p><h1>${m.h1 || m.displayTitle || m.short}</h1><p class="tag">${m.tagline}</p><a class="btn" href="#chant-card">Begin chanting</a><button type="button" class="btn ghost counter-open" id="counter-open" aria-controls="mobile-counter" aria-expanded="false">Chant counter</button><a class="text-link" href="#about">Meaning &amp; tradition</a></div>
 
 <div class="practice">
 <div class="reading">

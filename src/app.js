@@ -172,6 +172,8 @@
   function paint(n) {
     dots.forEach(function (d, i) { d.classList.toggle('on', i < n); });
     $('#count').textContent = n;
+    $('#mobile-count').textContent = n;
+    $('#mobile-count-label').textContent = n === N ? ' — mala saved' : ' of 108 chants';
     var m = S.malas[slug] || 0;
     $('#malas').textContent = m ? m + (m === 1 ? ' mala' : ' malas') + ' completed' : '';
   }
@@ -194,6 +196,48 @@
     showStreak();
   }
   $('#chant').addEventListener('click', chant);
+  $('#mobile-chant').addEventListener('click', chant);
+  var floatingCounter = $('#mobile-counter'), counterOpen = $('#counter-open');
+  var counterDrag = $('#counter-drag'), drag = null;
+  function placeCounter(x, y) {
+    var box = floatingCounter.getBoundingClientRect();
+    floatingCounter.style.left = Math.max(8, Math.min(x, window.innerWidth - box.width - 8)) + 'px';
+    floatingCounter.style.top = Math.max(8, Math.min(y, window.innerHeight - box.height - 8)) + 'px';
+    floatingCounter.style.right = 'auto'; floatingCounter.style.bottom = 'auto';
+  }
+  function closeCounter() {
+    floatingCounter.hidden = true; counterOpen.setAttribute('aria-expanded', 'false');
+    counterOpen.focus({ preventScroll: true });
+  }
+  counterOpen.addEventListener('click', function () {
+    floatingCounter.hidden = false; counterOpen.setAttribute('aria-expanded', 'true');
+    var box = floatingCounter.getBoundingClientRect(); placeCounter(box.left, box.top);
+    $('#mobile-chant').focus({ preventScroll: true });
+  });
+  $('#counter-close').addEventListener('click', closeCounter);
+  floatingCounter.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { e.preventDefault(); closeCounter(); }
+  });
+  counterDrag.addEventListener('pointerdown', function (e) {
+    if (!e.isPrimary || e.button !== 0) return;
+    var box = floatingCounter.getBoundingClientRect();
+    drag = { id: e.pointerId, x: e.clientX - box.left, y: e.clientY - box.top };
+    counterDrag.setPointerCapture(e.pointerId);
+  });
+  counterDrag.addEventListener('pointermove', function (e) {
+    if (drag && drag.id === e.pointerId) placeCounter(e.clientX - drag.x, e.clientY - drag.y);
+  });
+  counterDrag.addEventListener('lostpointercapture', function () { drag = null; });
+  counterDrag.addEventListener('keydown', function (e) {
+    var moves = { ArrowLeft: [-16, 0], ArrowRight: [16, 0], ArrowUp: [0, -16], ArrowDown: [0, 16] };
+    if (!moves[e.key]) return;
+    e.preventDefault(); var box = floatingCounter.getBoundingClientRect();
+    placeCounter(box.left + moves[e.key][0], box.top + moves[e.key][1]);
+  });
+  window.addEventListener('resize', function () {
+    if (floatingCounter.hidden || window.innerWidth > 760) return;
+    var box = floatingCounter.getBoundingClientRect(); placeCounter(box.left, box.top);
+  });
   $('#reset').addEventListener('click', function () { clearTimeout(completionTimer); S.counts[slug] = 0; save(); paint(0); $('#done').textContent = ''; });
 
   // share
