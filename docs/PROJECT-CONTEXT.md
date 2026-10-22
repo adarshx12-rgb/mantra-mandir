@@ -49,6 +49,8 @@ data/pages.mjs defines About Us, Privacy Policy, Terms & Conditions and Contact 
 
 The build generates 404.html and 500.html with root-relative assets/navigation and noindex. Cloudflare Pages can use the root 404.html for missing paths. The host must configure actual 500 responses; generating a file does not install server error handling. Python's basic preview server does not automatically use these custom error files. Visit /404.html and /500.html to preview them directly.
 
+_headers applies security headers to every route: a Content-Security-Policy, nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy and HSTS. The CSP allows the two inline head scripts by SHA-256 hash, recomputed by build.mjs, plus Google Analytics origins. Any new inline script, inline event handler (onclick=) or third-party resource (fonts, embeds, CDN scripts) will be blocked until it is added to CSP in build.mjs. The python preview server ignores _headers, so check CSP on a pages.dev deployment (browser console shows violations).
+
 robots.txt points to the absolute sitemap. sitemap.xml includes the home, all prayers and the four information pages, excluding errors. llms.txt and the requested llm.txt contain the same concise Markdown overview and links. These are discovery aids, not access restrictions or ranking guarantees. Build produces 62 HTML pages; no new tests were run for this change.
 
 Prayer pages now show Continue your practice as text links with short descriptions, without repeated artwork cards. PDF-derived FAQs explain the prayer meaning instead of asking where it appears in the owner's book. Bibliographic citations remain in source notes; visible FAQs and FAQPage structured data share the updated content.

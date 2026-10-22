@@ -40,6 +40,33 @@ const analytics = `<!-- Google tag (gtag.js), production host and consent only -
   };
   try { if (localStorage.getItem('mmconsent') === 'granted') mmAnalytics(); } catch (e) {}
 </script>`;
+const JS_CLASS = "document.documentElement.classList.add('js')";
+
+// Security headers for every route. The CSP allows the two inline scripts above by
+// hash (recomputed each build), so editing them needs no manual CSP change. Inline
+// style attributes carry per-mantra theme colours, hence 'unsafe-inline' for styles.
+const scriptHash = (code) => `'sha256-${createHash('sha256').update(code).digest('base64')}'`;
+const CSP = [
+  "default-src 'self'",
+  `script-src 'self' ${scriptHash(analytics.match(/<script>([\s\S]*?)<\/script>/)[1])} ${scriptHash(JS_CLASS)} https://*.googletagmanager.com`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
+  "media-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  'upgrade-insecure-requests',
+].join('; ');
+const SECURITY_HEADERS = `/*
+  Content-Security-Policy: ${CSP}
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000
+`;
 
 const head = ({ title, desc, path, depth, img, imgAlt = 'Mantra Mandir devotional artwork', type = 'website', extra = '' }) => {
   const up = '../'.repeat(depth);
@@ -69,7 +96,7 @@ ${img ? `<meta name="twitter:image" content="${SITE.url}/art/${img}_web.webp">
 <meta name="twitter:image:alt" content="${esc(imgAlt)}">` : ''}
 <link rel="icon" href="${FAVICON}">
 <link rel="stylesheet" href="${up}css/style.css?v=${CSS_VERSION}">
-<script>document.documentElement.classList.add('js')</script>
+<script>${JS_CLASS}</script>
 ${extra}</head>`;
 };
 
@@ -242,7 +269,7 @@ mantras.forEach((m) => write(`${OUT}/${m.slug}/index.html`, mantraPage(m)));
 INFO_PAGES.forEach((page) => write(`${OUT}/${page.slug}/index.html`, infoPage(page)));
 write(`${OUT}/404.html`, errorPage(404, 'Page not found', 'This page may have moved or the address may be incorrect. Browse the collection to find your prayer.'));
 write(`${OUT}/500.html`, errorPage(500, 'Something went wrong', 'The website could not complete this request. Please try again in a little while.'));
-write(`${OUT}/_headers`, ['/css/*', '/js/*'].map((p) => `${p}
+write(`${OUT}/_headers`, SECURITY_HEADERS + ['/css/*', '/js/*'].map((p) => `${p}
   Cache-Control: public, max-age=604800
 `).concat(['/img/*', '/art/*'].map((p) => `${p}
   Cache-Control: public, max-age=2592000
