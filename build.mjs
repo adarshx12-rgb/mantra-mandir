@@ -80,14 +80,15 @@ const artwork = (art, alt, up = '', hero = false) => art ? `<picture${hero ? ' c
 
 const card = (m, up) => `<a class="mc" href="${up}${m.slug}/" data-slug="${m.slug}" style="--ac:${m.theme.accent};${themeVars(m.theme)}">${m.art ? `<img src="${up}art/${m.art}_mob.webp" alt="${esc(m.imgAlt)}" width="760" height="1344" loading="lazy" decoding="async">` : artwork(null, '', up)}<div class="t"><span>${m.deity}</span><h3>${m.short}</h3><span class="card-action">Read mantra <span aria-hidden="true">↗</span></span></div></a>`;
 
-const collectionLinks = (items) => items.length ? `<ul class="collection-links">${items.map(m => `<li><a href="${m.slug}/"><span>${m.short}</span><span class="small">${m.cardLine}</span><span aria-hidden="true">↗</span></a></li>`).join('')}</ul>` : '<p class="collection-empty">Mantras for this collection are coming soon.</p>';
+const collectionLinks = (items) => items.length ? `<ul class="collection-links">${items.map(m => `<li><a href="${m.slug}/"><span>${m.short}</span><span class="small">${esc(m.purpose)}</span><span aria-hidden="true">↗</span></a></li>`).join('')}</ul>` : '<p class="collection-empty">Mantras for this collection are coming soon.</p>';
 
 function collectionBrowser() {
   const views = [['deities', 'By deity'], ['festivals', 'By festival'], ['intentions', 'By intention']];
-  const tile = (id, title, subtitle, items, preferredDeity) => {
+  const tile = (id, title, subtitle, items, preferredDeity, imageOverride) => {
     const m = items.find(m => collectionFor(m).deityId === preferredDeity) || items.find(m => m.art) || items[0];
+    const image = imageOverride || (m.art ? `${m.art}_mob` : null);
     const count = `${items.length} ${items.length === 1 ? 'prayer' : 'prayers'}`;
-    return `<details class="collection-tile" id="${id}" data-meta="${esc(subtitle ? `${subtitle} · ${count}` : count)}" style="--ac:${m.theme.accent};${themeVars(m.theme)}"><summary class="mc">${m.art ? `<img src="art/${m.art}_mob.webp" alt="" width="760" height="1344" loading="lazy" decoding="async">` : artwork(null, '')}<div class="t"><span>${esc(subtitle || count)}</span><h3>${esc(title)}</h3><span class="card-action">${subtitle ? count : 'View prayers'}<span aria-hidden="true">+</span></span></div></summary><div class="collection-tile-links">${collectionLinks(items)}</div></details>`;
+    return `<details class="collection-tile" id="${id}" data-meta="${esc(subtitle ? `${subtitle} · ${count}` : count)}" style="--ac:${m.theme.accent};${themeVars(m.theme)}"><summary class="mc">${image ? `<img src="art/${image}.webp" alt="" width="760" height="1344" loading="lazy" decoding="async">` : artwork(null, '')}<div class="t"><span>${esc(subtitle || count)}</span><h3>${esc(title)}</h3><span class="card-action">${subtitle ? count : 'View prayers'}<span aria-hidden="true">+</span></span></div></summary><div class="collection-tile-links">${collectionLinks(items)}</div></details>`;
   };
   const intentionArt = { strength: 'shiva', learning: 'saraswati', peace: 'shiva', devotion: 'krishna', beginnings: 'ganesh', prosperity: 'lakshmi', nourishment: 'annapurna', wellbeing: 'vishnu', confidence: 'hanuman', exams: 'vishnu', protection: 'shiva', sleep: 'rama', marriage: 'krishna' };
   return `<section class="collection-browser" id="collections" aria-labelledby="collections-title">
@@ -98,12 +99,12 @@ function collectionBrowser() {
 </div>
 <div class="collection-panel" id="collection-festivals" role="tabpanel" aria-labelledby="browse-festivals" tabindex="0">
 <p class="collection-note">January to December. Months are approximate; lunar dates and regional observances vary.</p>
-<ol class="collection-grid festival-grid">${[...FESTIVALS].sort((a,b) => a.month-b.month).map(f => `<li>${tile(`festival-${f.id}`, f.name, f.season, festivalMantras(f, mantras), f.deities[0])}</li>`).join('')}</ol>
+<ol class="collection-grid festival-grid">${[...FESTIVALS].sort((a,b) => a.month-b.month).map(f => `<li>${tile(`festival-${f.id}`, f.name, f.season, festivalMantras(f, mantras), f.deities[0], ({ 'maha-shivaratri': 'shiv_mob2', holi: 'krishna_mob2' })[f.id])}</li>`).join('')}</ol>
 <p class="source-note">Calendar references: <a href="https://panchangdaily.com/festivals/">festival month guide</a>, <a href="https://www.drikpanchang.com/calendars/hindu/hinducalendar.html">Drik Panchang</a>, and <a href="https://kurukshetra.gov.in/jyotisarevents/">Gita Jayanti in Kurukshetra</a>. Check your local panchang for this year’s dates.</p>
 </div>
 <div class="collection-panel" id="collection-intentions" role="tabpanel" aria-labelledby="browse-intentions" tabindex="0">
 <p class="collection-note">Choose an intention for your practice.</p>
-<div class="collection-grid">${INTENTIONS.map(i => tile(`intention-${i.id}`, i.name, '', mantras.filter(m => collectionFor(m).intentions.includes(i.id)), intentionArt[i.id])).join('')}</div>
+<div class="collection-grid">${INTENTIONS.map(i => tile(`intention-${i.id}`, i.name, '', mantras.filter(m => collectionFor(m).intentions.includes(i.id)), intentionArt[i.id], i.id === 'strength' ? 'shiv_mob2' : null)).join('')}</div>
 </div>
 <dialog class="collection-dialog" id="collection-dialog" aria-labelledby="collection-dialog-title"><div class="cd-inner"><div class="cd-banner"><span class="small" id="collection-dialog-meta"></span><h3 id="collection-dialog-title"></h3><button type="button" class="cd-close" aria-label="Close">×</button></div><div class="cd-body collection-tile-links"></div></div></dialog>
 </section>`;

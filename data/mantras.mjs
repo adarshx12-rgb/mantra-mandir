@@ -321,3 +321,68 @@ for (const [slug, practice] of Object.entries(REMEDIES_PRACTICE)) {
     ? [question, 'One count represents one complete recitation of all the text displayed on this page. See How to chant for guidance on repetitions and timing. You can stop at your chosen count without completing a full mala.']
     : [question, answer]);
 }
+
+// One-sentence purposes: summarize the displayed verse, not promised outcomes.
+// PDF-specific uses follow the selected entries; see docs/MANTRA-SOURCES.md.
+const PURPOSES = {
+  'gayatri-mantra': 'A prayer for an enlightened intellect and guidance in understanding.',
+  'mahamrityunjay-mantra': 'A prayer to Shiva for nourishment and liberation from the bondage of death.',
+  'om-krishnaya-vasudevaya-haraye-paramatmane-mantra': 'A prayer seeking refuge in Krishna and relief from sorrow through surrender.',
+  'saraswati-mantra': 'A prayer to Saraswati for knowledge and freedom from mental dullness.',
+  'durga-namaste-sharanye': 'A prayer seeking Durga’s compassionate protection and refuge during difficulties.',
+  'ganesh-shuklambaradharam': 'An opening prayer for the removal of obstacles through contemplation of the divine.',
+  'lakshmi-kshira-samudra': 'A prayer honouring Lakshmi as the mother of the worlds and source of auspicious splendour.',
+  'saraswati-namastubhyam': 'A prayer to Saraswati for knowledge and fruitful learning when beginning studies.',
+  'krishna-vandana': 'A prayer for loving remembrance of Krishna as the divine child and teacher of the world.',
+  'shiva-jyotirmatra-stotra': 'A prayer for contemplating Shiva as pure light, knowledge and peace.',
+  'shiva-bilva-stuti': 'A verse for offering a bilva leaf to Shiva with a prayer for spiritual purification.',
+  'hanuman-manojavam': 'A prayer honouring Hanuman’s wisdom, self-control and devoted service to Rama.',
+  'hanuman-buddhir-balam': 'A prayer invoking Hanuman for wisdom, courage, confidence and clear speech.',
+  'om-namo-narayanaya': 'A salutation to Narayana for devotional remembrance and surrender.',
+  'om-vishnave-namah': 'A short invocation for offering reverence to Vishnu as the all-pervading Lord.',
+  'vishnu-gayatri-mantra': 'A meditation on Vishnu that asks for inspiration and guidance of the intellect.',
+  'shantakaram-bhujagashayanam': 'A meditation on Vishnu’s serene form, seeking refuge from the fear of worldly existence.',
+  'mangalam-bhagavan-vishnu': 'A prayer invoking auspiciousness through remembrance of Vishnu.',
+  'om-namah-shivaya': 'A salutation to Shiva for devotional repetition and contemplation of the auspicious Lord.',
+  'karpura-gauram': 'A prayer for contemplating Shiva’s compassion and honouring him together with Bhavani.',
+  'vakratunda-mahakaya': 'A prayer to Ganesha for undertakings to proceed without obstacles.',
+  'om-gan-ganapataye-namah': 'A short invocation of Ganapati for focused devotional repetition.',
+  'ganesh-gayatri-mantra': 'A meditation on Ganesha asking him to inspire and guide our understanding.',
+  'hare-krishna-maha-mantra': 'A repeated invocation of the divine names for loving remembrance of Krishna and Rama.',
+  'om-namo-bhagavate-vasudevaya': 'A mantra for worship and surrender to Vasudeva, taught to Dhruva in the Bhagavata Purana.',
+  'sarva-mangala-mangalye': 'A prayer seeking the Goddess’s refuge, auspicious blessings and fulfilment of worthy aims.',
+  'ya-devi-sarvabhuteshu': 'A prayer honouring the Goddess as the power present in every being.',
+  'om-dum-durgayai-namah': 'A short invocation of Durga for devotional remembrance of the Goddess.',
+  'om-shreem-mahalakshmyai-namah': 'A short invocation of Mahalakshmi for devotional worship and remembrance.',
+  'mahalakshmi-ashtakam-namastestu': 'An opening verse offering reverence to Mahalakshmi and her divine majesty.',
+  'lakshmi-gayatri-mantra': 'A meditation on Mahalakshmi asking for her inspiration and guidance.',
+  'om-ham-hanumate-namah': 'A short salutation to Hanuman for focused remembrance and devotion.',
+  'saraswati-gayatri-mantra': 'A meditation on Saraswati as the Goddess of speech, asking for her inspiration.',
+  'aigiri-nandini': 'A verse celebrating the Goddess’s victory over Mahishasura and her protection of the world.',
+  'devi-kavach-navadurga': 'Three verses for remembering and honouring the nine forms of Durga.',
+  'shree-suktam': 'Two verses invoking Lakshmi for enduring prosperity and material sustenance.',
+  'devi-gayatri-mantra': 'A meditation on Durga asking the Goddess to inspire our understanding.',
+  'durga-saptashloki': 'Seven verses seeking Durga’s refuge and relief from fear, distress and adversity.',
+  'argala-stotram': 'An invocation seeking the Goddess’s blessings for victory, good repute and freedom from hostility.',
+  'devi-stuti': 'A prayer honouring the Goddess in all beings as intelligence, compassion, peace and other divine qualities.',
+  'om-kreem-kalikayai-namah': 'A short invocation of Kali for devoted remembrance of the Goddess.',
+  'jayanti-mangala-kali': 'A salutation honouring the Goddess through her victorious, protective and forgiving forms.',
+  'swamiye-saranam-ayyappa': 'A prayer expressing surrender to Ayyappa and seeking refuge in him.',
+  'bhutanatha-sadananda': 'A prayer asking Ayyappa, compassionate to all beings, for protection.',
+  'om-saravana-bhava': 'An invocation remembering Murugan through his birth in the Saravana reed pond.',
+  'skanda-gayatri-mantra': 'A meditation on the six-faced Skanda asking for divine inspiration and guidance.',
+  'annapurna-mantra': 'A prayer to Annapurna for sufficient food and nourishment.',
+  'dhanvantari-mantra': 'A devotional prayer to Dhanvantari for health and well-being.',
+  'achyuta-ananta-govinda': 'Three names of Vishnu used in the book’s water-sipping ritual with a prayer for well-being.',
+  'hayagriva-jnananandamayam': 'A prayer to Hayagriva for learning, recommended in the book during examination preparation.',
+  'jayatyatibalo-ramo': 'Hanuman’s declaration of resolve, associated in the book with examinations and interviews.',
+  'mrityunjaya-samputita-mantra': 'An extended Shiva invocation offered as a prayer for protection and well-being.',
+  'shayana-prarthana': 'A bedtime prayer traditionally recited for peaceful sleep and freedom from bad dreams.',
+  'apadam-apahartaram': 'A prayer to Rama for relief from adversity and blessings of prosperity.',
+  'rukmini-vallabha-mantra': 'A prayer to Krishna as Rukmini’s beloved, recommended in the book for those facing marriage delays.',
+};
+
+for (const mantra of mantras) {
+  if (!PURPOSES[mantra.slug]) throw new Error(`Missing purpose for ${mantra.slug}`);
+  mantra.purpose = PURPOSES[mantra.slug];
+}

@@ -19,7 +19,10 @@ def encode(im):
     return None
 
 for deity in (sys.argv[1:] or ('ganesha', 'gayatri', 'shiv', 'krishna', 'saraswati', 'durga', 'laxmi', 'hanuman', 'kali', 'ayyappa', 'murugan', 'vishnu', 'rama', 'annapurna')):
-    for variant, bounds in (('web', (1600, 1000)), ('mob', (760, 1344))):
+    variants = [('web', (1600, 1000)), ('mob', (760, 1344))]
+    if deity in ('shiv', 'krishna'):
+        variants.append(('mob2', (760, 1344)))
+    for variant, bounds in variants:
         source = Path('images') / f'{deity}_{variant}.png'
         original = Image.open(source).convert('RGB')
         # Highly detailed paintings shrink a little rather than drop below MIN_QUALITY.
