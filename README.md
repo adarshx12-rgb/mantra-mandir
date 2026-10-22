@@ -9,5 +9,5 @@ Static devotional site. No accounts, backend or runtime dependencies.
 - Prepare artwork after changes: `python scripts/prepare-art.py` (Pillow required). Optimized copies live in `assets/art/`; build copies them into `site/art/`.
 - Homepage guide: `src/home-guide.html`. Approved SEO terms and implementation notes: `docs/SEO.md`.
 - Deploy `site/`. Read `docs/PROJECT-CONTEXT.md` for architecture and remaining launch tasks.
-- Cloudflare Pages project: `mantra-mandir`, production branch `main`, URL: https://mantra-mandir.pages.dev.
+- Cloudflare Pages project: `mantra-mandir`, production branch `main`, URL: https://mantramandir.com (custom domain; https://mantra-mandir.pages.dev is the noindex Pages alias).
 - Update production: `node build.mjs`, then `npx wrangler pages deploy site --project-name mantra-mandir --branch main --commit-dirty=true`.
